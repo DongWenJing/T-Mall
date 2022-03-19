@@ -18,7 +18,10 @@ spring:
     # 数据库密码
     password: root
 mybatis:
+  #指定别名包
   type-aliases-package: com.tmall.pojo
-  # 开启驼峰命名转换
+  #开启驼峰命名转换
   configuration:
     mapUnderscoreToCamelCase: true
+  #扫描指定路径下的映射文件
+  mapper-location: classpath:/mappers/*.xml
