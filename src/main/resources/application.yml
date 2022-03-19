@@ -1,0 +1,24 @@
+server:
+  port: 8090
+# 应用名称
+spring:
+  application:
+    name: t-mall
+#  profiles:
+#    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    # 数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库连接地址
+    url: jdbc:mysql://127.0.0.1:3306/mall?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    # 数据库登录名
+    username: root
+    # 数据库密码
+    password: root
+mybatis:
+  type-aliases-package: com.tmall.pojo
+  # 开启驼峰命名转换
+  configuration:
+    mapUnderscoreToCamelCase: true
