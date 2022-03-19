@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.ShopMapper">
+    <insert id="addUser" >
+        insert into shop(
+        shop_name,username,owner_id)
+        value(#{shopName},#{username},#{ownerId})
+    </insert>
+
+    <select id="getUserId" resultType="shop">
+        select user_id from user
+        where username=#{username}
+    </select>
+</mapper>
