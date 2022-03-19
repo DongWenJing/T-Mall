@@ -1,5 +1,8 @@
 package com.tmall.pojo;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -8,6 +11,8 @@ import java.sql.Timestamp;
  * @author R.Yu
  * @date 2022/3/19 12:24
  */
+@Data
+@Accessors(chain = true)
 public class User implements Serializable {
     private BigInteger userId;
     private String username;
