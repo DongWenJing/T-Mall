@@ -13,4 +13,9 @@
           and
               password=#{password}
     </select>
+
+    <select id="selectUserById" resultType="User">
+        select * from user
+        where user_id=#{userId}
+    </select>
 </mapper>
