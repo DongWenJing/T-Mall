@@ -25,3 +25,7 @@ mybatis:
     mapUnderscoreToCamelCase: true
   #扫描指定路径下的映射文件
   mapper-locations: classpath:/mappers/*.xml
+
+logging:
+  level:
+    com.tmall: debug
