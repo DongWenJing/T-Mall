@@ -12,6 +12,7 @@ import java.math.BigInteger;
 
 @Data
 @Accessors(chain = true)
+
 public class ProductCategory implements Serializable {
 
     //商品分类id
