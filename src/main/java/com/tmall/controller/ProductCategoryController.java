@@ -25,7 +25,7 @@ public class ProductCategoryController {
     }
 
     // 根据 category_id 查询此类所有商品
-    @GetMapping("/categoryId")
+    @GetMapping("/{categoryId}")
     public List<Product> selectById(@PathVariable("categoryId") BigInteger categoryId){
 
         return productCategoryService.findById(categoryId);
