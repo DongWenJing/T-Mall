@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.math.BigInteger;
+
 /**
  * @author R.Yu
  * @date 2022/3/19 13:18
@@ -26,5 +28,11 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return resultUser;
+    }
+
+    @Override
+    public User getUserById(BigInteger userId) {
+      User user = userMapper.selectUserById(userId);
+        return user;
     }
 }
