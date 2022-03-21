@@ -5,6 +5,7 @@ import com.tmall.pojo.Shop;
 import com.tmall.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.math.BigInteger;
 
@@ -17,11 +18,19 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopMapper shopMapper;
+
+    //获取验证商家注册时所需的username
     @Override
-    public void addUser(Shop shop) {
-        //通过用户名获取user表中的userId值
-     BigInteger userId = shopMapper.getUserId(shop.getUsername());
-     shop.setOwnerId(userId);
-        shopMapper.addUser(shop);
+    public Shop getUserByUsername(String username) {
+        return shopMapper.getUserByUsername(username);
+    }
+    //商家注册
+    @Override
+    public void shopRegister(Shop shop) {
+        String password = shop.getPassword();
+        password =DigestUtils.md5DigestAsHex(password.getBytes());
+        shop.setPassword(password);
+        
+        shopMapper.shopRegister(shop);
     }
 }

@@ -7,5 +7,8 @@ import com.tmall.pojo.Shop;
  * @Date : 2022/3/19 12:35
  */
 public interface ShopService {
-    void addUser(Shop shop);
+
+    Shop getUserByUsername(String username);
+
+    void shopRegister(Shop shop);
 }

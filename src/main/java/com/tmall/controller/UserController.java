@@ -7,6 +7,8 @@ import com.tmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+
 /**
  * @author R.Yu
  * @date 2022/3/19 13:26
@@ -27,5 +29,16 @@ public class UserController {
             return ResponseDataUtils.buildSuccess("1", "该账号已被拉黑，请联系管理员解禁！");
         }
         return ResponseDataUtils.buildSuccess("0", "登录成功！", resultUser);
+    }
+
+    //利用用户ID获取用户的所有信息
+    @GetMapping("{userId}")
+    public ResponseData<?> getUserById(@PathVariable("userId") BigInteger userId){
+
+      User user = userService.getUserById(userId);
+        if (user == null) {
+            return ResponseDataUtils.buildSuccess("1","未查询到此用户");
+        }
+        return ResponseDataUtils.buildSuccess("0", "获取用户信息成功",user);
     }
 }

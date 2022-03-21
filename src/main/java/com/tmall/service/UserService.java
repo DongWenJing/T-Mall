@@ -2,6 +2,8 @@ package com.tmall.service;
 
 import com.tmall.pojo.User;
 
+import java.math.BigInteger;
+
 /**
  * @author R.Yu
  * @date 2022/3/19 13:16
@@ -13,4 +15,6 @@ public interface UserService {
      * @return User对象
      */
     User selectUserByUP(User user);
+
+    User getUserById(BigInteger userId);
 }
