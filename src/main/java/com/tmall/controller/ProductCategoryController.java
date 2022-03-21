@@ -1,14 +1,13 @@
 package com.tmall.controller;
 
 
+import com.tmall.pojo.Product;
 import com.tmall.pojo.ProductCategory;
 import com.tmall.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RequestMapping("/category")
@@ -25,5 +24,11 @@ public class ProductCategoryController {
         return productCategoryService.findAll();
     }
 
+    // 根据 category_id 查询此类所有商品
+    @GetMapping("/categoryId")
+    public List<Product> selectById(@PathVariable("categoryId") BigInteger categoryId){
+
+        return productCategoryService.findById(categoryId);
+    }
 
 }

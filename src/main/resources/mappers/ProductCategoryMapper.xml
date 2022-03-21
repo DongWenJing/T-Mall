@@ -8,4 +8,9 @@
    <select id="findAll" resultType="productCategory">
        select * from product_category
    </select>
+
+<!--    根据 category_id 查询此类所有商品-->
+    <select id="findById" resultType="product">
+        select * from product where category_id=#{categoryId}
+    </select>
 </mapper>

@@ -1,11 +1,13 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.ProductCategoryMapper;
+import com.tmall.pojo.Product;
 import com.tmall.pojo.ProductCategory;
 import com.tmall.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -22,5 +24,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategory> findAll() {
         return productCategoryMapper.findAll();
+    }
+
+    /**
+     * 根据 category_id 查询此类所有商品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Product> findById(BigInteger categoryId) {
+        return productCategoryMapper.findById(categoryId);
     }
 }
