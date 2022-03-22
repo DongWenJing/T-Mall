@@ -35,4 +35,19 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<Product> findById(BigInteger categoryId) {
         return productCategoryMapper.findById(categoryId);
     }
+
+
+    // 添加分类
+    @Override
+    public void addCategory(ProductCategory productCategory) {
+
+        productCategoryMapper.addCategory(productCategory);
+    }
+
+    //编辑分类
+    @Override
+    public void setCategory(ProductCategory productCategory) {
+        productCategoryMapper.setCategory(productCategory);
+    }
+
 }

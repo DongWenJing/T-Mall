@@ -11,4 +11,8 @@ public interface ProductCategoryService {
     List<ProductCategory> findAll();
 
     List<Product> findById(BigInteger categoryId);
+
+    void addCategory(ProductCategory productCategory);
+
+    void setCategory(ProductCategory productCategory);
 }

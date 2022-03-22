@@ -1,6 +1,8 @@
 package com.tmall.controller;
 
 
+import com.tmall.common.ResponseData;
+import com.tmall.common.ResponseDataUtils;
 import com.tmall.pojo.Product;
 import com.tmall.pojo.ProductCategory;
 import com.tmall.service.ProductCategoryService;
@@ -29,6 +31,20 @@ public class ProductCategoryController {
     public List<Product> selectById(@PathVariable("categoryId") BigInteger categoryId){
 
         return productCategoryService.findById(categoryId);
+    }
+
+    //添加分类
+    @PostMapping
+    public ResponseData<?> addCategory(@RequestBody ProductCategory productCategory) {
+        productCategoryService.addCategory(productCategory);
+        return ResponseDataUtils.buildSuccess("0", "添加分类成功！");
+    }
+
+    //编辑分类
+    @PutMapping
+    public ResponseData<?> setCategory(@RequestBody ProductCategory productCategory) {
+        productCategoryService.setCategory(productCategory);
+        return ResponseDataUtils.buildSuccess("0", "修改分类成功！");
     }
 
 }

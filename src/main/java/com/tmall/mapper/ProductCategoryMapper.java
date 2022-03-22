@@ -16,4 +16,10 @@ public interface ProductCategoryMapper {
     List<ProductCategory> findAll();
 
     List<Product> findById(BigInteger categoryId);
+
+    //添加分类
+    void addCategory(ProductCategory productCategory);
+
+    //编辑分类
+    void setCategory(ProductCategory productCategory);
 }

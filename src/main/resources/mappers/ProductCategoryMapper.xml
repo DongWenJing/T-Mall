@@ -13,4 +13,15 @@
     <select id="findById" resultType="product">
         select * from product where category_id=#{categoryId}
     </select>
+
+
+    <!--    添加分类-->
+    <insert id="addCategory" parameterType="productCategory">
+        insert into product_category(category_name) value (#{categoryName})
+    </insert>
+
+    <!--    编辑分类-->
+    <update id="setCategory" parameterType="productCategory">
+        update product_category set category_name=#{categoryName} where category_id=#{categoryId}
+    </update>
 </mapper>
