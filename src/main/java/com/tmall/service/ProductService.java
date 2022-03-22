@@ -39,4 +39,6 @@ public interface ProductService {
     void deleteProductById(BigInteger productId);
 
     List<Product> findByShopId(BigInteger shopId);
+
+    Product showProductInfo(BigInteger productId);
 }

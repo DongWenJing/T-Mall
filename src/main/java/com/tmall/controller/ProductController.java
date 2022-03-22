@@ -93,4 +93,11 @@ public class ProductController {
         return ResponseDataUtils.buildSuccess("0", "该店商品信息获取成功！", products);
     }
 
+    /**
+     * 展现每个商品详情
+     */
+    @GetMapping("/{productId}")
+    public Product showProductInfo(@PathVariable BigInteger productId) {
+        return productService.showProductInfo(productId);
+    }
 }

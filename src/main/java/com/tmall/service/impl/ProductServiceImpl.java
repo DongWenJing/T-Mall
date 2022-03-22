@@ -75,4 +75,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByShopId(BigInteger shopId) {
         return productMapper.findShopById(shopId);
     }
+
+    /**
+     * 展现每个商品的信息
+     * @param productId
+     * @return
+     */
+    @Override
+    public Product showProductInfo(BigInteger productId) {
+        return productMapper.showProductInfo(productId);
+    }
 }

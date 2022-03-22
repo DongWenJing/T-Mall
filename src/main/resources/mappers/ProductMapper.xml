@@ -45,12 +45,19 @@
     </delete>
 
      <insert id="insertProduct">
-INSERT INTO product(product_id,product_name,product_price,category_id,weight,product_desc,discount,`left`,img_src, shop_id, sold,create_time)
-values(null,#{productName},#{productPrice},#{categoryId},#{weight},#{productDesc},#{discount},#{left},#{imgSrc},#{shopId},#{sold},#{createTime})
+        INSERT INTO
+            product(
+                product_id,product_name,product_price,category_id,weight,product_desc,discount,`left`,img_src, shop_id, sold,create_time)
+        values(
+               null,#{productName},#{productPrice},#{categoryId},#{weight},#{productDesc},#{discount},#{left},#{imgSrc},#{shopId},#{sold},#{createTime})
     </insert>
 
     <select id="findShopById" resultType="Product">
         select * from product where shop_id=#{shopId}
+    </select>
+
+    <select id="showProductInfo" resultType="Product">
+        select * from product where product_id=#{productId}
     </select>
 
 </mapper>
