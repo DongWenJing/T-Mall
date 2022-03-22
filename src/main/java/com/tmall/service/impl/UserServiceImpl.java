@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import java.math.BigInteger;
 
 /**
@@ -39,5 +42,18 @@ public class UserServiceImpl implements UserService {
     public User getUserById(BigInteger userId) {
       User user = userMapper.selectUserById(userId);
         return user;
+    }
+
+    /**
+     *修改个人信息
+     * @param user
+     */
+    @Override
+    public void updateUserById(User user) {
+       /* Date date = new Date();
+        long time = date.getTime();
+        Timestamp timestamp = new Timestamp(time);
+        user.setCreateTime(timestamp);*/
+        userMapper.updateUserById(user);
     }
 }

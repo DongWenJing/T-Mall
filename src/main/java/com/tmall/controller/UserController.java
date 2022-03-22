@@ -20,6 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //登录
     @PostMapping("/login")
     public ResponseData<?> login(@RequestBody User user) {
         User resultUser = userService.selectUserByUP(user);
@@ -40,5 +41,20 @@ public class UserController {
             return ResponseDataUtils.buildSuccess("1","未查询到此用户");
         }
         return ResponseDataUtils.buildSuccess("0", "获取用户信息成功",user);
+    }
+
+    @PutMapping("{id}")
+    public ResponseData<?> updateUserById(@PathVariable BigInteger id,
+                                          @RequestBody User user){
+        user.setUserId(id);
+        userService.updateUserById(user);
+        //System.out.println("我的数据嗷嗷嗷嘞"+user.getTelephone());
+        //手机号不能为空
+        if (!user.getTelephone().equals("")) {
+           // System.out.println("我的数据嘞"+user.getTelephone());
+            return ResponseDataUtils.buildSuccess("0", "个人信息修改成功");
+        }
+        return ResponseDataUtils.buildSuccess("1","缺少必填项,请输入手机号");
+
     }
 }

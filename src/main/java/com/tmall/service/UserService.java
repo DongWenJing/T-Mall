@@ -22,4 +22,8 @@ public interface UserService {
      * @return
      */
     User getUserById(BigInteger userId);
+
+    //修改用户信息
+    void updateUserById(User user);
+
 }
