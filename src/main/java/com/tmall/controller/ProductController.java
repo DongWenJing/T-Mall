@@ -54,4 +54,13 @@ public class ProductController {
        page.setPageSize(pageSize);
         return ResponseDataUtils.buildSuccess("0","商品信息获取成功",page);
     }
+    /**
+     * 修改本店铺商品信息
+     */
+    @PutMapping
+    public ResponseData<?> updateProduct(@RequestBody Product product){
+        productService.updateProduct(product);
+        return ResponseDataUtils.buildSuccess("0","商品信息修改成功");
+    }
+
 }

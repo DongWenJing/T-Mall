@@ -41,4 +41,13 @@ public class ProductServiceImpl implements ProductService {
        Integer count = productMapper.countShopProduct(ownerId);
         return count;
     }
+
+    /**
+     * 修改商家商品信息
+     * @param product
+     */
+    @Override
+    public void updateProduct(Product product) {
+        productMapper.updateProduct(product);
+    }
 }

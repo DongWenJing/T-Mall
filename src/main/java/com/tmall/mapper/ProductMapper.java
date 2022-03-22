@@ -21,4 +21,7 @@ public interface ProductMapper {
     //查询商品总数
     //@Select("SELECT count(*) FROM product WHERE shop_id=(SELECT shop_id FROM shop WHERE owner_id=#{ownerId})")
     Integer countShopProduct(Integer ownerId);
+
+    //修改商家的商品信息
+    void updateProduct(Product product);
 }

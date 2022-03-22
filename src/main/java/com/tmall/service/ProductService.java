@@ -18,4 +18,6 @@ public interface ProductService {
     List<Product> findByPage(int offset, Integer pageSize, String key, Integer ownerId);
 
     Integer countShopProduct(Integer ownerId);
+
+    void updateProduct(Product product);
 }

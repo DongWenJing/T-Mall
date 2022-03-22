@@ -26,5 +26,18 @@
             where owner_id=#{ownerId}
             )
     </select>
+<!--修改店铺商品信息    -->
+    <update id="updateProduct" >
+    UPDATE product SET
+                       product_name = #{productName},
+                       product_price = #{productPrice},
+                       category_id = #{categoryId},
+                       weight = #{weight},
+                       discount = #{discount},
+                       `left` = #{left},
+                       product_desc = #{productDesc},
+                       img_src = #{imgSrc}
+                        WHERE product_id = #{productId}
+    </update>
 
 </mapper>
