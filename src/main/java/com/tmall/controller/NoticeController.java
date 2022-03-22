@@ -28,4 +28,5 @@ public class NoticeController {
         noticeService.setNotice(notice);
         return ResponseDataUtils.buildSuccess("0", "公告保存成功",notice);
     }
+
 }

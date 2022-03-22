@@ -11,5 +11,4 @@ public class TMallApplication {
     public static void main(String[] args) {
         SpringApplication.run(TMallApplication.class, args);
     }
-
 }
