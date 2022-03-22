@@ -7,4 +7,24 @@
     <select id="selectProductAll" resultType="Product">
         select * from product
     </select>
+
+<!-- 获取商家商品分类数据   -->
+    <select id="findByPage" resultType="Product">
+
+        SELECT product.* FROM product
+        WHERE shop_id=(
+            SELECT shop_id FROM shop
+            WHERE owner_id=#{ownerId})
+          AND product_name like '%${key}%'
+          limit #{offset},#{pageSize}
+    </select>
+<!-- 查询商家的商品条数   -->
+    <select id="countShopProduct" resultType="Integer">
+        select count(*) from product
+        where shop_id=(
+            select shop_id from shop
+            where owner_id=#{ownerId}
+            )
+    </select>
+
 </mapper>

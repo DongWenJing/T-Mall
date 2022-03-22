@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
         return resultUser;
     }
 
+    /**
+     * 根据登录用户的Id获取展示个人信息
+     * @param userId
+     * @return
+     */
     @Override
     public User getUserById(BigInteger userId) {
       User user = userMapper.selectUserById(userId);

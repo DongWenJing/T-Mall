@@ -16,5 +16,10 @@ public interface UserService {
      */
     User selectUserByUP(User user);
 
+    /**
+     * 根据登录用户的Id获取展示个人信息
+     * @param userId
+     * @return
+     */
     User getUserById(BigInteger userId);
 }

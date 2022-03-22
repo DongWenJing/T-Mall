@@ -14,4 +14,8 @@ public interface ProductService {
      * @return
      */
     List<Product> selectProductAll();
+
+    List<Product> findByPage(int offset, Integer pageSize, String key, Integer ownerId);
+
+    Integer countShopProduct(Integer ownerId);
 }

@@ -5,3 +5,5 @@ Content-Type: application/json
   "username": "aaa",
   "value": "content"
 }
+###
+GET http://localhost:8090/user/1

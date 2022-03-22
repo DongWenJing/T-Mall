@@ -13,7 +13,7 @@
           and
               password=#{password}
     </select>
-
+<!--通过Id查询用户信息   -->
     <select id="selectUserById" resultType="User">
         select * from user
         where user_id=#{userId}
