@@ -10,8 +10,12 @@
         value(#{shopName},#{username},#{ownerId})
     </insert>
 
-    <select id="getUserId" resultType="shop">
+    <select id="getUserId" resultType="Shop">
         select user_id from user
         where username=#{username}
+    </select>
+
+    <select id="getShopByUserId" resultType="Shop">
+        select * from shop where owner_id=#{userId}
     </select>
 </mapper>

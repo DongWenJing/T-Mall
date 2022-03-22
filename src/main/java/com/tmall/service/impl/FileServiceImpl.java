@@ -3,6 +3,7 @@ package com.tmall.service.impl;
 import cn.hutool.core.io.FileUtil;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
+import com.tmall.exception.IllegalImageException;
 import com.tmall.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,16 @@ public class FileServiceImpl implements FileService {
     public static final String ip = "http://127.0.0.1";
 
     @Override
-    public ResponseData<?> upload(MultipartFile file) throws IOException {
+    public ResponseData<?> upload(MultipartFile file) throws IllegalImageException, IOException {
         // 1.确保为图片
         String fileName = file.getOriginalFilename();
         BufferedImage bufferedImage =
                 ImageIO.read(file.getInputStream());
-        if (!fileName.toLowerCase().matches("^.+\\.(jpg|png|gif)$")
-                || bufferedImage.getHeight() == 0
+        if (!fileName.toLowerCase().matches("^.+\\.(jpg|png|gif)$"))
+            throw new IllegalImageException("不支持的图片格式");
+        if ( bufferedImage.getHeight() == 0
                 || bufferedImage.getWidth() == 0)
-            throw new RuntimeException("非法图片");
+            throw new IllegalImageException("非法图片");
         // 目录存储  提交的时间+哈希值+名字
         String dateStr =
                 new SimpleDateFormat("yyyyMMdd").format(new Date());
@@ -82,6 +84,5 @@ public class FileServiceImpl implements FileService {
             os.close();
         }
     }
-
 
 }

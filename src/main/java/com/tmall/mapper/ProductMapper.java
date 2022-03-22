@@ -1,6 +1,7 @@
 package com.tmall.mapper;
 
 import com.tmall.pojo.Product;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -25,6 +26,12 @@ public interface ProductMapper {
 
     //修改商家的商品信息
     void updateProduct(Product product);
+
+    // 商家端的商品新增
+    //@Insert("INSERT INTO product(product_name,product_price,category_id,weight,product_desc,discount,`left`,img_src, shop_id, sold) VALUE(#{productName},#{productPrice},#{categoryId},#{weight},#{productDesc},#{discount},#{left},#{imgSrc},#{shopId},#{sold})")
+    void insertProduct(Product product);
     //删除商家商品信息
     void deleteProductById(BigInteger productId);
+
+    List<Product> findShopById(BigInteger shopId);
 }

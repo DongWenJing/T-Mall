@@ -18,4 +18,6 @@ public interface ShopMapper {
     //@Insert("INSERT INTO `user`(telephone,username,real_name,`password`, role) VALUE(#{telephone},#{username},#{realName},#{password}, 'shop')")
     @Insert("insert into user(telephone,username,real_name,password,role) value(#{telephone},#{username},#{realName},#{password},shop)")
     void shopRegister(Shop shop);
+
+    Shop getShopByUserId(BigInteger userId);
 }

@@ -1,6 +1,7 @@
 package com.tmall.controller;
 
 import com.tmall.common.ResponseData;
+import com.tmall.exception.IllegalImageException;
 import com.tmall.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseData<?> upload(MultipartFile file) throws IOException {
+    public ResponseData<?> upload(MultipartFile file) throws IllegalImageException,IOException {
         return fileService.upload(file);
     }
 
