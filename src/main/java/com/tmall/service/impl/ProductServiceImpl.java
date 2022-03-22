@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -52,6 +55,13 @@ public class ProductServiceImpl implements ProductService {
         productMapper.updateProduct(product);
     }
 
+    @Override
+    public void insertProduct(Product product) {
+        productMapper.insertProduct(product);
+    }
+
+
+
     /**
      * 删除商家商品信息
      * @param productId
@@ -59,5 +69,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(BigInteger productId) {
         productMapper.deleteProductById(productId);
+    }
+
+    @Override
+    public List<Product> findByShopId(BigInteger shopId) {
+        return productMapper.findShopById(shopId);
+    }
+
+    /**
+     * 展现每个商品的信息
+     * @param productId
+     * @return
+     */
+    @Override
+    public Product showProductInfo(BigInteger productId) {
+        return productMapper.showProductInfo(productId);
     }
 }

@@ -33,4 +33,9 @@ public class ShopServiceImpl implements ShopService {
         
         shopMapper.shopRegister(shop);
     }
+
+    @Override
+    public Shop getShopByUserId(BigInteger userId) {
+        return shopMapper.getShopByUserId(userId);
+    }
 }

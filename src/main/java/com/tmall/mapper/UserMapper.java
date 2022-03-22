@@ -14,4 +14,6 @@ public interface UserMapper {
 
     //通过用户Id显示查询数据
     User selectUserById(BigInteger userId);
+    //修改用户信息
+    void updateUserById(User user);
 }

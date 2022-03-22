@@ -16,11 +16,29 @@ public interface ProductService {
      */
     List<Product> selectProductAll();
 
+    /**
+     * 分页显示商家的所有商品
+     * @param offset
+     * @param pageSize
+     * @param key
+     * @param ownerId
+     * @return
+     */
     List<Product> findByPage(int offset, Integer pageSize, String key, Integer ownerId);
 
     Integer countShopProduct(Integer ownerId);
 
+    /**
+     * 商家端的商品新增
+     * @param product
+     */
+    void insertProduct(Product product);
+
     void updateProduct(Product product);
 
     void deleteProductById(BigInteger productId);
+
+    List<Product> findByShopId(BigInteger shopId);
+
+    Product showProductInfo(BigInteger productId);
 }

@@ -11,11 +11,11 @@
 <!-- 获取商家商品分类数据   -->
     <select id="findByPage" resultType="Product">
 
-        SELECT product.* FROM product
-        WHERE shop_id=(
-            SELECT shop_id FROM shop
-            WHERE owner_id=#{ownerId})
-          AND product_name like '%${key}%'
+        select product.* from product
+        where shop_id=(
+            select shop_id from shop
+            where owner_id=#{ownerId})
+          and product_name like '%${key}%'
           limit #{offset},#{pageSize}
     </select>
 <!-- 查询商家的商品条数   -->
@@ -43,4 +43,21 @@
     <delete id="deleteProductById" >
         delete from product where product_id=#{productId}
     </delete>
+
+     <insert id="insertProduct">
+        INSERT INTO
+            product(
+                product_id,product_name,product_price,category_id,weight,product_desc,discount,`left`,img_src, shop_id, sold,create_time)
+        values(
+               null,#{productName},#{productPrice},#{categoryId},#{weight},#{productDesc},#{discount},#{left},#{imgSrc},#{shopId},#{sold},#{createTime})
+    </insert>
+
+    <select id="findShopById" resultType="Product">
+        select * from product where shop_id=#{shopId}
+    </select>
+
+    <select id="showProductInfo" resultType="Product">
+        select * from product where product_id=#{productId}
+    </select>
+
 </mapper>

@@ -65,6 +65,16 @@ public class ProductController {
         return ResponseDataUtils.buildSuccess("0","商品信息修改成功");
     }
 
+
+    /**
+     * 商家管理新增商品
+     */
+    @PostMapping
+    public ResponseData<?> insertProduct(@RequestBody Product product) {
+        productService.insertProduct(product);
+        return ResponseDataUtils.buildSuccess("0","商品添加成功");
+    }
+
     /**
      *根据id删除商品信息
      */
@@ -72,5 +82,22 @@ public class ProductController {
     public ResponseData<?> deleteProduct(@PathVariable BigInteger productId){
         productService.deleteProductById(productId);
         return ResponseDataUtils.buildSuccess("0","删除成功");
+    }
+
+    /**
+     * 根据shopID获取所有商品
+     */
+    @GetMapping("/shop_id/{shopId}")
+    public ResponseData<?> findByShopId(@PathVariable BigInteger shopId) {
+        List<Product> products = productService.findByShopId(shopId);
+        return ResponseDataUtils.buildSuccess("0", "该店商品信息获取成功！", products);
+    }
+
+    /**
+     * 展现每个商品详情
+     */
+    @GetMapping("/{productId}")
+    public Product showProductInfo(@PathVariable BigInteger productId) {
+        return productService.showProductInfo(productId);
     }
 }
