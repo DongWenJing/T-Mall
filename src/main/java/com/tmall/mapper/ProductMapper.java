@@ -4,6 +4,7 @@ import com.tmall.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -24,4 +25,6 @@ public interface ProductMapper {
 
     //修改商家的商品信息
     void updateProduct(Product product);
+    //删除商家商品信息
+    void deleteProductById(BigInteger productId);
 }

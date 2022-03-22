@@ -5,9 +5,11 @@ import com.tmall.common.ResponseDataUtils;
 import com.tmall.pojo.Product;
 import com.tmall.service.ProductService;
 import com.tmall.vo.Page;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -63,4 +65,12 @@ public class ProductController {
         return ResponseDataUtils.buildSuccess("0","商品信息修改成功");
     }
 
+    /**
+     *根据id删除商品信息
+     */
+    @DeleteMapping("/{productId}")
+    public ResponseData<?> deleteProduct(@PathVariable BigInteger productId){
+        productService.deleteProductById(productId);
+        return ResponseDataUtils.buildSuccess("0","删除成功");
+    }
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -49,5 +50,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateProduct(Product product) {
         productMapper.updateProduct(product);
+    }
+
+    /**
+     * 删除商家商品信息
+     * @param productId
+     */
+    @Override
+    public void deleteProductById(BigInteger productId) {
+        productMapper.deleteProductById(productId);
     }
 }

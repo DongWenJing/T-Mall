@@ -2,6 +2,7 @@ package com.tmall.service;
 
 import com.tmall.pojo.Product;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface ProductService {
     Integer countShopProduct(Integer ownerId);
 
     void updateProduct(Product product);
+
+    void deleteProductById(BigInteger productId);
 }

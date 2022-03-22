@@ -39,5 +39,8 @@
                        img_src = #{imgSrc}
                         WHERE product_id = #{productId}
     </update>
-
+<!--  删除商家商品  -->
+    <delete id="deleteProductById" >
+        delete from product where product_id=#{productId}
+    </delete>
 </mapper>
