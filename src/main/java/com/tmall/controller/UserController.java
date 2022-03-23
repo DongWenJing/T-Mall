@@ -52,7 +52,7 @@ public class UserController {
         String tel = user.getTelephone();
         if (!StringUtils.hasLength(tel)) {
             throw new PhoneNotNullException("手机号必填");
-        }else if (!tel.matches("[1]1[0-9]{10}")) {
+        }else if (!tel.matches("[1][0-9]{10}")) {
             throw new IllegalPhoneException("手机格式错误");
         }
         userService.updateUserById(user);
