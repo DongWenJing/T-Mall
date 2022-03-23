@@ -39,4 +39,8 @@ public interface UserMapper {
     void setPassword(Password password);
     //获取原始密码
     String getOldPassword(BigInteger userId);
+
+    void addRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
+
+    Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
 }

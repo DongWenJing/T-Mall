@@ -91,6 +91,28 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 充值虚拟货币
+     * @param userId
+     * @param money*/
+
+    @Override
+    public void addRecharge(BigInteger userId, double money) {
+        userMapper.addRecharge(userId,money);
+    }
+
+    /**
+     * 获取数据库当前余额
+     * @param userId
+     * @param money
+     * @return
+     */
+    @Override
+    public Double getRecharge(BigInteger userId, double money) {
+        Double money1=userMapper.getRecharge(userId,money);
+        return money1;
+    }
+
+    /**
      * 修改用户密码,加密后存储到数据库
      * @param password
      */

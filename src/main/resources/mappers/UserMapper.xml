@@ -5,9 +5,13 @@
 
 <mapper namespace="com.tmall.mapper.UserMapper">
     <select id="selectUserByUP" resultType="User">
-        select * from user
-        where username=#{username}
-        and  password=#{password}
+        select *
+        from
+             user
+        where
+              username=#{username}
+          and
+              password=#{password}
     </select>
 <!--通过Id查询用户信息   -->
     <select id="selectUserById" resultType="User">
@@ -17,18 +21,18 @@
 
     <!--修改用户个人信息-->
     <update id="updateUserById">
-        update user
-        <set>
-            <if test="username !=null">username=#{username},</if>
-            <if test="telephone !=null">telephone=#{telephone},</if>
-            <if test="address !=null"> address=#{address},</if>
-            <if test="sex !=null">sex=#{sex},</if>
-            <if test="age !=0">age=#{age},</if>
-            <if test="realName !=null">real_name=#{realName},</if>
-            <if test="email !=null">email=#{email},</if>
-            <if test="avatar !=null">avatar=#{avatar}</if>
-        </set>
-        where user_id=#{userId}
+    update user
+    <set>
+        <if test="username !=null">username=#{username},</if>
+        <if test="telephone !=null">telephone=#{telephone},</if>
+        <if test="address !=null"> address=#{address},</if>
+        <if test="sex !=null">sex=#{sex},</if>
+        <if test="age !=0">age=#{age},</if>
+        <if test="realName !=null">real_name=#{realName},</if>
+        <if test="email !=null">email=#{email},</if>
+        <if test="avatar !=null">avatar=#{avatar}</if>
+    </set>
+    where user_id=#{userId}
     </update>
 
 <!--   分页查询用户信息-->
@@ -68,4 +72,12 @@
         limit #{startNum},#{pageSize}
     </select>
 
+<!--    -->
+    <select id="getRecharge" resultType="Double">
+        select money from user where user_id=#{userId}
+    </select>
+    <update id="addRecharge" >
+        update `user` set money=#{money}
+        where user_id=#{userId}
+    </update>
 </mapper>

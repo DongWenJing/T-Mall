@@ -5,16 +5,19 @@ import com.tmall.common.ResponseDataUtils;
 import com.tmall.exception.IllegalPhoneException;
 import com.tmall.exception.PasswordException;
 import com.tmall.exception.PhoneNotNullException;
+import com.tmall.exception.RechargeException;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -66,7 +69,7 @@ public class UserController {
 
     //分页查询所有用户信息(包括商家) // 管理员后端
     @GetMapping
-    public ResponseData<?> findUserList( @RequestParam(defaultValue = "1") Integer pageNum,
+    public ResponseData<?> findUserList ( @RequestParam(defaultValue = "1") Integer pageNum,
                                          @RequestParam(defaultValue = "10") Integer pageSize,
                                          @RequestParam(defaultValue = "") String key,
                                          @RequestParam(defaultValue = "user")String flag){
@@ -111,4 +114,24 @@ public class UserController {
         }
     }
 
+    /**
+     * 充值虚拟货币
+     * 思路:查询到目前的余额,再添加
+     * @param user
+     * @return
+     */
+    @PatchMapping("/recharge")
+    public ResponseData<?> recharge(@RequestBody User user){
+        BigInteger userId = user.getUserId();
+        double money = user.getMoney();
+        Double money1 =userService.getRecharge(userId,money);
+       Double newMoney= money+money1;
+        if (money<500 ) {
+            throw new RechargeException("抱歉最低充值500元");
+        }else {
+            user.setMoney(newMoney);
+            userService.addRecharge(userId,newMoney);
+            return ResponseDataUtils.buildSuccess("0","充值成功~");
+        }
+    }
 }
