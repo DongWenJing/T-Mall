@@ -60,4 +60,12 @@
         select * from product where product_id=#{productId}
     </select>
 
+    <select id="getHotProduct" resultType="Product">
+        select * from product order by sold desc limit 10
+    </select>
+
+    <select id="getNewProduct" resultType="Product">
+        select * from product where date_format(create_time,'%Y-%m-%d')>= '2022-03-20' limit 10
+    </select>
+
 </mapper>

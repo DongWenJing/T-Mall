@@ -41,4 +41,8 @@ public interface ProductService {
     List<Product> findByShopId(BigInteger shopId);
 
     Product showProductInfo(BigInteger productId);
+
+    List<Product> getHotProduct();
+
+    List<Product> getNewProduct();
 }

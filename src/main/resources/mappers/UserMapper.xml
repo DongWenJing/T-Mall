@@ -37,11 +37,13 @@
 
 <!--   分页查询用户信息-->
     <select id="findUserList" resultType="User">
-        select username,real_name,role,age,sex,address,telephone,status,money from user
-        where username like "%"#{key}"%" limit #{pageNum},#{pageSize}
-    </select>
-    <select id="countUser" resultType="Integer">
-        select count(*) from user
+        select username,real_name,telephone,age,sex,role,status
+        from user
         where username like "%"#{key}"%"
+        limit #{pageNum},#{pageSize}
+    </select>
+
+    <select id="countUser" resultType="Integer">
+        select count(1) from user where username like "%"#{key}"%"
     </select>
 </mapper>

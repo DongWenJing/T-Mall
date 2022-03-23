@@ -38,4 +38,10 @@ public class ShopServiceImpl implements ShopService {
     public Shop getShopByUserId(BigInteger userId) {
         return shopMapper.getShopByUserId(userId);
     }
+
+    // 通过商家id获取店铺信息
+    @Override
+    public Shop getShopByShopId(BigInteger shopId) {
+        return shopMapper.getShopByShopId(shopId);
+    }
 }

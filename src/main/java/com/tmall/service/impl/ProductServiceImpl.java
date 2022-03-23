@@ -85,4 +85,14 @@ public class ProductServiceImpl implements ProductService {
     public Product showProductInfo(BigInteger productId) {
         return productMapper.showProductInfo(productId);
     }
+
+    @Override
+    public List<Product> getHotProduct() {
+        return productMapper.getHotProduct();
+    }
+
+    @Override
+    public List<Product> getNewProduct() {
+        return productMapper.getNewProduct();
+    }
 }

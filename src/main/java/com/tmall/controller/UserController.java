@@ -50,8 +50,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseData<?> updateUserById(@RequestBody User user){
-        // if ("".equals(user.getTelephone())) {
         String tel = user.getTelephone();
+        System.out.println(tel);
         if (!StringUtils.hasLength(tel)) {
             throw new PhoneNotNullException("手机号必填");
         }else if (!tel.matches("[1][0-9]{10}")) {

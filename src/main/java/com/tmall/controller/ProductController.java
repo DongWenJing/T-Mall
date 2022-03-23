@@ -100,4 +100,20 @@ public class ProductController {
     public Product showProductInfo(@PathVariable BigInteger productId) {
         return productService.showProductInfo(productId);
     }
+
+    /**
+     * 查询热门商品，销量前10
+     */
+    @GetMapping("/hot")
+    public List<Product> getHotProduct() {
+        return productService.getHotProduct();
+    }
+
+    /**
+     * 查询最新商品
+     */
+    @GetMapping("/new")
+    public List<Product> getNewProduct() {
+        return productService.getNewProduct();
+    }
 }

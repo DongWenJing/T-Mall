@@ -18,4 +18,8 @@
     <select id="getShopByUserId" resultType="Shop">
         select * from shop where owner_id=#{userId}
     </select>
+
+    <select id="getShopByShopId" resultType="Shop">
+        select * from Shop where shop_id=#{shopId}
+    </select>
 </mapper>

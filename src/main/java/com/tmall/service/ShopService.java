@@ -15,4 +15,6 @@ public interface ShopService {
     void shopRegister(Shop shop);
 
     Shop getShopByUserId(BigInteger userId);
+
+    Shop getShopByShopId(BigInteger shopId);
 }

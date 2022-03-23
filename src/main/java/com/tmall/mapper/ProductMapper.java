@@ -33,4 +33,9 @@ public interface ProductMapper {
 
     // 展现每个商品的详情
     Product showProductInfo(BigInteger productId);
+
+    // 获取最热产品
+    List<Product> getHotProduct();
+
+    List<Product> getNewProduct();
 }

@@ -47,5 +47,14 @@ public class ShopController {
         Shop shop = shopService.getShopByUserId(userId);
         return ResponseDataUtils.buildSuccess("0", "获取店铺信息成功！", shop);
     }
+
+    /**
+     * 根据shopId获取店铺信息
+     */
+    @GetMapping("/shop_id/{shopId}")
+    public ResponseData<?> getShopByShopId(@PathVariable BigInteger shopId){
+        Shop shop = shopService.getShopByShopId(shopId);
+        return ResponseDataUtils.buildSuccess("0","获取店铺信息成功！", shop);
+    }
 }
 
