@@ -24,5 +24,5 @@ public interface UserMapper {
                             @Param("pageSize") Integer pageSize,
                             @Param("key") String key);
 
-    Integer countUser();
+    Integer countUser(String key);
 }

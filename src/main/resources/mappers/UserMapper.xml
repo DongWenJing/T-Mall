@@ -37,13 +37,11 @@
 
 <!--   分页查询用户信息-->
     <select id="findUserList" resultType="User">
-        select * from user
-        where concat('user_id','username','real_name','role','age','sex','address','telephone','status')
-                  like concat('%'#{key}'%') limit #{pageNum},#{pageSize}
+        select username,real_name,role,age,sex,address,telephone,status,money from user
+        where username like "%"#{key}"%" limit #{pageNum},#{pageSize}
     </select>
     <select id="countUser" resultType="Integer">
         select count(*) from user
-        where concat('user_id','username','real_name','role','age','sex','address','telephone','status')
-                  like concat('%'#{key}'%')
+        where username like "%"#{key}"%"
     </select>
 </mapper>

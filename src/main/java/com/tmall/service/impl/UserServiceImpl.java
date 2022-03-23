@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         //获取查询到的数据
         List<User> users = userMapper.findUserList(pageNum,pageSize,key);
         //总记录条数
-        Integer total = userMapper.countUser();
+        Integer total = userMapper.countUser(key);
         //封装查询到的数据
         Page<User> page = new Page();
         page.setTotal(total).setData(users).setPageSize(pageSize).setPageNum(pageNum);
