@@ -1,5 +1,6 @@
 package com.tmall.mapper;
 
+import com.tmall.pojo.Password;
 import com.tmall.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,4 +26,8 @@ public interface UserMapper {
                             @Param("key") String key);
 
     Integer countUser(String key);
+
+    void setPassword(Password password);
+
+    String getOldPassword(BigInteger userId);
 }

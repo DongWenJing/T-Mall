@@ -1,6 +1,7 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.UserMapper;
+import com.tmall.pojo.Password;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
@@ -77,5 +78,17 @@ public class UserServiceImpl implements UserService {
         Page<User> page = new Page();
         page.setTotal(total).setData(users).setPageSize(pageSize).setPageNum(pageNum);
         return page;
+    }
+
+    public String getOldPassword(BigInteger userId) {
+        String oldPassword = this.userMapper.getOldPassword(userId);
+        return oldPassword;
+    }
+
+    public void setPassword(Password password) {
+        String newPassword = password.getNewPassword();
+        newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        password.setNewPassword(newPassword);
+        this.userMapper.setPassword(password);
     }
 }

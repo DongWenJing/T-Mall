@@ -1,5 +1,6 @@
 package com.tmall.service;
 
+import com.tmall.pojo.Password;
 import com.tmall.pojo.User;
 import com.tmall.vo.Page;
 
@@ -29,4 +30,7 @@ public interface UserService {
     void updateUserById(User user);
 
     Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
+    void setPassword(Password password);
+
+    String getOldPassword(BigInteger userId);
 }

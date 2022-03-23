@@ -46,4 +46,14 @@
     <select id="countUser" resultType="Integer">
         select count(1) from user where username like "%"#{key}"%"
     </select>
+
+    <!-- 修改用户密码   -->
+    <update id="setPassword">
+        update `user` set password=#{newPassword}
+        where user_id=#{userId}
+    </update>
+    <!--获取旧的密码 -->
+    <select id="getOldPassword" resultType="String">
+        select password from `user` where user_id=#{userId}
+    </select>
 </mapper>

@@ -3,11 +3,14 @@ package com.tmall.controller;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.exception.IllegalPhoneException;
+import com.tmall.exception.PasswordException;
 import com.tmall.exception.PhoneNotNullException;
+import com.tmall.pojo.Password;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,5 +73,27 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
     }
 
+    @PostMapping({"/password"})
+    public ResponseData<?> setPassword(@RequestBody Password password) {
+        String inputPassword = password.getPassword();
+        if (!StringUtils.hasLength(inputPassword)) {
+            throw new PasswordException("修改内容不可为空!");
+        } else {
+            inputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes());
+            String newPassword = password.getNewPassword();
+            String twicePassword = password.getTwicePassword();
+            String oldPassword = this.userService.getOldPassword(password.getUserId());
+            if (!oldPassword.equals(inputPassword)) {
+                throw new PasswordException("原密码不正确请重新输入");
+            } else if (!StringUtils.hasLength(newPassword)) {
+                throw new PasswordException("新密码不可为空");
+            } else if (!newPassword.equals(twicePassword)) {
+                throw new PasswordException("两次密码不一致请重新输入");
+            } else {
+                this.userService.setPassword(password);
+                return ResponseDataUtils.buildSuccess("0", "密码修改成功");
+            }
+        }
+    }
 
 }
