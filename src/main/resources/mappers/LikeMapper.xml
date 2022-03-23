@@ -11,9 +11,30 @@
     and  user_id= #{userId}
 </select>
 
+<!--    用户添加收藏-->
     <insert id="save" >
 
         insert into `like` (product_id, user_id)
         value (#{productId}, #{userId})
     </insert>
+
+<!--    查询某用户收藏的所有商品-->
+    <select id="findAll" resultType="Like">
+        select like_id,product_name, product_price, p.product_id,
+        like_time,discount,img_src from product as p,`like`
+        where p.product_id=`like`.product_id
+        and `like`.user_id=#{userId}
+
+    </select>
+
+<!--     获取用户收藏商品的总数-->
+    <select id="counts" resultType="BigInteger">
+        select count(*) from `like` where user_id=#{userId}
+    </select>
+
+<!--    用户删除某一天收藏夹商品-->
+    <delete id="delete">
+        delete from `like` where like_id=#{likeId}
+    </delete>
+
 </mapper>

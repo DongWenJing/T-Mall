@@ -12,5 +12,11 @@ public interface LikeService {
 
     void save(BigInteger productId, BigInteger userId);
 
+    void delete(BigInteger userId);
+
+    List<Like> findAll(BigInteger userId);
+
+    BigInteger counts(BigInteger userId);
+
 }
 
