@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.CartMapper">
+<!--    获取某个用户的所有购物车信息-->
+    <select id="getCartById" resultType="Cart">
+        select cart_id, cart.product_id, img_src, product_name, product_price,discount,weight,
+               count from cart, product where user_id=#{userId}
+               and cart.product_id=product.product_id
+    </select>
+
+<!--    修改某一个购物车商品的数量-->
+<update id="setCartCount">
+    update cart set `count`=#{count} where cart_id=#{cartId}
+</update>
+
+<!--     获取某个用户的购物车信息的数量-->
+    <select id="getCartCountById" resultType="BigInteger">
+        select count(*) from cart where user_id=#{userId}
+    </select>
+
+<!--     检验用户是否了添加了购物车-->
+    <select id="findCartItem" resultType="Cart">
+        select * from cart where user_id=#{userId} and
+        product_id=#{productId}
+    </select>
+
+<!--    用户添加商品到购物车-->
+    <insert id="addToCart">
+        insert into cart(user_id, product_id, count) value (
+            #{userId},  #{productId}, #{count} )
+    </insert>
+
+<!--    删除某用户的某一条购物车商品信息-->
+    <delete id="deleteCart">
+        delete from cart where cart_id=#{cartId}
+    </delete>
+
+<!--    清空购物车-->
+    <delete id="findAll">
+        delete from cart where user_id=#{userId}
+    </delete>
+</mapper>
