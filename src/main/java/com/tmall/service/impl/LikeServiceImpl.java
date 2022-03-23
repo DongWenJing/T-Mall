@@ -26,4 +26,23 @@ public class LikeServiceImpl implements LikeService {
     public void save(BigInteger productId, BigInteger userId) {
         likeMapper.save(productId, userId);
     }
+
+    // 获取用户的收藏商品
+    @Override
+    public List<Like> findAll(BigInteger userId) {
+
+        return likeMapper.findAll(userId);
+    }
+    // 获取用户收藏商品的总数
+    @Override
+    public BigInteger counts(BigInteger userId) {
+        return likeMapper.counts(userId);
+    }
+
+    // 用户删除收藏商品
+    @Override
+    public void delete(BigInteger userId) {
+        likeMapper.delete(userId);
+    }
+
 }

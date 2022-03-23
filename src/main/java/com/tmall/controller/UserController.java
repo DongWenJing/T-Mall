@@ -2,10 +2,13 @@ package com.tmall.controller;
 
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
+import com.tmall.exception.IllegalPhoneException;
+import com.tmall.exception.PhoneNotNullException;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -46,19 +49,16 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseData<?> updateUserById(@PathVariable BigInteger id,
-                                          @RequestBody User user){
-        user.setUserId(id);
-        userService.updateUserById(user);
-        //System.out.println("我的数据嗷嗷嗷嘞"+user.getTelephone());
-        //手机号不能为空
-        // if (!"".equals(user.getTelephone())) {
-        if (!"".equals(user.getTelephone())) {
-           // System.out.println("我的数据嘞"+user.getTelephone());
-            return ResponseDataUtils.buildSuccess("0", "个人信息修改成功");
+    public ResponseData<?> updateUserById(@RequestBody User user){
+        // if ("".equals(user.getTelephone())) {
+        String tel = user.getTelephone();
+        if (!StringUtils.hasLength(tel)) {
+            throw new PhoneNotNullException("手机号必填");
+        }else if (!tel.matches("[1][0-9]{10}")) {
+            throw new IllegalPhoneException("手机格式错误");
         }
-        return ResponseDataUtils.buildSuccess("1","缺少必填项,请输入手机号");
-
+        userService.updateUserById(user);
+        return ResponseDataUtils.buildSuccess("0","个人信息修改成功");
     }
 
     //分页查询所有用户信息
