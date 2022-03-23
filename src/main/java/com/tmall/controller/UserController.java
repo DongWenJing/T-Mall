@@ -82,6 +82,12 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户密码修改功能
+     * 具备:不可传空串.原密码验证.新密码再次校验
+     * @param password
+     * @return
+     */
     @PostMapping({"/password"})
     public ResponseData<?> setPassword(@RequestBody Password password) {
         String inputPassword = password.getPassword();

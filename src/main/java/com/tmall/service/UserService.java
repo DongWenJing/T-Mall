@@ -30,8 +30,9 @@ public interface UserService {
     void updateUserById(User user);
 
     Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
+    //修改密码
     void setPassword(Password password);
-
+    //获取原始密码
     String getOldPassword(BigInteger userId);
 
     // 查询商家数量分页显示
