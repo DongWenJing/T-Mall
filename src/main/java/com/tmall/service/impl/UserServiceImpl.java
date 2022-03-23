@@ -80,11 +80,20 @@ public class UserServiceImpl implements UserService {
         return page;
     }
 
+    /**
+     * 获取数据库中原始密码
+     * @param userId
+     * @return
+     */
     public String getOldPassword(BigInteger userId) {
         String oldPassword = this.userMapper.getOldPassword(userId);
         return oldPassword;
     }
 
+    /**
+     * 修改用户密码,加密后存储到数据库
+     * @param password
+     */
     public void setPassword(Password password) {
         String newPassword = password.getNewPassword();
         newPassword = DigestUtils.md5DigestAsHex(newPassword.getBytes());
