@@ -12,26 +12,21 @@ import java.util.List;
  * @date 2022/3/19 13:16
  */
 public interface UserService {
-    /**
-     * 根据前端传过来的用户名和密码进行查询
-     * @param user
-     * @return User对象
-     */
+
+    //根据前端传过来的用户名和密码进行查询
     User selectUserByUP(User user);
 
-    /**
-     * 根据登录用户的Id获取展示个人信息
-     * @param userId
-     * @return
-     */
+    //根据登录用户的Id获取展示个人信息
     User getUserById(BigInteger userId);
 
-    //修改用户信息
+    //用户修改个人信息
     void updateUserById(User user);
 
     Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
+
     //修改密码
     void setPassword(Password password);
+
     //获取原始密码
     String getOldPassword(BigInteger userId);
 

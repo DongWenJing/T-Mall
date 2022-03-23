@@ -51,10 +51,10 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "获取用户信息成功",user);
     }
 
+    // 用户修改个人信息
     @PutMapping("/{id}")
     public ResponseData<?> updateUserById(@RequestBody User user){
         String tel = user.getTelephone();
-        System.out.println(tel);
         if (!StringUtils.hasLength(tel)) {
             throw new PhoneNotNullException("手机号必填");
         }else if (!tel.matches("[1][0-9]{10}")) {
@@ -64,7 +64,7 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0","个人信息修改成功");
     }
 
-    //分页查询所有用户信息
+    //分页查询所有用户信息(包括商家) // 管理员后端
     @GetMapping
     public ResponseData<?> findUserList( @RequestParam(defaultValue = "1") Integer pageNum,
                                          @RequestParam(defaultValue = "10") Integer pageSize,

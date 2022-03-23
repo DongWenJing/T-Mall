@@ -5,13 +5,9 @@
 
 <mapper namespace="com.tmall.mapper.UserMapper">
     <select id="selectUserByUP" resultType="User">
-        select *
-        from
-             user
-        where
-              username=#{username}
-          and
-              password=#{password}
+        select * from user
+        where username=#{username}
+        and  password=#{password}
     </select>
 <!--通过Id查询用户信息   -->
     <select id="selectUserById" resultType="User">
@@ -21,18 +17,18 @@
 
     <!--修改用户个人信息-->
     <update id="updateUserById">
-    update user
-    <set>
-        <if test="username !=null">username=#{username},</if>
-        <if test="telephone !=null">telephone=#{telephone},</if>
-        <if test="address !=null"> address=#{address},</if>
-        <if test="sex !=null">sex=#{sex},</if>
-        <if test="age !=0">age=#{age},</if>
-        <if test="realName !=null">real_name=#{realName},</if>
-        <if test="email !=null">email=#{email},</if>
-        <if test="avatar !=null">avatar=#{avatar}</if>
-    </set>
-    where user_id=#{userId}
+        update user
+        <set>
+            <if test="username !=null">username=#{username},</if>
+            <if test="telephone !=null">telephone=#{telephone},</if>
+            <if test="address !=null"> address=#{address},</if>
+            <if test="sex !=null">sex=#{sex},</if>
+            <if test="age !=0">age=#{age},</if>
+            <if test="realName !=null">real_name=#{realName},</if>
+            <if test="email !=null">email=#{email},</if>
+            <if test="avatar !=null">avatar=#{avatar}</if>
+        </set>
+        where user_id=#{userId}
     </update>
 
 <!--   分页查询用户信息-->
@@ -43,6 +39,7 @@
         limit #{pageNum},#{pageSize}
     </select>
 
+    <!--统计用户数量-->
     <select id="countUser" resultType="Integer">
         select count(1) from user where username like "%"#{key}"%"
     </select>
@@ -52,19 +49,23 @@
         update `user` set password=#{newPassword}
         where user_id=#{userId}
     </update>
+
     <!--获取旧的密码 -->
     <select id="getOldPassword" resultType="String">
         select password from `user` where user_id=#{userId}
     </select>
 
+    <!--统计所有的商家数量-->
     <select id="countShopper" resultType="Integer">
         select count(1) from user where role="shop" and username like "%"#{key}"%"
     </select>
 
+    <!--显示所有商家(分页) 模糊查询-->
     <select id="findShopperList" resultType="User">
         select * from user
         where  role='shop'
-          and username like "%"#{key}"%"
-          limit #{startNum},#{pageSize}
+        and username like "%"#{key}"%"
+        limit #{startNum},#{pageSize}
     </select>
+
 </mapper>
