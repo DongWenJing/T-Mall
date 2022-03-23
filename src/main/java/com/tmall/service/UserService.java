@@ -1,8 +1,10 @@
 package com.tmall.service;
 
 import com.tmall.pojo.User;
+import com.tmall.vo.Page;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author R.Yu
@@ -26,4 +28,5 @@ public interface UserService {
     //修改用户信息
     void updateUserById(User user);
 
+    Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
 }

@@ -3,6 +3,7 @@ package com.tmall.service.impl;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author R.Yu
@@ -55,5 +57,25 @@ public class UserServiceImpl implements UserService {
         Timestamp timestamp = new Timestamp(time);
         user.setCreateTime(timestamp);*/
         userMapper.updateUserById(user);
+    }
+
+    /**
+     * 分页查询所有用户信息
+     * @param pageNum
+     * @param pageSize
+     * @param key
+     * @return
+     */
+    @Override
+    public Page<User> findUserList(Integer pageNum, Integer pageSize, String key) {
+        pageNum = (pageNum - 1) * pageSize;
+        //获取查询到的数据
+        List<User> users = userMapper.findUserList(pageNum,pageSize,key);
+        //总记录条数
+        Integer total = userMapper.countUser();
+        //封装查询到的数据
+        Page<User> page = new Page();
+        page.setTotal(total).setData(users).setPageSize(pageSize).setPageNum(pageNum);
+        return page;
     }
 }

@@ -1,8 +1,11 @@
 package com.tmall.mapper;
 
 import com.tmall.pojo.User;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author R.Yu
@@ -16,4 +19,10 @@ public interface UserMapper {
     User selectUserById(BigInteger userId);
     //修改用户信息
     void updateUserById(User user);
+
+    List<User> findUserList(@Param("pageNum") Integer pageNum,
+                            @Param("pageSize") Integer pageSize,
+                            @Param("key") String key);
+
+    Integer countUser();
 }

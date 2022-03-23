@@ -4,10 +4,12 @@ import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author R.Yu
@@ -57,6 +59,15 @@ public class UserController {
         }
         return ResponseDataUtils.buildSuccess("1","缺少必填项,请输入手机号");
 
+    }
+
+    //分页查询所有用户信息
+    @GetMapping
+    public ResponseData<?> findUserList( @RequestParam(defaultValue = "1") Integer pageNum,
+                                         @RequestParam(defaultValue = "10") Integer pageSize,
+                                         @RequestParam(defaultValue = "") String key){
+        Page<User> users = userService.findUserList(pageNum,pageSize,key);
+        return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
     }
 
 
