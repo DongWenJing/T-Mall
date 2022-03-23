@@ -56,5 +56,6 @@ public class ShopController {
         Shop shop = shopService.getShopByShopId(shopId);
         return ResponseDataUtils.buildSuccess("0","获取店铺信息成功！", shop);
     }
+
 }
 

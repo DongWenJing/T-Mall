@@ -91,4 +91,15 @@ public class UserServiceImpl implements UserService {
         password.setNewPassword(newPassword);
         this.userMapper.setPassword(password);
     }
+
+    @Override
+    public List<User> findShopperList(Integer pageNum, Integer pageSize, String key) {
+        int startNum = (pageNum - 1) * pageSize;
+        return userMapper.findShopperList(startNum,pageSize,key);
+    }
+
+    @Override
+    public Integer countShopper(String key) {
+        return userMapper.countShopper(key);
+    }
 }

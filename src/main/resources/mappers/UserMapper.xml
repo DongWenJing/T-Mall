@@ -56,4 +56,15 @@
     <select id="getOldPassword" resultType="String">
         select password from `user` where user_id=#{userId}
     </select>
+
+    <select id="countShopper" resultType="Integer">
+        select count(1) from user where role="shop" and username like "%"#{key}"%"
+    </select>
+
+    <select id="findShopperList" resultType="User">
+        select * from user
+        where  role='shop'
+          and username like "%"#{key}"%"
+          limit #{startNum},#{pageSize}
+    </select>
 </mapper>

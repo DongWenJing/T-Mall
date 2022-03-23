@@ -27,6 +27,12 @@ public interface UserMapper {
 
     Integer countUser(String key);
 
+    List<User> findShopperList(@Param("startNum") Integer startNum,
+                               @Param("pageSize") Integer pageSize,
+                               @Param("key") String key);
+
+    Integer countShopper(String key);
+
     void setPassword(Password password);
 
     String getOldPassword(BigInteger userId);

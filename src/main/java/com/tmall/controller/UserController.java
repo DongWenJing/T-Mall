@@ -68,9 +68,18 @@ public class UserController {
     @GetMapping
     public ResponseData<?> findUserList( @RequestParam(defaultValue = "1") Integer pageNum,
                                          @RequestParam(defaultValue = "10") Integer pageSize,
-                                         @RequestParam(defaultValue = "") String key){
-        Page<User> users = userService.findUserList(pageNum,pageSize,key);
-        return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
+                                         @RequestParam(defaultValue = "") String key,
+                                         @RequestParam(defaultValue = "user")String flag){
+        if (flag.equals("user")) {
+            Page<User> users = userService.findUserList(pageNum,pageSize,key);
+            return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
+        }else {
+            List<User> shopper = userService.findShopperList(pageNum,pageSize,key);
+            Integer total = userService.countShopper(key);
+            Page<User> page = new Page<>();
+            page.setPageSize(pageSize).setPageNum(pageNum).setData(shopper).setTotal(total);
+            return ResponseDataUtils.buildSuccess("0", "查询商家成功",page);
+        }
     }
 
     @PostMapping({"/password"})

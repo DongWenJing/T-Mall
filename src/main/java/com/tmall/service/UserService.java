@@ -33,4 +33,10 @@ public interface UserService {
     void setPassword(Password password);
 
     String getOldPassword(BigInteger userId);
+
+    // 查询商家数量分页显示
+    List<User> findShopperList(Integer pageNum, Integer pageSize, String key);
+
+    // 根据key查询商家数量
+    Integer countShopper(String key);
 }
