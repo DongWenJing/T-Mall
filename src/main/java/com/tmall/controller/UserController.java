@@ -51,10 +51,10 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "获取用户信息成功",user);
     }
 
+    // 用户修改个人信息
     @PutMapping("/{id}")
     public ResponseData<?> updateUserById(@RequestBody User user){
         String tel = user.getTelephone();
-        System.out.println(tel);
         if (!StringUtils.hasLength(tel)) {
             throw new PhoneNotNullException("手机号必填");
         }else if (!tel.matches("[1][0-9]{10}")) {
@@ -64,13 +64,22 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0","个人信息修改成功");
     }
 
-    //分页查询所有用户信息
+    //分页查询所有用户信息(包括商家) // 管理员后端
     @GetMapping
     public ResponseData<?> findUserList( @RequestParam(defaultValue = "1") Integer pageNum,
                                          @RequestParam(defaultValue = "10") Integer pageSize,
-                                         @RequestParam(defaultValue = "") String key){
-        Page<User> users = userService.findUserList(pageNum,pageSize,key);
-        return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
+                                         @RequestParam(defaultValue = "") String key,
+                                         @RequestParam(defaultValue = "user")String flag){
+        if (flag.equals("user")) {
+            Page<User> users = userService.findUserList(pageNum,pageSize,key);
+            return ResponseDataUtils.buildSuccess("0", "查询用户成功",users);
+        }else {
+            List<User> shopper = userService.findShopperList(pageNum,pageSize,key);
+            Integer total = userService.countShopper(key);
+            Page<User> page = new Page<>();
+            page.setPageSize(pageSize).setPageNum(pageNum).setData(shopper).setTotal(total);
+            return ResponseDataUtils.buildSuccess("0", "查询商家成功",page);
+        }
     }
 
     /**

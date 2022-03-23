@@ -27,6 +27,14 @@ public interface UserMapper {
 
     Integer countUser(String key);
 
+    // 显示所有商家(分页) 模糊查询
+    List<User> findShopperList(@Param("startNum") Integer startNum,
+                               @Param("pageSize") Integer pageSize,
+                               @Param("key") String key);
+
+    // 统计商家数量
+    Integer countShopper(String key);
+
     //修改密码
     void setPassword(Password password);
     //获取原始密码
