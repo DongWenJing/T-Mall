@@ -47,4 +47,9 @@ public interface UserMapper {
     //更新用户权限状态
     void updateStatus(BigInteger userId, BigInteger status);
 
+    //新增用户
+    void addUser(User user);
+    void updateUser(User user);
+
+    String findUser(String username);
 }

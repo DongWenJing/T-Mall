@@ -46,5 +46,6 @@ public interface UserService {
     Double getRecharge(BigInteger userId, double money);
     //更新用户权限状态
     void updateUserStatus(BigInteger userId, BigInteger status);
-
+    //新增用户
+    void addUser(User user);
 }

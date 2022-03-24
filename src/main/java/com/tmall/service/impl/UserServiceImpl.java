@@ -8,6 +8,7 @@ import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -120,6 +121,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserStatus(BigInteger userId, BigInteger status) {
         userMapper.updateStatus(userId,status);
+    }
+
+    /**
+     * 新增用户
+     * @param user
+     */
+    @Override
+    public void addUser(User user) {
+        String getName = user.getUsername();
+        String name = userMapper.findUser(getName);
+        if (!StringUtils.hasLength(name)) {
+            userMapper.addUser(user);
+        }else {
+            userMapper.updateUser(user);
+        }
     }
 
 

@@ -1,1 +1,13 @@
 PUT http://localhost:8090/user/null/1
+
+###
+POST http://localhost:8090/user/add
+Content-Type: application/json
+
+{
+  "username": "bbfa",
+  "realName": "zzzzz",
+  "telephone": "115153",
+  "role": "user"
+
+}

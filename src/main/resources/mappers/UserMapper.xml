@@ -37,8 +37,7 @@
 
 <!--   分页查询用户信息-->
     <select id="findUserList" resultType="User">
-        select username,real_name,telephone,age,sex,role,status
-        from user
+        select * from user
         where username like "%"#{key}"%"
         limit #{pageNum},#{pageSize}
     </select>
@@ -87,4 +86,16 @@
         where user_id=#{userId}
     </update>
 
+<!--    新增用户-->
+    <insert id="addUser">
+        insert into user(username,real_name,telephone,role)
+        values(#{username},#{realName},#{telephone},#{role})
+    </insert>
+    <update id="updateUser">
+        update user set real_name=#{realName},telephone=#{telephone},role=#{role}
+        where username=#{username}
+    </update>
+    <select id="findUser" resultType="string">
+        select username from user where username=#{username}
+    </select>
 </mapper>
