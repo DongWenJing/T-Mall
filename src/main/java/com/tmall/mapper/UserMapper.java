@@ -45,7 +45,7 @@ public interface UserMapper {
     Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
 
     //更新用户权限状态
-    void updateStatus(BigInteger userId, BigInteger status);
+    void updateStatus(@Param("userId") BigInteger userId,@Param("status") BigInteger status);
 
     //新增用户
     void addUser(User user);
