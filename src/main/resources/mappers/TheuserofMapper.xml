@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.TheuserofMapper">
+    <select id="getRoleCount" resultType="RoleCount">
+        select (select count(*) from `user` where role='admin') as admin,
+               (select count(*) from `user` where role='shop') as shop,
+               (select count(*) from `user` where role='user') as 'user'
+    </select>
+</mapper>
