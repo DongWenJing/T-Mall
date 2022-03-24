@@ -163,6 +163,9 @@ public class UserController {
     @Transactional
     @PostMapping("/shop/register")
     public ResponseData<?> register(@RequestBody Shop shop) {
+        if (!shop.getTelephone().matches("^[1][0-9]{10}")) {
+            throw new IllegalPhoneException("手机格式错误!");
+        }
         //检测下注册用户名是否重复
         String shopUsername = userService.getCheckUsername(shop.getUsername());
         //用户名重复禁止注册

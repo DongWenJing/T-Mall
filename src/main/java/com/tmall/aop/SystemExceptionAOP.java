@@ -16,37 +16,13 @@ import java.util.Map;
  */
 @RestControllerAdvice
 public class SystemExceptionAOP {
+
+    @ExceptionHandler({IOException.class,RuntimeException.class})
+    public Object fail(Exception e) {
         Map<String, Object> map = new HashMap<String,Object>(16);
-    {
+        map.put("msg", e.getMessage());
         map.put("code", 1);
         map.put("success",false);
-    }
-
-    @ExceptionHandler({IOException.class, PasswordException.class,
-            IllegalImageException.class, PhoneNotNullException.class,
-            RechargeException.class,RuntimeException.class})
-    public Object fail(Exception e) {
-        if (e instanceof IllegalImageException) {
-            map.put("msg", e.getMessage());
-            return map;
-        }
-        if (e instanceof PhoneNotNullException) {
-            map.put("msg", e.getMessage());
-            return map;
-        }
-        if (e instanceof IllegalPhoneException) {
-            map.put("msg", e.getMessage());
-            return map;
-        }
-        if (e instanceof PasswordException) {
-            map.put("msg", e.getMessage());
-            return map;
-        }
-        if (e instanceof RechargeException) {
-            map.put("msg", e.getMessage());
-            return map;
-        }
-        e.printStackTrace();
-        return ResponseDataUtils.buildError("1", e.getMessage());
+        return map;
     }
 }
