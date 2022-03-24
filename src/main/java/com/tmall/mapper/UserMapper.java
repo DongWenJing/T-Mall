@@ -49,9 +49,7 @@ public interface UserMapper {
 
     //新增用户
     void addUser(User user);
-    void updateUser(User user);
-
-    String findUser(String username);
+    
 
     // 进行用户名校验
     String getCheckUsername(String username);
@@ -64,4 +62,6 @@ public interface UserMapper {
 
     // 更新账户信息
     void updateAccountInfo(User user);
+
+    String findUserName(String username);
 }

@@ -146,10 +146,17 @@ public class UserController {
     //新增用户
     @PostMapping("/add")
     public ResponseData<?> addUser(@RequestBody User user){
-        userService.addUser(user);
-        return ResponseDataUtils.buildSuccess("0","新增用户成功");
+        //判断用户是否已存在
+        String username = userService.findUserName(user.getUsername());
+        if (!StringUtils.hasLength(username)) {
+            userService.addUser(user);
+            return ResponseDataUtils.buildSuccess("0", "新增用户成功");
+        }else {
+            return ResponseDataUtils.buildError("1","用户已存在,请重新输入");
+        }
     }
 
+    //用户注册
     @PostMapping("/register")
     public ResponseData<?> userRegister(@RequestBody User user) {
         // 检测用户名是否重复

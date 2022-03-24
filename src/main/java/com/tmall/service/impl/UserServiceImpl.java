@@ -1,5 +1,6 @@
 package com.tmall.service.impl;
 
+import com.tmall.common.ResponseDataUtils;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
@@ -115,6 +116,7 @@ public class UserServiceImpl implements UserService {
      * @param status
      */
     @Override
+    @Transactional
     public void updateUserStatus(BigInteger userId, BigInteger status) {
         userMapper.updateStatus(userId,status);
     }
@@ -124,14 +126,14 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
+    @Transactional
     public void addUser(User user) {
-        String getName = user.getUsername();
-        String name = userMapper.findUser(getName);
-        if (!StringUtils.hasLength(name)) {
-            userMapper.addUser(user);
-        }else {
-            userMapper.updateUser(user);
-        }
+        userMapper.addUser(user);
+    }
+
+    @Override
+    public String findUserName(String username) {
+        return userMapper.findUserName(username);
     }
 
     /**
