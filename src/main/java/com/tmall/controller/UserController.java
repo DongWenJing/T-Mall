@@ -134,4 +134,12 @@ public class UserController {
             return ResponseDataUtils.buildSuccess("0","充值成功~");
         }
     }
+
+    //更改用户权限状态
+    @PutMapping("/{userId}/{status}")
+    public ResponseData<?> changeStatus(@PathVariable("userId") BigInteger userId,
+                                        @PathVariable("status") BigInteger status){
+        userService.updateUserStatus(userId,status);
+        return ResponseDataUtils.buildSuccess("0", "用户状态更新成功");
+    }
 }

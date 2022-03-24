@@ -28,7 +28,7 @@ public interface UserService {
 
     //修改用户信息
     void updateUserById(User user);
-
+    //分页显示用户信息
     Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
     //修改密码
     void setPassword(Password password);
@@ -44,4 +44,7 @@ public interface UserService {
     void addRecharge(BigInteger userId, double money);
 
     Double getRecharge(BigInteger userId, double money);
+    //更新用户权限状态
+    void updateUserStatus(BigInteger userId, BigInteger status);
+
 }

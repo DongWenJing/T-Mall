@@ -80,4 +80,11 @@
         update `user` set money=#{money}
         where user_id=#{userId}
     </update>
+
+<!--    更新用户权限状态-->
+    <update id="updateStatus">
+        update user set status=#{status}
+        where user_id=#{userId}
+    </update>
+
 </mapper>

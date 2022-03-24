@@ -113,6 +113,17 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 更新用户权限状态
+     * @param userId
+     * @param status
+     */
+    @Override
+    public void updateUserStatus(BigInteger userId, BigInteger status) {
+        userMapper.updateStatus(userId,status);
+    }
+
+
+    /**
      * 修改用户密码,加密后存储到数据库
      * @param password
      */
@@ -133,4 +144,6 @@ public class UserServiceImpl implements UserService {
     public Integer countShopper(String key) {
         return userMapper.countShopper(key);
     }
+
+
 }

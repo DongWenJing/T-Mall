@@ -20,7 +20,7 @@ public interface UserMapper {
     User selectUserById(BigInteger userId);
     //修改用户信息
     void updateUserById(User user);
-
+    //分页显示用户信息
     List<User> findUserList(@Param("pageNum") Integer pageNum,
                             @Param("pageSize") Integer pageSize,
                             @Param("key") String key);
@@ -43,4 +43,8 @@ public interface UserMapper {
     void addRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
 
     Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
+
+    //更新用户权限状态
+    void updateStatus(BigInteger userId, BigInteger status);
+
 }
