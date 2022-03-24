@@ -137,6 +137,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 删除用户
+     * @param userId
+     */
+    @Override
+    @Transactional
+    public void deleteById(BigInteger userId) {
+        userMapper.deleteById(userId);
+    }
+
+    /**
      * 更新账户信息
      * @param user
      */

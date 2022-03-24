@@ -61,5 +61,7 @@ public interface UserService {
     void updateAccountInfo(User user);
     //新增用户
     void addUser(User user);
+    //删除用户
+    void deleteById(BigInteger userId);
     String findUserName(String username);
 }
