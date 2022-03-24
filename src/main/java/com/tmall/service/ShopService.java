@@ -10,11 +10,15 @@ import java.math.BigInteger;
  */
 public interface ShopService {
 
-    Shop getUserByUsername(String username);
-
-    void shopRegister(Shop shop);
-
+    // 通过用户id获取商家
     Shop getShopByUserId(BigInteger userId);
 
+    // 通过商家id获取商家信息
     Shop getShopByShopId(BigInteger shopId);
+
+    // 获取用户的id
+    BigInteger getUserId(String username);
+
+    // 完成注册商家
+    void shopRegister(Shop shop);
 }

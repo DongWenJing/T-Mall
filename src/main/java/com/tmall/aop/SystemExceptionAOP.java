@@ -17,44 +17,12 @@ import java.util.Map;
 @RestControllerAdvice
 public class SystemExceptionAOP {
 
-    @ExceptionHandler({IOException.class, PasswordException.class,RechargeException.class, IllegalImageException.class, PhoneNotNullException.class,RuntimeException.class})
+    @ExceptionHandler({IOException.class,RuntimeException.class})
     public Object fail(Exception e) {
-        if (e instanceof IllegalImageException) {
-            Map<String, Object> map = new HashMap<String,Object>(16);
-            map.put("code", 1);
-            map.put("msg", e.getMessage());
-            map.put("success", false);
-            return map;
-        }
-        if (e instanceof PhoneNotNullException) {
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("code", 1);
-            map.put("msg", e.getMessage());
-            map.put("success", false);
-            return map;
-        }
-        if (e instanceof IllegalPhoneException) {
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("code", 1);
-            map.put("msg", e.getMessage());
-            map.put("success", false);
-            return map;
-        }
-        if (e instanceof PasswordException) {
-            Map<String, Object> map = new HashMap(16);
-            map.put("code", 1);
-            map.put("msg", e.getMessage());
-            map.put("success", false);
-            return map;
-        }
-        if (e instanceof RechargeException) {
-            Map<String, Object> map = new HashMap(16);
-            map.put("code", 1);
-            map.put("msg", e.getMessage());
-            map.put("success", false);
-            return map;
-        }
-        e.printStackTrace();
-        return ResponseDataUtils.buildError("1", e.getMessage());
+        Map<String, Object> map = new HashMap<String,Object>(16);
+        map.put("msg", e.getMessage());
+        map.put("code", 1);
+        map.put("success",false);
+        return map;
     }
 }

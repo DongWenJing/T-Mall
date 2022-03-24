@@ -80,6 +80,22 @@
         where user_id=#{userId}
     </update>
 
+    <!--进行用户名校验-->
+    <select id="getCheckUsername" resultType="String">
+        select username from user where username=#{username}
+    </select>
+
+    <!--进行用户注册-->
+    <insert id="userRegister">
+        insert into user(username,password) value (#{username},#{password})
+    </insert>
+
+    <!--商户注册-->
+    <insert id="shopRegister">
+        insert into user(telephone,username,real_name,password,role)
+        value(#{telephone},#{username},#{realName},#{password},'shop')
+    </insert>
+
 <!--    更新用户权限状态-->
     <update id="updateStatus">
         update user set status=#{status}

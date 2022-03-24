@@ -5,6 +5,7 @@ import com.tmall.pojo.Cart;
 import com.tmall.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -17,6 +18,7 @@ public class CartServiceImpl implements CartService {
 
     //根据用户ID获取其所有购物车信息
     @Override
+    @Transactional
     public List<Cart> getCartById(BigInteger userId) {
         return cartMapper.getCartById(userId);
     }
@@ -29,12 +31,14 @@ public class CartServiceImpl implements CartService {
 
     // 获取某个用户的购物车信息的数量
     @Override
+    @Transactional
     public BigInteger getCartCountById(BigInteger userId) {
         return cartMapper.getCartCountById(userId);
     }
 
     // 检验用户是否收藏了某一件商品
     @Override
+    @Transactional
     public Cart findCartItem(BigInteger userId, BigInteger productId) {
         return cartMapper.findCartItem(userId, productId);
     }

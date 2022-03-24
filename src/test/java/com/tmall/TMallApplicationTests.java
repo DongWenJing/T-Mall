@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @SpringBootTest
@@ -11,6 +14,7 @@ class TMallApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
     }
 
     @Test

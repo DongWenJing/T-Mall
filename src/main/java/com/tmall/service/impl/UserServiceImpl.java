@@ -2,16 +2,16 @@ package com.tmall.service.impl;
 
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
+import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
-import java.sql.Timestamp;
-import java.util.Date;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -54,10 +54,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUserById(User user) {
-       /* Date date = new Date();
-        long time = date.getTime();
-        Timestamp timestamp = new Timestamp(time);
-        user.setCreateTime(timestamp);*/
         userMapper.updateUserById(user);
     }
 
@@ -159,6 +155,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer countShopper(String key) {
         return userMapper.countShopper(key);
+    }
+
+
+    //获取验证商家注册时所需的username
+    @Override
+    public String getCheckUsername(String username) {
+        return userMapper.getCheckUsername(username);
+    }
+
+    //商家注册
+    @Override
+    @Transactional
+    public void shopRegister(Shop shop) {
+        shop.setPassword(DigestUtils
+                .md5DigestAsHex(shop.getPassword().getBytes()));
+        userMapper.shopRegister(shop);
+    }
+
+    // 用户注册
+    @Override
+    @Transactional
+    public void userRegister(User user) {
+        user.setPassword(DigestUtils.
+                md5DigestAsHex(user.getPassword().getBytes()));
+        userMapper.userRegister(user);
     }
 
 
