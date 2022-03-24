@@ -1,9 +1,9 @@
 package com.tmall.mapper;
 
 import com.tmall.pojo.Password;
+import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -47,4 +47,13 @@ public interface UserMapper {
     //更新用户权限状态
     void updateStatus(BigInteger userId, BigInteger status);
 
+
+    // 进行用户名校验
+    String getCheckUsername(String username);
+
+    //商户注册
+    void shopRegister(Shop shop);
+
+    // 用户注册
+    void userRegister(User user);
 }

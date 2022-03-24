@@ -1,6 +1,7 @@
 package com.tmall.service;
 
 import com.tmall.pojo.Password;
+import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.vo.Page;
 
@@ -44,6 +45,15 @@ public interface UserService {
     void addRecharge(BigInteger userId, double money);
 
     Double getRecharge(BigInteger userId, double money);
+
+    // 检查用户名是否重复
+    String getCheckUsername(String username);
+
+    // 商户注册
+    void shopRegister(Shop shop);
+
+    // 用户注册
+    void userRegister(User user);
     //更新用户权限状态
     void updateUserStatus(BigInteger userId, BigInteger status);
 

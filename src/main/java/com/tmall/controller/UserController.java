@@ -7,17 +7,17 @@ import com.tmall.exception.PasswordException;
 import com.tmall.exception.PhoneNotNullException;
 import com.tmall.exception.RechargeException;
 import com.tmall.pojo.Password;
+import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -136,10 +136,42 @@ public class UserController {
     }
 
     //更改用户权限状态
-    @PutMapping("/{userId}/{status}")
+    @PatchMapping("/{userId}/{status}")
     public ResponseData<?> changeStatus(@PathVariable("userId") BigInteger userId,
                                         @PathVariable("status") BigInteger status){
         userService.updateUserStatus(userId,status);
         return ResponseDataUtils.buildSuccess("0", "用户状态更新成功");
     }
+
+    @PostMapping("/register")
+    public ResponseData<?> userRegister(@RequestBody User user) {
+        // 检测用户名是否重复
+        String username = userService.getCheckUsername(user.getUsername());
+        if (user.getUsername().equals(username)) {
+            return ResponseDataUtils.buildSuccess("1", "该用户名已被注册!");
+        }
+        userService.userRegister(user);
+        return ResponseDataUtils.buildSuccess("0","用户注册成功!");
+    }
+
+    /**
+     * 商家注册模块
+     * 请求类型:post
+     * 返回值类型:ResponseData
+     * 请求参数:Shop对象
+     */
+    @Transactional
+    @PostMapping("/shop/register")
+    public ResponseData<?> register(@RequestBody Shop shop) {
+        //检测下注册用户名是否重复
+        String shopUsername = userService.getCheckUsername(shop.getUsername());
+        //用户名重复禁止注册
+        if (shop.getUsername().equals(shopUsername)) {
+            return ResponseDataUtils.buildSuccess("1", "该用户名已被使用！");
+        }
+        userService.shopRegister(shop);
+        return ResponseDataUtils.buildSuccess("0", "店铺注册成功,即将跳转登录");
+    }
+
+
 }
