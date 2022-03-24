@@ -61,4 +61,7 @@ public interface UserMapper {
 
     // 用户注册
     void userRegister(User user);
+
+    // 更新账户信息
+    void updateAccountInfo(User user);
 }

@@ -183,5 +183,13 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "店铺注册成功,即将跳转登录");
     }
 
+    /**
+     * 更新账户信息
+     */
+    @PostMapping("/account")
+    public ResponseData<?> updateAccountInfo(@RequestBody User user) {
+        userService.updateAccountInfo(user);
+        return ResponseDataUtils.buildSuccess("0", "更新信息成功");
+    }
 
 }

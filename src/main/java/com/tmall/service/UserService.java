@@ -56,6 +56,9 @@ public interface UserService {
     void userRegister(User user);
     //更新用户权限状态
     void updateUserStatus(BigInteger userId, BigInteger status);
+
+    // 更新账户信息
+    void updateAccountInfo(User user);
     //新增用户
     void addUser(User user);
 }

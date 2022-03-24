@@ -134,6 +134,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 更新账户信息
+     * @param user
+     */
+    @Override
+    @Transactional
+    public void updateAccountInfo(User user) {
+        userMapper.updateAccountInfo(user);
+    }
+
 
     /**
      * 修改用户密码,加密后存储到数据库

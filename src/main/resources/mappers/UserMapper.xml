@@ -114,4 +114,16 @@
     <select id="findUser" resultType="string">
         select username from user where username=#{username}
     </select>
+    <!--更新账户信息-->
+    <update id="updateAccountInfo">
+        update user
+            <set>
+                <if test="username!=null"> username=#{username},</if>
+                <if test="real_name!=null"> real_name=#{realName},</if>
+                <if test="role!=null"> role=#{role},</if>
+                <if test="telephone!=null"> telephone=#{telephone},</if>
+            </set>
+        where user_id=#{userId}
+    </update>
+
 </mapper>
