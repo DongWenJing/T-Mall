@@ -40,7 +40,7 @@ public class User implements Serializable {
     private Timestamp createTime;
     //电子邮件
     private String email;
-
+    // 店铺名字
     private String shopName;
     // 软删除，1表示删除，0表示未删除
     private Integer isDeleted;

@@ -116,10 +116,9 @@
     <update id="updateAccountInfo">
         update user
             <set>
-                <if test="username != null">username=#{username},</if>
                 <if test="telephone != null">telephone=#{telephone},</if>
-                <if test="real_name != null">real_name=#{realName},</if>
-                <if test="role != null">`role`=#{role}</if>
+                <if test="realName != null">real_name=#{realName},</if>
+                <if test="role != null">role=#{role}</if>
             </set>
         where user_id=#{userId}
     </update>

@@ -1,5 +1,6 @@
 package com.tmall.service.impl;
 
+import com.tmall.mapper.ShopMapper;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ShopMapper shopMapper;
 
     @Override
     public User selectUserByUP(User user) {
@@ -159,9 +163,14 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
-    @Transactional
     public void updateAccountInfo(User user) {
+        // 更新user表中的数据
         userMapper.updateAccountInfo(user);
+        if (user.getShopName() != null) {
+            Shop shop = shopMapper.getShopByUserId(user.getUserId());
+            shop.setShopName(user.getShopName());
+            shopMapper.updateShopName(shop);
+        }
     }
 
 
