@@ -3,6 +3,7 @@ package com.tmall.mapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author R.Yu
  * @date 2022/3/19 12:41
  */
+@Mapper
 public interface UserMapper {
 
     User selectUserByUP(User user);

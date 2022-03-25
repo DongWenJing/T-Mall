@@ -23,4 +23,13 @@
         insert into shop(shop_name, username, owner_id) value(#{shopName},#{username},#{ownerId})
     </insert>
 
+    <!--修改店铺真实名字-->
+    <update id="updateShopName">
+        update shop
+        <set>
+            <if test="shopName != null">shop_name=#{shopName}</if>
+        </set>
+        where shop_id=#{shopId}
+    </update>
+
 </mapper>

@@ -21,4 +21,7 @@ public interface ShopMapper {
 
     // 获取用户id
     BigInteger getUserId(String username);
+
+    // 修改店铺名字
+    void updateShopName(Shop shop);
 }
