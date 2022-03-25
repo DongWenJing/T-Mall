@@ -15,4 +15,7 @@ public interface ProductCategoryService {
     void addCategory(ProductCategory productCategory);
 
     void setCategory(ProductCategory productCategory);
+
+    // 删除分类成功
+    void removeCategory(BigInteger categoryId);
 }

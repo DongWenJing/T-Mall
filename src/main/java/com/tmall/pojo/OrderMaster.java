@@ -13,7 +13,9 @@ import java.util.Date;
  */
 @Data
 public class OrderMaster implements Serializable {
+
     private static final long serialVersionUID = -4830773940900565709L;
+
     private Integer orderId;
     // 订单编号,前端生成
     private String orderNumber;
