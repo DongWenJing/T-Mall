@@ -10,6 +10,7 @@ import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,12 +58,7 @@ public class UserController {
     // 用户修改个人信息
     @PutMapping("/{id}")
     public ResponseData<?> updateUserById(@RequestBody User user){
-        String tel = user.getTelephone();
-        if (!StringUtils.hasLength(tel)) {
-            throw new PhoneNotNullException("手机号必填");
-        }else if (!tel.matches("[1][0-9]{10}")) {
-            throw new IllegalPhoneException("手机格式错误");
-        }
+        CheckPhone.checkPhone(user.getTelephone());
         userService.updateUserById(user);
         return ResponseDataUtils.buildSuccess("0","个人信息修改成功");
     }
@@ -177,9 +173,7 @@ public class UserController {
     @Transactional
     @PostMapping("/shop/register")
     public ResponseData<?> register(@RequestBody Shop shop) {
-        if (!shop.getTelephone().matches("^[1][0-9]{10}")) {
-            throw new IllegalPhoneException("手机格式错误!");
-        }
+        CheckPhone.checkPhone(shop.getTelephone());
         //检测下注册用户名是否重复
         String shopUsername = userService.getCheckUsername(shop.getUsername());
         //用户名重复禁止注册
