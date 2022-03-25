@@ -151,8 +151,8 @@
     </select>
 
     <!--通过userId获取店铺信息-->
-    <select id="getShopInfo">
-        select * from shop where owner_id=#{userId}
+    <select id="getShopInfo" resultType="Shop">
+        select shop_id from shop where owner_id=#{userId}
     </select>
     <update id="resetPassword">
         update user

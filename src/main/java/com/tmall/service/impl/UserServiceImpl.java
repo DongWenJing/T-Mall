@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByOrderNumber(String orderNumber) {
         return userMapper.getUserByOrderNumber(orderNumber);
     }
-
+    //获取shopId
     @Override
     public Shop getShopInfo(BigInteger userId) {
         return userMapper.getShopInfo(userId);

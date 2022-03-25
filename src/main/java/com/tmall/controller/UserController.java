@@ -228,6 +228,7 @@ public class UserController {
         return userService.getUserByOrderNumber(orderNumber);
     }
 
+    //为商家查询本店订单获取到shopId
     @GetMapping("/shop_id/{userId}")
     public BigInteger getShopInfo(@PathVariable BigInteger userId) {
         Shop shop =  userService.getShopInfo(userId);

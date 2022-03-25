@@ -69,7 +69,7 @@ public interface UserService {
     //删除用户
     void deleteById(BigInteger userId);
 
-    String findUserName(String username);
+
 
     User getUserByOrderNumber(String orderNumber);
 
