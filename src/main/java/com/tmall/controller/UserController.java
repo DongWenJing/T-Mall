@@ -199,4 +199,14 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "更新信息成功");
     }
 
+    /**
+     * 管理员重置账户密码(包括管理员,商家,用户)
+     */
+    @PatchMapping("/reset/{userId}")
+    public ResponseData<?> resetPassword(@PathVariable BigInteger userId) {
+        User user = userService.getUserById(userId);
+        userService.resetPassword(user);
+        return ResponseDataUtils.buildSuccess("0", "重置密码成功!");
+    }
+
 }

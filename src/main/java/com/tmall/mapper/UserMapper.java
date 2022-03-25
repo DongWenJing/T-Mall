@@ -4,6 +4,7 @@ import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -61,7 +62,20 @@ public interface UserMapper {
     void userRegister(User user);
 
     // 更新账户信息
+    /*@Update({"<script>",
+            "update user",
+            "  <set>",
+            "    <if test='username != null'>username=#{username},</if>",
+            "    <if test='telephone != null'>telephone=#{telephone},</if>",
+            "    <if test='realName != null'>real_name=#{realName},</if>",
+            "    <if test='role != null'>role=#{role},</if>",
+            "  </set>",
+            "where user_id=#{userId}",
+            "</script>"})*/
     void updateAccountInfo(User user);
 
     String findUserName(String username);
+
+    // 重置账户密码
+    void resetPassword(User user);
 }

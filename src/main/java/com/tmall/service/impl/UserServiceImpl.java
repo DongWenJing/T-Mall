@@ -137,11 +137,21 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 重置账户密码
+     * @param user
+     */
+    @Override
+    public void resetPassword(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
+        userMapper.resetPassword(user);
+    }
+
+    /**
      * 更新账户信息
      * @param user
      */
     @Override
-    @Transactional
+    // @Transactional
     public void updateAccountInfo(User user) {
         userMapper.updateAccountInfo(user);
     }

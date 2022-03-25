@@ -61,5 +61,9 @@ public interface UserService {
     void updateAccountInfo(User user);
     //新增用户
     void addUser(User user);
+
     String findUserName(String username);
+
+    // 重置账户密码
+    void resetPassword(User user);
 }

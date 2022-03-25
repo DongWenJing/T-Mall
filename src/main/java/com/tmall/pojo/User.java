@@ -3,11 +3,13 @@ package com.tmall.pojo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 @Data
 @Accessors(chain = true)
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -3606141113852419318L;
     //用户id
     private BigInteger userId;
     //用户名
