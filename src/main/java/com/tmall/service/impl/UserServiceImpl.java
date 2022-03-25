@@ -126,6 +126,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
+        String newPassword = DigestUtils.md5DigestAsHex(("1234").getBytes());
+        user.setPassword(newPassword);
         userMapper.addUser(user);
     }
 
@@ -153,6 +155,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
         userMapper.resetPassword(user);
     }
+
 
     /**
      * 更新账户信息

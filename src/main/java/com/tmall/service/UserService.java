@@ -62,10 +62,13 @@ public interface UserService {
     //新增用户
     void addUser(User user);
 
+    String findUserName(String username);
+
     //删除用户
     void deleteById(BigInteger userId);
-    String findUserName(String username);
 
     // 重置账户密码
     void resetPassword(User user);
+
+
 }
