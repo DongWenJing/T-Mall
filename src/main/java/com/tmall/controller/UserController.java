@@ -35,6 +35,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseData<?> login(@RequestBody User user) {
         User resultUser = userService.selectUserByUP(user);
+        resultUser.getShopId();
         if (resultUser == null) {
             return ResponseDataUtils.buildSuccess("2", "用户或密码错误");
         } else if (0 == resultUser.getStatus()) {
@@ -135,6 +136,18 @@ public class UserController {
         }
     }
 
+    // 查询某用户是否购买了某商品
+    @GetMapping("/check/{userId}/{productId}")
+    public ResponseData<?> check(@PathVariable BigInteger userId,
+                                 @PathVariable BigInteger productId){
+        //若flag=null则说明没有购买商品,不为null则购买了可以进行下一步(评论)
+      BigInteger flag= userService.check(userId,productId);
+        if (flag == null) {
+            return ResponseDataUtils.buildSuccess("1","未购买此商品不能评价哟~");
+        }
+        return ResponseDataUtils.buildSuccess("0","已购买此商品");
+    }
+
     //更改用户权限状态
     @PatchMapping("/{userId}/{status}")
     public ResponseData<?> changeStatus(@PathVariable("userId") BigInteger userId,
@@ -206,4 +219,16 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "用户删除成功");
     }
 
+    @GetMapping("/order_number/{orderNumber}")
+    public User getUserByOrderNumber(@PathVariable("orderNumber") String orderNumber) {
+
+        return userService.getUserByOrderNumber(orderNumber);
+    }
+
+    @GetMapping("/shop_id/{userId}")
+    public BigInteger getShopInfo(@PathVariable BigInteger userId) {
+        Shop shop =  userService.getShopInfo(userId);
+        System.out.println("shop = " + shop);
+        return shop.getShopId();
+    }
 }

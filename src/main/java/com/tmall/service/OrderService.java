@@ -11,4 +11,8 @@ import java.util.List;
  */
 public interface OrderService {
     List<OrderMaster> findOrderById(BigInteger buyerId);
+
+    List<OrderMaster> findByPage(int offset, Integer pageSize, BigInteger shopId);
+
+    Integer getCountByShopId(BigInteger shopId);
 }

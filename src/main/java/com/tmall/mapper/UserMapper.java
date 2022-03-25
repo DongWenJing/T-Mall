@@ -39,10 +39,12 @@ public interface UserMapper {
     void setPassword(Password password);
     //获取原始密码
     String getOldPassword(BigInteger userId);
-
+    //充值
     void addRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
-
+    //查询当前余额
     Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
+    //查询购买记录
+    BigInteger check(@Param("userId") BigInteger userId,@Param("productId") BigInteger productId);
 
     //更新用户权限状态
     void updateStatus(@Param("userId") BigInteger userId,@Param("status") BigInteger status);
@@ -67,4 +69,9 @@ public interface UserMapper {
     void deleteById(BigInteger userId);
 
     String findUserName(String username);
+
+    User getUserByOrderNumber(@Param("orderNumber") String orderNumber);
+
+    // 获取店铺信息
+    Shop getShopInfo(BigInteger userId);
 }

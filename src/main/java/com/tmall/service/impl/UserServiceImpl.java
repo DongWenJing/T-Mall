@@ -136,6 +136,16 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserName(username);
     }
 
+    @Override
+    public User getUserByOrderNumber(String orderNumber) {
+        return userMapper.getUserByOrderNumber(orderNumber);
+    }
+
+    @Override
+    public Shop getShopInfo(BigInteger userId) {
+        return userMapper.getShopInfo(userId);
+    }
+
     /**
      * 删除用户
      * @param userId
@@ -156,6 +166,18 @@ public class UserServiceImpl implements UserService {
         userMapper.updateAccountInfo(user);
     }
 
+
+    /**
+     * 获取是否有购买记录
+     * @param userId
+     * @param productId
+     * @return
+     */
+    @Override
+    public BigInteger check(BigInteger userId, BigInteger productId) {
+        BigInteger flag=userMapper.check(userId,productId);
+        return flag;
+    }
 
     /**
      * 修改用户密码,加密后存储到数据库

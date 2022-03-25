@@ -9,5 +9,14 @@
     <select id="findOrderById" resultType="OrderMaster">
         select * from order_master where buyer_id=#{buyerId} and order_status &lt; 4
     </select>
-
+<!--获取店铺的全部订单 -->
+    <select id="findByPage" resultType="OrderMaster">
+        SELECT * FROM order_master
+        WHERE shop_id=#{shopId}
+        limit #{offset},#{pageSize}
+    </select>
+<!-- 查询本店订单条数   -->
+    <select id="getCountByShopId" resultType="Integer">
+        select count(*) from order_master where shop_id=#{shopId}
+    </select>
 </mapper>

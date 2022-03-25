@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface UserService {
     /**
-     * 根据前端传过来的用户名和密码进行查询
+     * 根据前端传过来的用户名和密码进行查询信息登录
      * @param user
      * @return User对象
      */
@@ -46,6 +46,8 @@ public interface UserService {
 
     Double getRecharge(BigInteger userId, double money);
 
+    BigInteger check(BigInteger userId, BigInteger productId);
+
     // 检查用户名是否重复
     String getCheckUsername(String username);
 
@@ -63,5 +65,11 @@ public interface UserService {
     void addUser(User user);
     //删除用户
     void deleteById(BigInteger userId);
+
     String findUserName(String username);
+
+    User getUserByOrderNumber(String orderNumber);
+
+    // 获取店铺信息
+    Shop getShopInfo(BigInteger userId);
 }

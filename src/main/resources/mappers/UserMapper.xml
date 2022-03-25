@@ -5,13 +5,14 @@
 
 <mapper namespace="com.tmall.mapper.UserMapper">
     <select id="selectUserByUP" resultType="User">
-        select *
-        from
-             user
-        where
-              username=#{username}
-          and
-              password=#{password}
+        SELECT u.*,s.shop_id
+        FROM
+            `user` u INNER JOIN shop s
+             ON u.user_id=s.owner_id
+        WHERE
+            u.username=#{username}
+          AND
+            u.password=#{password}
     </select>
 <!--通过Id查询用户信息   -->
     <select id="selectUserById" resultType="User">
@@ -35,7 +36,7 @@
     where user_id=#{userId}
     </update>
 
-<!--   分页查询用户信息-->
+<!--  分页查询用户信息-->
     <select id="findUserList" resultType="User">
         select * from user
         where username like "%"#{key}"%"
@@ -71,10 +72,11 @@
         limit #{startNum},#{pageSize}
     </select>
 
-<!--    -->
+<!-- 获取原始余额 -->
     <select id="getRecharge" resultType="Double">
         select money from user where user_id=#{userId}
     </select>
+<!-- 充值虚拟货币   -->
     <update id="addRecharge" >
         update `user` set money=#{money}
         where user_id=#{userId}
@@ -127,4 +129,28 @@
         delete from user where user_id=#{userId}
     </delete>
 
+<!-- 查询是否有已完成订单记录,// order_status表示订单状态：
+0表示待付款，1表示待收货，2表示已取消，3表示已完成   -->
+    <select id="check" resultType="BigInteger">
+        SELECT order_id FROM order_master om, order_detail od
+
+        WHERE om.buyer_id= #{userId}
+
+          AND od.product_id=#{productId}
+
+          AND om.order_number=od.order_number
+
+          AND om.order_status=3
+    </select>
+
+    <select id="getUserByOrderNumber" resultType="User">
+        SELECT * FROM `user` u, order_master om
+        WHERE u.user_id=om.buyer_id
+        AND om.order_number=#{orderNumber}
+    </select>
+
+    <!--通过userId获取店铺信息-->
+    <select id="getShopInfo">
+        select * from shop where owner_id=#{userId}
+    </select>
 </mapper>

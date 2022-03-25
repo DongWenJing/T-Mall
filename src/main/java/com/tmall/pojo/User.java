@@ -38,5 +38,6 @@ public class User {
     private String email;
     // 软删除，1表示删除，0表示未删除
     private Integer isDeleted;
-
+    //shopId
+    private BigInteger shopId;
 }

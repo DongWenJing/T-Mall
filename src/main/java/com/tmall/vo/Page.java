@@ -3,9 +3,11 @@ package com.tmall.vo;
 import com.tmall.pojo.User;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.stereotype.Component;
 
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -14,7 +16,8 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class Page<T> implements Serializable {
+@Component
+public class Page<T>  implements Serializable {
 
     private Integer pageNum;
     private Integer pageSize;
