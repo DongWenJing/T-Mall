@@ -2,7 +2,6 @@ package com.tmall.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.Value;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -10,7 +9,8 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 @Data
 @Accessors(chain = true)
-public class User implements Serializable{
+public class User implements Serializable {
+    private static final long serialVersionUID = -3606141113852419318L;
     //用户id
     private BigInteger userId;
     //用户名

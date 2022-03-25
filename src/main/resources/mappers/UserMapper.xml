@@ -107,18 +107,19 @@
         insert into user(username,real_name,telephone,role)
         values(#{username},#{realName},#{telephone},#{role})
     </insert>
+
     <select id="findUserName" resultType="string">
         select username from user where username=#{username}
     </select>
+
     <!--更新账户信息-->
     <update id="updateAccountInfo">
         update user
             <set>
-                <if test="username !=null"> username=#{username},</if>
-                <if test="realName !=null"> real_name=#{realName},</if>
-                <if test="role !=null"> role=#{role},</if>
-                <if test="telephone !=null"> telephone=#{telephone},</if>
-                <if test="shopName !=null"> shop_name=#{shopName},</if>
+                <if test="username != null">username=#{username},</if>
+                <if test="telephone != null">telephone=#{telephone},</if>
+                <if test="real_name != null">real_name=#{realName},</if>
+                <if test="role != null">`role`=#{role}</if>
             </set>
         where user_id=#{userId}
     </update>
@@ -128,4 +129,9 @@
         delete from user where user_id=#{userId}
     </delete>
 
+    <update id="resetPassword">
+        update user
+        set password=#{password}
+        where user_id=#{userId}
+    </update>
 </mapper>

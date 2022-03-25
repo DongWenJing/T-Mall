@@ -2,6 +2,7 @@ package com.tmall.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
@@ -9,7 +10,8 @@ import java.math.BigInteger;
  * @date 2022/3/23 14:11
  */
 @Data
-public class OrderDetail {
+public class OrderDetail implements Serializable {
+    private static final long serialVersionUID = 1967474379872714006L;
     private BigInteger detailId;
     // 订单编号
     private String orderNumber;

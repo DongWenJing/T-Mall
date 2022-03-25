@@ -1,6 +1,5 @@
 package com.tmall.service.impl;
 
-import com.tmall.common.ResponseDataUtils;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StringUtils;
 
 
 import java.math.BigInteger;
@@ -147,6 +145,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 重置账户密码
+     * @param user
+     */
+    @Override
+    public void resetPassword(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
+        userMapper.resetPassword(user);
+    }
+
+    /**
      * 更新账户信息
      * @param user
      */
@@ -203,6 +211,5 @@ public class UserServiceImpl implements UserService {
                 md5DigestAsHex(user.getPassword().getBytes()));
         userMapper.userRegister(user);
     }
-
 
 }
