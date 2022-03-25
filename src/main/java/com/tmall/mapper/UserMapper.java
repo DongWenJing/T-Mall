@@ -50,7 +50,7 @@ public interface UserMapper {
 
     //新增用户
     void addUser(User user);
-    
+
 
     // 进行用户名校验
     String getCheckUsername(String username);
@@ -73,6 +73,9 @@ public interface UserMapper {
             "where user_id=#{userId}",
             "</script>"})*/
     void updateAccountInfo(User user);
+
+    //删除用户
+    void deleteById(BigInteger userId);
 
     String findUserName(String username);
 

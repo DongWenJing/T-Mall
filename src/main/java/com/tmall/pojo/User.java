@@ -1,5 +1,6 @@
 package com.tmall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -35,9 +36,12 @@ public class User implements Serializable {
     // 用户剩余资金，用于购买商品
     private double money;
     // 账号注册时间
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Timestamp createTime;
     //电子邮件
     private String email;
+
+    private String shopName;
     // 软删除，1表示删除，0表示未删除
     private Integer isDeleted;
 

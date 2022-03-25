@@ -1,6 +1,5 @@
 package com.tmall.service.impl;
 
-import com.tmall.common.ResponseDataUtils;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StringUtils;
 
 
 import java.math.BigInteger;
@@ -137,6 +135,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 删除用户
+     * @param userId
+     */
+    @Override
+    @Transactional
+    public void deleteById(BigInteger userId) {
+        userMapper.deleteById(userId);
+    }
+
+    /**
      * 重置账户密码
      * @param user
      */
@@ -151,7 +159,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
-    // @Transactional
+    @Transactional
     public void updateAccountInfo(User user) {
         userMapper.updateAccountInfo(user);
     }
@@ -203,6 +211,5 @@ public class UserServiceImpl implements UserService {
                 md5DigestAsHex(user.getPassword().getBytes()));
         userMapper.userRegister(user);
     }
-
 
 }

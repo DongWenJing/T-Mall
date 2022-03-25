@@ -199,6 +199,13 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "更新信息成功");
     }
 
+    //删除用户
+    @DeleteMapping("/{userId}")
+    public ResponseData<?> deleteUserById(@PathVariable("userId") BigInteger userId){
+        userService.deleteById(userId);
+        return ResponseDataUtils.buildSuccess("0", "用户删除成功");
+    }
+
     /**
      * 管理员重置账户密码(包括管理员,商家,用户)
      */

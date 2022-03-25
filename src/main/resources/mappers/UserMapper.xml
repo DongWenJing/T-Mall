@@ -107,9 +107,11 @@
         insert into user(username,real_name,telephone,role)
         values(#{username},#{realName},#{telephone},#{role})
     </insert>
+
     <select id="findUserName" resultType="string">
         select username from user where username=#{username}
     </select>
+
     <!--更新账户信息-->
     <update id="updateAccountInfo">
         update user
@@ -121,6 +123,11 @@
             </set>
         where user_id=#{userId}
     </update>
+
+<!--    删除用户-->
+    <delete id="deleteById">
+        delete from user where user_id=#{userId}
+    </delete>
 
     <update id="resetPassword">
         update user
