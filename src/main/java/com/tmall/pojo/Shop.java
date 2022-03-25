@@ -2,6 +2,7 @@ package com.tmall.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
@@ -10,7 +11,8 @@ import java.sql.Timestamp;
  * @Date : 2022/3/19 12:36
  */
 @Data
-public class Shop {
+public class Shop implements Serializable {
+    private static final long serialVersionUID = -3183898886361420155L;
     //商铺ID
     private BigInteger shopId;
     //所有者ID

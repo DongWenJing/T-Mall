@@ -10,6 +10,7 @@ import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseData<?> login(@RequestBody User user) {
         User resultUser = userService.selectUserByUP(user);
-        resultUser.getShopId();
         if (resultUser == null) {
             return ResponseDataUtils.buildSuccess("2", "用户或密码错误");
         } else if (0 == resultUser.getStatus()) {
@@ -58,12 +58,7 @@ public class UserController {
     // 用户修改个人信息
     @PutMapping("/{id}")
     public ResponseData<?> updateUserById(@RequestBody User user){
-        String tel = user.getTelephone();
-        if (!StringUtils.hasLength(tel)) {
-            throw new PhoneNotNullException("手机号必填");
-        }else if (!tel.matches("[1][0-9]{10}")) {
-            throw new IllegalPhoneException("手机格式错误");
-        }
+        CheckPhone.checkPhone(user.getTelephone());
         userService.updateUserById(user);
         return ResponseDataUtils.buildSuccess("0","个人信息修改成功");
     }
@@ -190,9 +185,7 @@ public class UserController {
     @Transactional
     @PostMapping("/shop/register")
     public ResponseData<?> register(@RequestBody Shop shop) {
-        if (!shop.getTelephone().matches("^[1][0-9]{10}")) {
-            throw new IllegalPhoneException("手机格式错误!");
-        }
+        CheckPhone.checkPhone(shop.getTelephone());
         //检测下注册用户名是否重复
         String shopUsername = userService.getCheckUsername(shop.getUsername());
         //用户名重复禁止注册
@@ -217,6 +210,16 @@ public class UserController {
     public ResponseData<?> deleteUserById(@PathVariable("userId") BigInteger userId){
         userService.deleteById(userId);
         return ResponseDataUtils.buildSuccess("0", "用户删除成功");
+    }
+
+    /**
+     * 管理员重置账户密码(包括管理员,商家,用户)
+     */
+    @PatchMapping("/reset/{userId}")
+    public ResponseData<?> resetPassword(@PathVariable BigInteger userId) {
+        User user = userService.getUserById(userId);
+        userService.resetPassword(user);
+        return ResponseDataUtils.buildSuccess("0", "重置密码成功!");
     }
 
     @GetMapping("/order_number/{orderNumber}")

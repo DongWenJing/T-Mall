@@ -1,13 +1,16 @@
 package com.tmall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 @Data
 @Accessors(chain = true)
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -3606141113852419318L;
     //用户id
     private BigInteger userId;
     //用户名
@@ -33,9 +36,12 @@ public class User {
     // 用户剩余资金，用于购买商品
     private double money;
     // 账号注册时间
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Timestamp createTime;
     //电子邮件
     private String email;
+    // 店铺名字
+    private String shopName;
     // 软删除，1表示删除，0表示未删除
     private Integer isDeleted;
     //shopId

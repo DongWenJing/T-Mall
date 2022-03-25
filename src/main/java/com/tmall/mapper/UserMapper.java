@@ -3,7 +3,9 @@ package com.tmall.mapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -74,4 +76,7 @@ public interface UserMapper {
 
     // 获取店铺信息
     Shop getShopInfo(BigInteger userId);
+
+    // 重置账户密码
+    void resetPassword(User user);
 }

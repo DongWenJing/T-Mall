@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  */
 @Data
 public class Product implements Serializable {
+    private static final long serialVersionUID = 8534153616150851502L;
     // 商品ID
     private BigInteger productId;
     // 商品名称

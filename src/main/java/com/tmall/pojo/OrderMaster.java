@@ -2,6 +2,7 @@ package com.tmall.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -11,8 +12,8 @@ import java.util.Date;
  * @date 2022/3/23 14:16
  */
 @Data
-public class OrderMaster {
-
+public class OrderMaster implements Serializable {
+    private static final long serialVersionUID = -4830773940900565709L;
     private Integer orderId;
     // 订单编号,前端生成
     private String orderNumber;

@@ -15,6 +15,7 @@ import java.math.BigInteger;
 
 public class ProductCategory implements Serializable {
 
+    private static final long serialVersionUID = 1890343468014366123L;
     //商品分类id
     private BigInteger categoryId;
     //商品分类名称

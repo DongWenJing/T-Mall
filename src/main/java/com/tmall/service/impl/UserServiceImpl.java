@@ -1,6 +1,6 @@
 package com.tmall.service.impl;
 
-import com.tmall.common.ResponseDataUtils;
+import com.tmall.mapper.ShopMapper;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.StringUtils;
 
 
 import java.math.BigInteger;
@@ -26,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ShopMapper shopMapper;
 
     @Override
     public User selectUserByUP(User user) {
@@ -128,6 +130,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
+        String newPassword = DigestUtils.md5DigestAsHex(("1234").getBytes());
+        user.setPassword(newPassword);
         userMapper.addUser(user);
     }
 
@@ -157,13 +161,29 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 重置账户密码
+     * @param user
+     */
+    @Override
+    public void resetPassword(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
+        userMapper.resetPassword(user);
+    }
+
+
+    /**
      * 更新账户信息
      * @param user
      */
     @Override
-    @Transactional
     public void updateAccountInfo(User user) {
+        // 更新user表中的数据
         userMapper.updateAccountInfo(user);
+        if (user.getShopName() != null) {
+            Shop shop = shopMapper.getShopByUserId(user.getUserId());
+            shop.setShopName(user.getShopName());
+            shopMapper.updateShopName(shop);
+        }
     }
 
 
@@ -225,6 +245,5 @@ public class UserServiceImpl implements UserService {
                 md5DigestAsHex(user.getPassword().getBytes()));
         userMapper.userRegister(user);
     }
-
 
 }

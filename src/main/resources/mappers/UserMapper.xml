@@ -106,20 +106,21 @@
 
 <!--    新增用户-->
     <insert id="addUser">
-        insert into user(username,real_name,telephone,role)
-        values(#{username},#{realName},#{telephone},#{role})
+        insert into user(username,password,real_name,telephone,role)
+        values(#{username},#{password},#{realName},#{telephone},#{role})
     </insert>
+
     <select id="findUserName" resultType="string">
         select username from user where username=#{username}
     </select>
+
     <!--更新账户信息-->
     <update id="updateAccountInfo">
         update user
             <set>
-                <if test="username!=null"> username=#{username},</if>
-                <if test="real_name!=null"> real_name=#{realName},</if>
-                <if test="role!=null"> role=#{role},</if>
-                <if test="telephone!=null"> telephone=#{telephone}</if>
+                <if test="telephone != null">telephone=#{telephone},</if>
+                <if test="realName != null">real_name=#{realName},</if>
+                <if test="role != null">role=#{role}</if>
             </set>
         where user_id=#{userId}
     </update>
@@ -153,4 +154,9 @@
     <select id="getShopInfo">
         select * from shop where owner_id=#{userId}
     </select>
+    <update id="resetPassword">
+        update user
+        set password=#{password}
+        where user_id=#{userId}
+    </update>
 </mapper>
