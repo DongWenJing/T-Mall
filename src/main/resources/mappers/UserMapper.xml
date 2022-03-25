@@ -104,8 +104,8 @@
 
 <!--    新增用户-->
     <insert id="addUser">
-        insert into user(username,real_name,telephone,role)
-        values(#{username},#{realName},#{telephone},#{role})
+        insert into user(username,password,real_name,telephone,role)
+        values(#{username},#{password},#{realName},#{telephone},#{role})
     </insert>
 
     <select id="findUserName" resultType="string">
