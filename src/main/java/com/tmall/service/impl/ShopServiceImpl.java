@@ -42,4 +42,10 @@ public class ShopServiceImpl implements ShopService {
     public void shopRegister(Shop shop) {
         shopMapper.shopRegister(shop);
     }
+
+    // 通过产品id获取商家id
+    @Override
+    public BigInteger getShopIdByProductId(BigInteger productId) {
+        return shopMapper.getShopByProductId(productId);
+    }
 }

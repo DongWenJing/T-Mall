@@ -11,13 +11,14 @@
     </select>
 <!--获取店铺的全部订单 -->
     <select id="findByPage" resultType="OrderMaster">
-        SELECT * FROM order_master
-        WHERE shop_id=#{shopId}
+        select * from order_master
+        where shop_id=#{shopId}
+        order by create_time desc
         limit #{offset},#{pageSize}
     </select>
 <!-- 查询本店订单条数   -->
     <select id="getCountByShopId" resultType="Integer">
-        select count(*) from order_master where shop_id=#{shopId}
+        select count(*) from order_master where shop_id=#{shopId} order by create_time desc
     </select>
 <!-- 获取到订单状态   -->
     <select id="getOrderStatus" resultType="Integer">
@@ -37,11 +38,11 @@
         set order_status=2
         where order_number=#{orderNumber}
     </update>
-    
+
 <!--    添加一条订单-->
     <insert id="addOrderMaster">
-        insert into order_master(order_number,buyer_id, order_amount, shop_id)
-        value (#{orderNumber},#{buyerId}, #{orderAmount}, #{shopId})
+        insert into order_master(order_number,buyer_id,order_amount,shop_id)
+        values (#{orderNumber},#{buyerId},#{orderAmount},#{shopId})
     </insert>
 
 
@@ -54,4 +55,5 @@
     <select id="countt" resultType="OrderMaster">
         select (count(*)) from order_master where buyer_id=#{userId} and order_status &lt; 4
     </select>
+
 </mapper>

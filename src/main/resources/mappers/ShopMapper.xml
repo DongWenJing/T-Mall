@@ -32,4 +32,9 @@
         where shop_id=#{shopId}
     </update>
 
+    <!--通过产品id获取商家id-->
+    <select id="getShopByProductId" resultType="BigInteger">
+        select shop_id from product where product_id=#{productId}
+    </select>
+
 </mapper>

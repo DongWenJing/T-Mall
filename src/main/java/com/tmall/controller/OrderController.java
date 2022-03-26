@@ -58,7 +58,7 @@ public class OrderController {
         System.out.println("shopId = " + shopId);
         List<OrderMaster> userData = orderService.findByPage(offset,pageSize,shopId);
         page.setData(userData);
-       Integer total = orderService.getCountByShopId(shopId);
+        Integer total = orderService.getCountByShopId(shopId);
         page.setTotal(total);
         page.setPageNum(pageNum);
         page.setPageSize(pageSize);
@@ -92,11 +92,11 @@ public class OrderController {
             return ResponseDataUtils.buildSuccess("0","订单已取消,请及时通知客户");
         }
     }
+
     //添加一条订单
     @PostMapping("/master")
     public ResponseData<?> addOrderMaster(@RequestBody OrderMaster orderMaster){
-
-      orderService.addOrderMaster(orderMaster);
+        orderService.addOrderMaster(orderMaster);
         return ResponseDataUtils.buildSuccess("0","订单提交成功");
     }
 
@@ -114,4 +114,6 @@ public class OrderController {
         BigInteger count =  orderService.getCount(userId);
         return ResponseDataUtils.buildSuccess("0", "获取订单数成功！", count);
     }
+
+    // @GetMapping
 }

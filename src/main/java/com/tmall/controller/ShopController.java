@@ -60,5 +60,11 @@ public class ShopController {
         return ResponseDataUtils.buildSuccess("0", "商家注册成功!");
     }
 
+    // 通过产品id获取商家id
+    @GetMapping("/product_id/{productId}")
+    public BigInteger getShopId(@PathVariable BigInteger productId) {
+        return shopService.getShopIdByProductId(productId);
+    }
+
 }
 

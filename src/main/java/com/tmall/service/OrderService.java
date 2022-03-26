@@ -23,7 +23,6 @@ public interface OrderService {
 
     void cancel(String orderNumber);
 
-
     void addOrderMaster(OrderMaster orderMaster);
 
     void addOrderDetail(OrderDetail orderDetail);

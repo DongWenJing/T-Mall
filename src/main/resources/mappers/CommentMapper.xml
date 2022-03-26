@@ -7,10 +7,9 @@
 
 <!--    根据指定商品ID获取评论信息-->
    <select id="findCommentsById" resultType="Comment">
-
-       SELECT comment_text,username,avatar,comment_id FROM
+       SELECT comment_text,username,avatar,comment_id,product_id,c.user_id FROM
            `comment` c  LEFT JOIN `user` u
-                                  ON  c.user_id=u.user_id
+        ON  c.user_id=u.user_id
        WHERE  product_id = #{productId}
    </select>
 

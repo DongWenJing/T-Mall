@@ -21,4 +21,7 @@ public interface ShopService {
 
     // 完成注册商家
     void shopRegister(Shop shop);
+
+    // 通过产品id获取商家id
+    BigInteger getShopIdByProductId(BigInteger productId);
 }

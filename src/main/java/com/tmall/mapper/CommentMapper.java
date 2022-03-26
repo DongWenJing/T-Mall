@@ -2,7 +2,6 @@ package com.tmall.mapper;
 
 import com.tmall.pojo.Comment;
 import com.tmall.pojo.DetailsComment;
-import org.apache.ibatis.annotations.Select;
 
 import java.math.BigInteger;
 import java.util.List;
