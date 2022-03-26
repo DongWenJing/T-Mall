@@ -19,4 +19,22 @@
     <select id="getCountByShopId" resultType="Integer">
         select count(*) from order_master where shop_id=#{shopId}
     </select>
+<!-- 获取到订单状态   -->
+    <select id="getOrderStatus" resultType="Integer">
+        select order_status
+        from order_master
+        where order_number=#{orderNumber}
+    </select>
+<!-- 修改订单状态   -->
+    <update id="sendByOrderNumber">
+        update order_master
+        set order_status=3
+        where order_number=#{orderNumber}
+    </update>
+<!--  取消订单      -->
+    <update id="cancel">
+        update order_master
+        set order_status=2
+        where order_number=#{orderNumber}
+    </update>
 </mapper>

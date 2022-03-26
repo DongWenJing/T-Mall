@@ -2,6 +2,7 @@ package com.tmall.controller;
 
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
+import com.tmall.exception.OrderSendException;
 import com.tmall.pojo.OrderMaster;
 import com.tmall.service.OrderService;
 import com.tmall.vo.Page;
@@ -61,5 +62,33 @@ public class OrderController {
         page.setPageNum(pageNum);
         page.setPageSize(pageSize);
         return ResponseDataUtils.buildSuccess("0","加载信息完成",page);
+    }
+
+    // 商家发货
+    @PatchMapping("/send/{orderNumber}")
+    public ResponseData<?> send(@PathVariable String orderNumber){
+
+        Integer orderStatus = orderService.getOrderStatus(orderNumber);
+        if (orderStatus != 1) {
+            throw new OrderSendException("订单状态异常,请联系商家处理");
+        }else {
+            orderService.sendByOrderNumber(orderNumber);
+            return ResponseDataUtils.buildSuccess("0","订单发货成功请,提醒用户注意查收");
+        }
+    }
+
+    // 取消订单
+    @PatchMapping("/cancel/{orderNumber}")
+    public ResponseData<?> cancel(@PathVariable String orderNumber){
+        //获取订单状态
+        Integer orderStatus = orderService.getOrderStatus(orderNumber);
+
+        if (orderStatus == 1) {
+            orderService.cancel(orderNumber);
+            return ResponseDataUtils.buildSuccess("0","此为已付款订单已取消,请及时通知客户告知原因");
+        }else {
+            orderService.cancel(orderNumber);
+            return ResponseDataUtils.buildSuccess("0","订单已取消,请及时通知客户");
+        }
     }
 }
