@@ -37,4 +37,21 @@
         set order_status=2
         where order_number=#{orderNumber}
     </update>
+    
+<!--    添加一条订单-->
+    <insert id="addOrderMaster">
+        insert into order_master(order_number,buyer_id, order_amount, shop_id)
+        value (#{orderNumber},#{buyerId}, #{orderAmount}, #{shopId})
+    </insert>
+
+
+<!--     //保存订单信息中每一天商品的信息-->
+    <insert id="addOrderDetail">
+        insert into order_detail(detail_id,order_number,product_id,count,create_time,update_time) value (#{detailId},#{orderNumber}, #{productId}, #{count},#{createTime},#{updateTime})
+    </insert>
+<!--    !根据用户id获取订单数，可修改为待付款的订单数-->
+<!--    SELECT count(*) FROM order_master WHERE buyer_id=#{userId} AND order_status<4-->
+    <select id="countt" resultType="OrderMaster">
+        select (count(*)) from order_master where buyer_id=#{userId} and order_status &lt; 4
+    </select>
 </mapper>

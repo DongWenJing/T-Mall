@@ -31,4 +31,7 @@ public class OrderMaster implements Serializable {
     private Integer orderStatus;
 
     private BigInteger shopId;
+
+
+
 }

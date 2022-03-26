@@ -1,5 +1,6 @@
 package com.tmall.mapper;
 
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,15 @@ public interface OrderMapper {
 
     //取消订单
     void cancel(String orderNumber);
+
+    //添加一条订单信息
+
+    void addOrderMaster(OrderMaster orderMaster);
+    //保存订单信息中每一天商品的信息
+    void addOrderDetail(OrderDetail orderDetail);
+//!根据用户id获取订单数，可修改为待付款的订单数
+    BigInteger countt(BigInteger userId);
+
+
+
 }

@@ -1,12 +1,14 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.OrderMapper;
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 import com.tmall.service.OrderService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +19,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
+
+
 
     public OrderServiceImpl(OrderMapper orderMapper) {
         this.orderMapper = orderMapper;
@@ -58,4 +62,30 @@ public class OrderServiceImpl implements OrderService {
     public void cancel(String orderNumber) {
         orderMapper.cancel(orderNumber);
     }
+    // !添加一条订单信息
+    @Override
+    public void addOrderMaster(OrderMaster orderMaster) {
+
+        orderMapper.addOrderMaster(orderMaster);
+
+
+
+    }
+    //保存订单信息中每一天商品的信息
+    @Override
+    public void addOrderDetail(OrderDetail orderDetail) {
+
+        Date date = new Date();
+        orderDetail.setCreateTime(date);
+        orderDetail.setUpdateTime(date);
+        orderMapper.addOrderDetail(orderDetail);
+    }
+
+    //获取用户订单数
+    @Override
+    public BigInteger getCount(BigInteger userId) {
+        return orderMapper.countt(userId);
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.tmall.controller;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.exception.OrderSendException;
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 import com.tmall.service.OrderService;
 import com.tmall.vo.Page;
@@ -90,5 +91,27 @@ public class OrderController {
             orderService.cancel(orderNumber);
             return ResponseDataUtils.buildSuccess("0","订单已取消,请及时通知客户");
         }
+    }
+    //添加一条订单
+    @PostMapping("/master")
+    public ResponseData<?> addOrderMaster(@RequestBody OrderMaster orderMaster){
+
+      orderService.addOrderMaster(orderMaster);
+        return ResponseDataUtils.buildSuccess("0","订单提交成功");
+    }
+
+    //保存订单信息中每一天商品的信息
+
+    @PostMapping("/detail")
+    public ResponseData<?> addOrderDetail(@RequestBody OrderDetail orderDetail){
+        orderService.addOrderDetail(orderDetail);
+        return ResponseDataUtils.buildSuccess("0", "订单商品保存成功");
+    }
+
+    // 获取用户订单数
+    @GetMapping("/count/{userId}")
+    public  ResponseData<?> getOrderCount(@PathVariable BigInteger userId) {
+        BigInteger count =  orderService.getCount(userId);
+        return ResponseDataUtils.buildSuccess("0", "获取订单数成功！", count);
     }
 }

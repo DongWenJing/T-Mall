@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 /**
  * @author R.Yu
@@ -27,4 +28,7 @@ public class OrderDetail implements Serializable {
     private BigInteger count;
     // 某一件订单中一类商品的总额
     private Double orderProductPrice;
+
+    private Date createTime;
+    private Date updateTime;
 }

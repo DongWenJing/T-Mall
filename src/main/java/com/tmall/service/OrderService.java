@@ -1,5 +1,6 @@
 package com.tmall.service;
 
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 
 import java.math.BigInteger;
@@ -21,4 +22,11 @@ public interface OrderService {
     Integer getOrderStatus(String orderNumber);
 
     void cancel(String orderNumber);
+
+
+    void addOrderMaster(OrderMaster orderMaster);
+
+    void addOrderDetail(OrderDetail orderDetail);
+
+    BigInteger getCount(BigInteger userId);
 }
