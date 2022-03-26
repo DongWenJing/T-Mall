@@ -19,4 +19,8 @@ public class Comment {
     private Timestamp commentTime;
     //用户id
     private BigInteger userId;
+    //user表名字
+    private String username;
+    //user 表用户头像
+    private String avatar;
 }

@@ -6,9 +6,6 @@
 <mapper namespace="com.tmall.mapper.CommentMapper">
 
 <!--    根据指定商品ID获取评论信息-->
-    <!--/*select comment_text,username,avatar,comment_id
-    from  `comment`,`user` where product_id=#{productId}
-    and   comment.user_id=#{userId}*/-->
    <select id="findCommentsById" resultType="Comment">
 
        SELECT comment_text,username,avatar,comment_id FROM

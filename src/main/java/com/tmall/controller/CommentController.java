@@ -29,7 +29,9 @@ public class CommentController {
     @GetMapping("/{productId}")
     public List<DetailsComment>findCommentsById(@PathVariable("productId")
                                                         BigInteger productId){
+
         return commentService.findCommentsById(productId);
+
 
     }
 
