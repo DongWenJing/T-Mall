@@ -22,4 +22,7 @@ public interface ProductCategoryMapper {
 
     //编辑分类
     void setCategory(ProductCategory productCategory);
+
+    // 删除分类
+    void removeCategory(BigInteger categoryId);
 }

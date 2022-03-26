@@ -1,5 +1,6 @@
 package com.tmall.service;
 
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 
 import java.math.BigInteger;
@@ -45,4 +46,6 @@ public interface ProductService {
     List<Product> getHotProduct();
 
     List<Product> getNewProduct();
+
+    List<OrderDetail> findOrderDetail(String orderNumber);
 }

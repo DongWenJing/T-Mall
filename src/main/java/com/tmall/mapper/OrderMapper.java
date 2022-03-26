@@ -20,4 +20,13 @@ public interface OrderMapper {
                                  @Param("shopId") BigInteger shopId);
     //查询订单条数
     Integer getCountByShopId(BigInteger shopId);
+
+    //修改订单状态
+    void sendByOrderNumber(String orderNumber);
+
+    //获取订单状态
+    Integer getOrderStatus(String orderNumber);
+
+    //取消订单
+    void cancel(String orderNumber);
 }

@@ -47,4 +47,11 @@ public class ProductCategoryController {
         return ResponseDataUtils.buildSuccess("0", "修改分类成功！");
     }
 
+    // 删除商品分类
+    @DeleteMapping("/{categoryId}")
+    public ResponseData<?> removeCategory(@PathVariable("categoryId") BigInteger categoryId) {
+        productCategoryService.removeCategory(categoryId);
+        return ResponseDataUtils.buildSuccess("0", "删除分类成功!");
+    }
+
 }

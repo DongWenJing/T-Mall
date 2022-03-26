@@ -50,4 +50,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         productCategoryMapper.setCategory(productCategory);
     }
 
+    // 删除分类
+    @Override
+    public void removeCategory(BigInteger categoryId) {
+        productCategoryMapper.removeCategory(categoryId);
+    }
+
 }

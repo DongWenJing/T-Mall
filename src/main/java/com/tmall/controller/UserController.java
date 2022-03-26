@@ -121,7 +121,7 @@ public class UserController {
         BigInteger userId = user.getUserId();
         double money = user.getMoney();
         Double money1 =userService.getRecharge(userId,money);
-       Double newMoney= money+money1;
+        Double newMoney= money+money1;
         if (money<500 ) {
             throw new RechargeException("抱歉最低充值500元");
         }else {
@@ -154,6 +154,7 @@ public class UserController {
     //新增用户
     @PostMapping("/add")
     public ResponseData<?> addUser(@RequestBody User user){
+        CheckPhone.checkPhone(user.getTelephone());
         //判断用户是否已存在
         String username = userService.findUserName(user.getUsername());
         if (!StringUtils.hasLength(username)) {

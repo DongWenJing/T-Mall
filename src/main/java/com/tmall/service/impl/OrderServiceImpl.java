@@ -40,4 +40,22 @@ public class OrderServiceImpl implements OrderService {
     public Integer getCountByShopId(BigInteger shopId) {
         return orderMapper.getCountByShopId(shopId);
     }
+
+    //修改订单状态
+    @Override
+    public void sendByOrderNumber(String orderNumber) {
+        orderMapper.sendByOrderNumber(orderNumber);
+    }
+
+    //获取订单的状态
+    @Override
+    public Integer getOrderStatus(String orderNumber) {
+        return orderMapper.getOrderStatus(orderNumber);
+    }
+
+    //取消订单
+    @Override
+    public void cancel(String orderNumber) {
+        orderMapper.cancel(orderNumber);
+    }
 }

@@ -15,4 +15,10 @@ public interface OrderService {
     List<OrderMaster> findByPage(int offset, Integer pageSize, BigInteger shopId);
 
     Integer getCountByShopId(BigInteger shopId);
+
+    void sendByOrderNumber(String orderNumber);
+
+    Integer getOrderStatus(String orderNumber);
+
+    void cancel(String orderNumber);
 }

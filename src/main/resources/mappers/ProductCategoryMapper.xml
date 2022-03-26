@@ -24,4 +24,9 @@
     <update id="setCategory" parameterType="productCategory">
         update product_category set category_name=#{categoryName} where category_id=#{categoryId}
     </update>
+
+    <!--删除分类-->
+    <delete id="removeCategory">
+        delete from product_category where category_id=#{categoryId}
+    </delete>
 </mapper>
