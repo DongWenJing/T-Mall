@@ -67,5 +67,26 @@
     <select id="getNewProduct" resultType="Product">
         select * from product where date_format(create_time,'%Y-%m-%d')>= '2022-03-20' limit 10
     </select>
-
+<!--SELECT
+    img_src,
+    product_name,
+    product_price,
+    product.product_id as product_id,
+     count,
+     count*product_price*discount as orderProductPrice
+     FROM order_detail, product
+     WHERE product.product_id=order_detail.product_id
+     AND order_number=#{orderNumber}    -->
+    <select id="findOrderDetail" resultType="OrderDetail">
+        SELECT
+            img_src,
+            product_name,
+            product_price,
+            product.product_id as product_id,
+            count,
+            count*product_price*discount as orderProductPrice
+        FROM order_detail, product
+        WHERE product.product_id=order_detail.product_id
+          AND order_number=#{orderNumber}
+    </select>
 </mapper>

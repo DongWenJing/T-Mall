@@ -2,6 +2,7 @@ package com.tmall.controller;
 
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 import com.tmall.service.ProductService;
 import com.tmall.vo.Page;
@@ -115,5 +116,12 @@ public class ProductController {
     @GetMapping("/new")
     public List<Product> getNewProduct() {
         return productService.getNewProduct();
+    }
+
+    @GetMapping("/order/{orderNumber}")
+    public ResponseData<?> findOrderDetail(@PathVariable String orderNumber) {
+        List<OrderDetail> details= productService.findOrderDetail(orderNumber);
+
+        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
     }
 }

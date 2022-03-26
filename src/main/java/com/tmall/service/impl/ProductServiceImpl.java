@@ -1,11 +1,13 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.ProductMapper;
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 import com.tmall.service.ProductService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -94,5 +96,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getNewProduct() {
         return productMapper.getNewProduct();
+    }
+
+    @Override
+    public List<OrderDetail> findOrderDetail( String orderNumber) {
+        return productMapper.findOrderDetail(orderNumber);
     }
 }

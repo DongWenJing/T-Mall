@@ -1,5 +1,6 @@
 package com.tmall.mapper;
 
+import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 
@@ -38,4 +39,6 @@ public interface ProductMapper {
     List<Product> getHotProduct();
 
     List<Product> getNewProduct();
+
+    List<OrderDetail> findOrderDetail(String orderNumber);
 }
