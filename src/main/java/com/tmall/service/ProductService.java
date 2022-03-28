@@ -48,4 +48,6 @@ public interface ProductService {
     List<Product> getNewProduct();
 
     List<OrderDetail> findOrderDetail(String orderNumber);
+
+    List<Product> search(String key);
 }

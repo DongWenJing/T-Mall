@@ -2,6 +2,7 @@ package com.tmall.controller;
 
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
+import com.tmall.exception.RechargeException;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 import com.tmall.service.ProductService;
@@ -123,5 +124,17 @@ public class ProductController {
         List<OrderDetail> details= productService.findOrderDetail(orderNumber);
 
         return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+    }
+
+    // 首页的搜索功能
+    @GetMapping("/search")
+    public ResponseData<?> search(@RequestParam(defaultValue = "") String key) {
+
+        List<Product> result = productService.search(key);
+        if (result == null) {
+            throw new RechargeException("无此商品");
+        }else {
+            return ResponseDataUtils.buildSuccess("0", "查询成功~", result);
+        }
     }
 }

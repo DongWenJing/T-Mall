@@ -1,5 +1,6 @@
 package com.tmall.service.impl;
 
+import com.tmall.exception.RechargeException;
 import com.tmall.mapper.ProductMapper;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
@@ -101,5 +102,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<OrderDetail> findOrderDetail( String orderNumber) {
         return productMapper.findOrderDetail(orderNumber);
+    }
+
+    //首页搜索功能
+    @Override
+    public List<Product> search(String key) {
+         List<Product> result = productMapper.search(key);
+         return result;
     }
 }

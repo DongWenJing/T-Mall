@@ -89,4 +89,9 @@
         WHERE product.product_id=order_detail.product_id
           AND order_number=#{orderNumber}
     </select>
+<!-- 首页模糊查询   -->
+    <select id="search" resultType="Product">
+        select * from product
+        where product_name like "%"#{key}"%"
+    </select>
 </mapper>

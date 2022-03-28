@@ -41,4 +41,6 @@ public interface ProductMapper {
     List<Product> getNewProduct();
 
     List<OrderDetail> findOrderDetail(String orderNumber);
+
+    List<Product> search(String key);
 }
