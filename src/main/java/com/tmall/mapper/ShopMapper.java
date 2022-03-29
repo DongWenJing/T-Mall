@@ -27,4 +27,10 @@ public interface ShopMapper {
 
     // 通过产品id获取商家id
     BigInteger getShopByProductId(BigInteger productId);
+
+    Double getSale(Double shopId);
+
+    BigInteger getShopId(BigInteger userId);
+
+    Integer getVolume(Integer shopId);
 }

@@ -66,5 +66,20 @@ public class ShopController {
         return shopService.getShopIdByProductId(productId);
     }
 
+    //查询店铺的销售额
+    @GetMapping("/getsale/{shopId}")
+    public ResponseData getSale(@PathVariable Double shopId){
+        Double sale=  shopService.getSale(shopId);
+        System.out.println("销售额"+sale);
+        return ResponseDataUtils.buildSuccess("0","",sale);
+    }
+
+    //查询店铺的销量
+    @GetMapping("/getVolume/{shopId}")
+    public ResponseData getVolume(@PathVariable Integer shopId){
+       Integer volume= shopService.getVolume(shopId);
+        System.out.println("销量="+volume);
+        return ResponseDataUtils.buildSuccess("0","",volume);
+    }
 }
 

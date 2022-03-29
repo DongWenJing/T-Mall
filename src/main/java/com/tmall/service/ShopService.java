@@ -24,4 +24,8 @@ public interface ShopService {
 
     // 通过产品id获取商家id
     BigInteger getShopIdByProductId(BigInteger productId);
+
+    Double getSale(Double shopId);
+
+    Integer getVolume(Integer shopId);
 }

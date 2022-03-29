@@ -48,4 +48,16 @@ public class ShopServiceImpl implements ShopService {
     public BigInteger getShopIdByProductId(BigInteger productId) {
         return shopMapper.getShopByProductId(productId);
     }
+
+    //查询商家销售额
+    @Override
+    public Double getSale(Double shopId) {
+        return shopMapper.getSale(shopId);
+    }
+
+    //查询商家的销售额
+    @Override
+    public Integer getVolume(Integer shopId) {
+        return shopMapper.getVolume(shopId);
+    }
 }

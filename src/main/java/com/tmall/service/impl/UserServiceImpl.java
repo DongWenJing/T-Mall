@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class UserServiceImpl implements UserService {
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         User resultUser = userMapper.selectUserByUP(user);
+        //获取shopId 通过身份验证是否是shop,是则通过userId查找到shopId
+        if(resultUser.getRole().equals("shop")){
+          BigInteger shopId=shopMapper.getShopId(resultUser.getUserId());
+            resultUser.setShopId(shopId);
+        }
         if (resultUser == null) {
             return null;
         }
