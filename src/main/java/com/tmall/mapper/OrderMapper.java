@@ -52,4 +52,7 @@ public interface OrderMapper {
     // 修改该订单的状态
     void updateStatus(@Param("orderNumberAll") String orderNumberAll,
                       @Param("status") Integer status);
+
+    // 获取子订单的商家id
+    Integer getOrderShopId(String oNumber);
 }

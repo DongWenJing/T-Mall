@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.math.BigInteger;
 import java.util.List;
@@ -114,21 +115,41 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.findOrderDetailByProductId(orderNumber, productId);
     }
 
+    // 用户.我的订单的详情展示
     @Override
     public List<OrderDetail> findOrderProduct(String orderNumber) {
-       /* String orderNumbers = orderMapper.getOrderNumbers(orderNumber);
+        // 创建一个满足条件的orderDetail列表
+        List<OrderDetail> res = new ArrayList<>();
+        // 获取子订单
+        String orderNumbers = orderMapper.getOrderNumbers(orderNumber);
         String[] oN = orderNumbers.split(",");
-        for (String s : oN) {
-            List<OrderDetail> orderProduct = productMapper.findOrderProduct(s);
-            orderProduct
-        }*/
-        return productMapper.findOrderProduct(orderNumber);
+        // 获取每个商品的详情
+        List<OrderDetail> orderDetails = productMapper.findOrderProduct(orderNumber);
+        // 获取每个订单明细
+        for (OrderDetail orderDetail : orderDetails) {
+            // 获取每个商品的id
+            BigInteger productId = orderDetail.getProductId();
+            // 找到该商品对应的商家id
+            Integer shopId = productMapper.getShopIdByproductId(productId);
+            orderDetail.setShopId(shopId);
+            // 遍历子订单进行查询
+            for (String oNumber : oN) {
+                // 获取子订单的状态
+                Integer status = orderMapper.getOrderStatus(oNumber);
+                // 判断查询出来的商家id是否相同
+                if (orderDetail.getShopId().equals(orderMapper.getOrderShopId(oNumber)))
+                    orderDetail.setOrderStatus(status);
+            }
+            // 将不是取消状态的商品添加进去
+            if (orderDetail.getOrderStatus() != 2)
+                res.add(orderDetail);
+        }
+        return res;
     }
 
     //首页搜索功能
     @Override
     public List<Product> search(String key) {
-         List<Product> result = productMapper.search(key);
-         return result;
+        return productMapper.search(key);
     }
 }

@@ -36,30 +36,32 @@ public class UserServiceImpl implements UserService {
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         User resultUser = userMapper.selectUserByUP(user);
-        //获取shopId 通过身份验证是否是shop,是则通过userId查找到shopId
-        if(resultUser.getRole().equals("shop")){
-          BigInteger shopId=shopMapper.getShopId(resultUser.getUserId());
-            resultUser.setShopId(shopId);
-        }
         if (resultUser == null) {
             return null;
+        }
+        //获取shopId 通过身份验证是否是shop,是则通过userId查找到shopId
+        if (resultUser.getRole().equals("shop")) {
+            BigInteger shopId = shopMapper.getShopId(resultUser.getUserId());
+            resultUser.setShopId(shopId);
         }
         return resultUser;
     }
 
     /**
      * 根据登录用户的Id获取展示个人信息
+     *
      * @param userId
      * @return
      */
     @Override
     public User getUserById(BigInteger userId) {
-      User user = userMapper.selectUserById(userId);
+        User user = userMapper.selectUserById(userId);
         return user;
     }
 
     /**
-     *修改个人信息
+     * 修改个人信息
+     *
      * @param user
      */
     @Override
@@ -69,6 +71,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 分页查询所有用户信息
+     *
      * @param pageNum
      * @param pageSize
      * @param key
@@ -78,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public Page<User> findUserList(Integer pageNum, Integer pageSize, String key) {
         pageNum = (pageNum - 1) * pageSize;
         //获取查询到的数据
-        List<User> users = userMapper.findUserList(pageNum,pageSize,key);
+        List<User> users = userMapper.findUserList(pageNum, pageSize, key);
         //总记录条数
         Integer total = userMapper.countUser(key);
         //封装查询到的数据
@@ -89,6 +92,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取数据库中原始密码
+     *
      * @param userId
      * @return
      */
@@ -99,38 +103,43 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 充值虚拟货币
+     *
      * @param userId
-     * @param money*/
+     * @param money
+     */
 
     @Override
     public void addRecharge(BigInteger userId, double money) {
-        userMapper.addRecharge(userId,money);
+        userMapper.addRecharge(userId, money);
     }
 
     /**
      * 获取数据库当前余额
+     *
      * @param userId
      * @param money
      * @return
      */
     @Override
     public Double getRecharge(BigInteger userId, double money) {
-        return userMapper.getRecharge(userId,money);
+        return userMapper.getRecharge(userId, money);
     }
 
     /**
      * 更新用户权限状态
+     *
      * @param userId
      * @param status
      */
     @Override
     @Transactional
     public void updateUserStatus(BigInteger userId, BigInteger status) {
-        userMapper.updateStatus(userId,status);
+        userMapper.updateStatus(userId, status);
     }
 
     /**
      * 新增用户
+     *
      * @param user
      */
     @Override
@@ -147,9 +156,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByOrderNumber(String orderNumber,BigInteger shopId) {
-        return userMapper.getUserByOrderNumber(orderNumber,shopId);
+    public User getUserByOrderNumber(String orderNumber, BigInteger shopId) {
+        return userMapper.getUserByOrderNumber(orderNumber, shopId);
     }
+
     //获取shopId
     @Override
     public Shop getShopInfo(BigInteger userId) {
@@ -158,6 +168,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 删除用户
+     *
      * @param userId
      */
     @Override
@@ -168,6 +179,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 重置账户密码
+     *
      * @param user
      */
     @Override
@@ -179,6 +191,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 更新账户信息
+     *
      * @param user
      */
     @Override
@@ -196,18 +209,20 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取是否有购买记录
+     *
      * @param userId
      * @param productId
      * @return
      */
     @Override
     public BigInteger check(BigInteger userId, BigInteger productId) {
-        BigInteger flag=userMapper.check(userId,productId);
+        BigInteger flag = userMapper.check(userId, productId);
         return flag;
     }
 
     /**
      * 修改用户密码,加密后存储到数据库
+     *
      * @param password
      */
     public void setPassword(Password password) {
@@ -220,7 +235,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findShopperList(Integer pageNum, Integer pageSize, String key) {
         int startNum = (pageNum - 1) * pageSize;
-        return userMapper.findShopperList(startNum,pageSize,key);
+        return userMapper.findShopperList(startNum, pageSize, key);
     }
 
     @Override

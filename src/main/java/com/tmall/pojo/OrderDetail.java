@@ -34,4 +34,5 @@ public class OrderDetail implements Serializable {
 
     // 状态
     private Integer orderStatus;
+    private Integer shopId;
 }

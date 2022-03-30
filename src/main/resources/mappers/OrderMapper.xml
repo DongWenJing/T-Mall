@@ -65,6 +65,11 @@
         select order_number from `order` where order_number_all=#{orderNumberAll}
     </select>
 
+    <!--获取子订单的商家id-->
+    <select id="getOrderShopId" resultType="java.lang.Integer">
+        select shop_id from order_master where order_number=#{oNumber}
+    </select>
+
     <!--取消该订单-->
     <update id="cancel1">
         update order_master set order_status=2 where order_number=#{s}

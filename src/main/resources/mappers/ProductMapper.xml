@@ -69,14 +69,14 @@
     </select>
 
     <select id="findOrderProduct" resultType="OrderDetail">
-
         SELECT
             img_src,
             product_name,
             product_price,
             product.product_id as product_id,
-             count,
-             count*product_price*discount as orderProductPrice
+             `count`,
+             `count`*product_price*discount as orderProductPrice,
+             shop_id
              FROM order_detail, product
              WHERE product.product_id=order_detail.product_id
              AND order_number=#{orderNumber}
@@ -115,5 +115,10 @@
     <select id="search" resultType="Product">
         select * from product
         where product_name like "%"#{key}"%"
+    </select>
+
+    <!--找到该商品对应的商家id-->
+    <select id="getShopIdByproductId" resultType="java.lang.Integer">
+        select shop_id from product where product_id=#{productId}
     </select>
 </mapper>

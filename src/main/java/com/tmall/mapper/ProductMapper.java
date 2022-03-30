@@ -52,4 +52,7 @@ public interface ProductMapper {
     String findOrderNumberAll(String orderNumber);
 
     List<Product> search(String key);
+
+    // 找到该商品对应的商家id
+    Integer getShopIdByproductId(BigInteger productId);
 }
