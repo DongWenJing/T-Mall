@@ -118,6 +118,11 @@ public class ProductServiceImpl implements ProductService {
     // 用户.我的订单的详情展示
     @Override
     public List<OrderDetail> findOrderProduct(String orderNumber) {
+        // 判断该总订单的状态是否为已取消
+        Integer statusAll = orderMapper.getOrderAllStatus(orderNumber);
+        if (statusAll == 2) {
+            return productMapper.findOrderProduct(orderNumber);
+        }
         // 创建一个满足条件的orderDetail列表
         List<OrderDetail> res = new ArrayList<>();
         // 获取子订单

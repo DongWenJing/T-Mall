@@ -55,4 +55,7 @@ public interface OrderMapper {
 
     // 获取子订单的商家id
     Integer getOrderShopId(String oNumber);
+
+    // 获取order表中总订单号的状态
+    Integer getOrderAllStatus(String orderNumber);
 }

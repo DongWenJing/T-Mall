@@ -36,7 +36,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseData<?> login(@RequestBody User user) {
         User resultUser = userService.selectUserByUP(user);
-        System.out.println(resultUser);
         if (resultUser == null) {
             return ResponseDataUtils.buildSuccess("2", "用户或密码错误");
         } else if (0 == resultUser.getStatus()) {
