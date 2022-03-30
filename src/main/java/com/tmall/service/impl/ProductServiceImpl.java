@@ -1,5 +1,6 @@
 package com.tmall.service.impl;
 
+import com.tmall.mapper.OrderMapper;
 import com.tmall.exception.RechargeException;
 import com.tmall.mapper.ProductMapper;
 import com.tmall.pojo.OrderDetail;
@@ -24,6 +25,9 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public List<Product> selectProductAll() {
@@ -100,8 +104,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<OrderDetail> findOrderDetail( String orderNumber) {
-        return productMapper.findOrderDetail(orderNumber);
+    public List<OrderDetail> findOrderDetail( String orderNumber,BigInteger shopId) {
+        String orderNumberAll = productMapper.findOrderNumberAll(orderNumber);
+        return productMapper.findOrderDetail(orderNumberAll, shopId);
+    }
+
+    @Override
+    public List<OrderDetail> findOrderDetailByProductId(String orderNumber, BigInteger productId) {
+        return productMapper.findOrderDetailByProductId(orderNumber, productId);
+    }
+
+    @Override
+    public List<OrderDetail> findOrderProduct(String orderNumber) {
+       /* String orderNumbers = orderMapper.getOrderNumbers(orderNumber);
+        String[] oN = orderNumbers.split(",");
+        for (String s : oN) {
+            List<OrderDetail> orderProduct = productMapper.findOrderProduct(s);
+            orderProduct
+        }*/
+        return productMapper.findOrderProduct(orderNumber);
     }
 
     //首页搜索功能

@@ -4,10 +4,12 @@ server:
 spring:
   application:
     name: t-mall
+
 #  profiles:
 #    active: dev
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     # 数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver

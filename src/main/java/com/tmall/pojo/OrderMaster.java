@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -25,8 +24,8 @@ public class OrderMaster implements Serializable {
     // 此次订单总金额
     private Double orderAmount;
     // 下单时间
-    private Timestamp createTime;
-    // private Date createTime;
+    // private Timestamp createTime;
+    private Date createTime;
     // 红 蓝 绿 灰
     // !订单状态：0表示待付款，1表示待收货，2表示已取消，3表示已完成
     private Integer orderStatus;

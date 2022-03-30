@@ -67,17 +67,32 @@
     <select id="getNewProduct" resultType="Product">
         select * from product where date_format(create_time,'%Y-%m-%d')>= '2022-03-20' limit 10
     </select>
-<!--SELECT
-    img_src,
-    product_name,
-    product_price,
-    product.product_id as product_id,
-     count,
-     count*product_price*discount as orderProductPrice
-     FROM order_detail, product
-     WHERE product.product_id=order_detail.product_id
-     AND order_number=#{orderNumber}    -->
+
+    <select id="findOrderProduct" resultType="OrderDetail">
+
+        SELECT
+            img_src,
+            product_name,
+            product_price,
+            product.product_id as product_id,
+             count,
+             count*product_price*discount as orderProductPrice
+             FROM order_detail, product
+             WHERE product.product_id=order_detail.product_id
+             AND order_number=#{orderNumber}
+    </select>
+
+
     <select id="findOrderDetail" resultType="OrderDetail">
+        select img_src,product_name,`count`,
+               product_price*discount*`count` as orderProductPrice
+        from product p left join order_detail od
+             on p.product_id=od.product_id
+        where order_number=#{orderNumber} and shop_id=#{shopId}
+    </select>
+
+    <!--查看商品-->
+    <select id="findOrderDetailByProductId" resultType="BigInteger">
         SELECT
             img_src,
             product_name,
@@ -88,6 +103,13 @@
         FROM order_detail, product
         WHERE product.product_id=order_detail.product_id
           AND order_number=#{orderNumber}
+          and product.product_id=#{productId}
+    </select>
+
+    <!--查询总订单号-->
+    <select id="findOrderNumberAll" resultType="String">
+        select order_number_all from `order`
+        where order_number like "%"#{orderNumber}"%"
     </select>
 <!-- 首页模糊查询   -->
     <select id="search" resultType="Product">

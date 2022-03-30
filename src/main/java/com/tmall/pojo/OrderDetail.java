@@ -31,4 +31,7 @@ public class OrderDetail implements Serializable {
 
     private Date createTime;
     private Date updateTime;
+
+    // 状态
+    private Integer orderStatus;
 }

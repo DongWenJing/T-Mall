@@ -120,6 +120,7 @@ public class UserController {
     public ResponseData<?> recharge(@RequestBody User user){
         BigInteger userId = user.getUserId();
         double money = user.getMoney();
+        if (money == 0) throw new RechargeException("请输入充值金额!");
         Double money1 =userService.getRecharge(userId,money);
         Double newMoney= money+money1;
         if (money<500 ) {
@@ -223,10 +224,10 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "重置密码成功!");
     }
 
-    @GetMapping("/order_number/{orderNumber}")
-    public User getUserByOrderNumber(@PathVariable("orderNumber") String orderNumber) {
-
-        return userService.getUserByOrderNumber(orderNumber);
+    @GetMapping("/order_number/{orderNumber}/{shopId}")
+    public User getUserByOrderNumber(@PathVariable("orderNumber") String orderNumber,
+                                     @PathVariable("shopId") BigInteger shopId) {
+        return userService.getUserByOrderNumber(orderNumber,shopId);
     }
 
     //为商家查询本店订单获取到shopId()

@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
+
 @Data
 @Accessors(chain = true)
 public class User implements Serializable {
@@ -36,8 +38,9 @@ public class User implements Serializable {
     // 用户剩余资金，用于购买商品
     private double money;
     // 账号注册时间
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    private Timestamp createTime;
+    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    // private Timestamp createTime;
+    private Date createTime;
     //电子邮件
     private String email;
     // 店铺名字

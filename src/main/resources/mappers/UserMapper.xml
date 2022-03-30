@@ -140,9 +140,9 @@
     </select>
 
     <select id="getUserByOrderNumber" resultType="User">
-        SELECT * FROM `user` u, order_master om
+        SELECT distinct * FROM `user` u, order_master om
         WHERE u.user_id=om.buyer_id
-        AND om.order_number=#{orderNumber}
+        AND om.order_number=#{orderNumber} and shop_id=#{shopId}
     </select>
 
     <!--通过userId获取店铺信息-->

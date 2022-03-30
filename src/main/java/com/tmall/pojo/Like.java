@@ -5,6 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
+
 //用户收藏
 @Data
 public class Like implements Serializable {
@@ -14,7 +16,8 @@ public class Like implements Serializable {
     private String productPrice;
     private BigInteger productId;
     private BigInteger userId;
-    private Timestamp likeTime;
+    // private Timestamp likeTime;
+    private Date likeTime;
     private double discount;
     private String imgSrc;
 }

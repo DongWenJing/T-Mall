@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Data
@@ -16,7 +17,8 @@ public class Comment {
     //评论内容
     private String commentText;
     //评论时间
-    private Timestamp commentTime;
+    // private Timestamp commentTime;
+    private Date commentTime;
     //用户id
     private BigInteger userId;
     //user表名字

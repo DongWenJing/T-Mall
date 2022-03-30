@@ -1,5 +1,6 @@
 package com.tmall.mapper;
 
+import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 import org.apache.ibatis.annotations.Param;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface OrderMapper {
     // 获取某用户的全部订单信息
-    List<OrderMaster> findOrderById(BigInteger buyerId);
+    List<Order> findOrderById(BigInteger buyerId);
 
     //分页查询商家的订单信息
     List<OrderMaster> findByPage(@Param("offset") int offset,
@@ -23,17 +24,18 @@ public interface OrderMapper {
     Integer getCountByShopId(BigInteger shopId);
 
     //修改订单状态
-    void sendByOrderNumber(String orderNumber);
+    void sendByOrderNumber(@Param("orderNumber") String orderNumber,
+                           @Param("shopId") BigInteger shopId);
 
     //获取订单状态
     Integer getOrderStatus(String orderNumber);
 
     //取消订单
-    void cancel(String orderNumber);
+    void cancel(@Param("orderNumber") String orderNumber,
+                @Param("shopId")BigInteger shopId);
 
-    //添加一条订单信息
-
-    void addOrderMaster(OrderMaster orderMaster);
+    //删除一条订单信息
+    void deleteOrderMaster(OrderMaster orderMaster);
 
     //保存订单信息中每一天商品的信息
     void addOrderDetail(OrderDetail orderDetail);
@@ -41,6 +43,13 @@ public interface OrderMapper {
     //根据用户id获取订单数，可修改为待付款的订单数
     BigInteger countt(BigInteger userId);
 
+    // 获取该订单下的所有订单
+    String getOrderNumbers(String orderNumberAll);
 
+    // 取消该订单
+    void cancel1(String s);
 
+    // 修改该订单的状态
+    void updateStatus(@Param("orderNumberAll") String orderNumberAll,
+                      @Param("status") Integer status);
 }

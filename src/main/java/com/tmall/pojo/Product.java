@@ -5,6 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author R.Yu
@@ -18,7 +19,8 @@ public class Product implements Serializable {
     // 商品名称
     private String productName;
     // 商品创建时间
-    private Timestamp createTime;
+    // private Timestamp createTime;
+    private Date createTime;
     // 商品单价
     private Double productPrice;
     // 商品折扣

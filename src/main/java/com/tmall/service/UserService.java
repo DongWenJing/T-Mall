@@ -13,18 +13,10 @@ import java.util.List;
  * @date 2022/3/19 13:16
  */
 public interface UserService {
-    /**
-     * 根据前端传过来的用户名和密码进行查询信息登录
-     * @param user
-     * @return User对象
-     */
+    // 根据前端传过来的用户名和密码进行查询信息登录
     User selectUserByUP(User user);
 
-    /**
-     * 根据登录用户的Id获取展示个人信息
-     * @param userId
-     * @return
-     */
+    // 根据登录用户的Id获取展示个人信息
     User getUserById(BigInteger userId);
 
     //修改用户信息
@@ -33,6 +25,7 @@ public interface UserService {
     Page<User> findUserList(Integer pageNum, Integer pageSize, String key);
     //修改密码
     void setPassword(Password password);
+
     //获取原始密码
     String getOldPassword(BigInteger userId);
 
@@ -69,15 +62,12 @@ public interface UserService {
     //删除用户
     void deleteById(BigInteger userId);
 
-
-
-    User getUserByOrderNumber(String orderNumber);
+    User getUserByOrderNumber(String orderNumber, BigInteger shopId);
 
     // 获取店铺信息
     Shop getShopInfo(BigInteger userId);
 
     // 重置账户密码
     void resetPassword(User user);
-
 
 }

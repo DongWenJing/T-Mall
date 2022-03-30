@@ -6,8 +6,10 @@
 <mapper namespace="com.tmall.mapper.OrderMapper">
 
     <!--获取全部订单-->
-    <select id="findOrderById" resultType="OrderMaster">
-        select * from order_master where buyer_id=#{buyerId} and order_status &lt; 4
+    <select id="findOrderById" resultType="Order">
+        select order_number_all,money,create_time,order_status from `order`
+        where buy_id=#{buyerId} and order_status &lt; 4
+        order by create_time desc
     </select>
 <!--获取店铺的全部订单 -->
     <select id="findByPage" resultType="OrderMaster">
@@ -31,29 +33,46 @@
         update order_master
         set order_status=3
         where order_number=#{orderNumber}
+        and shop_id=#{shopId}
     </update>
 <!--  取消订单      -->
     <update id="cancel">
         update order_master
         set order_status=2
         where order_number=#{orderNumber}
+        and shop_id=#{shopId}
     </update>
 
-<!--    添加一条订单-->
-    <insert id="addOrderMaster">
-        insert into order_master(order_number,buyer_id,order_amount,shop_id)
-        values (#{orderNumber},#{buyerId},#{orderAmount},#{shopId})
-    </insert>
+    <!--删除订单-->
+    <delete id="deleteOrderMaster">
+        delete from order_master where shop_id=#{shopId} and order_number=#{orderNumber}
+    </delete>
 
 
-<!--     //保存订单信息中每一天商品的信息-->
+    <!--     //保存订单信息中每一件商品的信息-->
     <insert id="addOrderDetail">
-        insert into order_detail(detail_id,order_number,product_id,count,create_time,update_time) value (#{detailId},#{orderNumber}, #{productId}, #{count},#{createTime},#{updateTime})
+        insert into order_detail(order_number,product_id,count,update_time)
+        value (#{orderNumber},#{productId},#{count},#{updateTime})
     </insert>
 <!--    !根据用户id获取订单数，可修改为待付款的订单数-->
 <!--    SELECT count(*) FROM order_master WHERE buyer_id=#{userId} AND order_status<4-->
     <select id="countt" resultType="OrderMaster">
         select (count(*)) from order_master where buyer_id=#{userId} and order_status &lt; 4
     </select>
+
+    <!--获取该订单下的所有订单-->
+    <select id="getOrderNumbers" resultType="java.lang.String">
+        select order_number from `order` where order_number_all=#{orderNumberAll}
+    </select>
+
+    <!--取消该订单-->
+    <update id="cancel1">
+        update order_master set order_status=2 where order_number=#{s}
+    </update>
+
+    <!--修改该订单的状态-->
+    <update id="updateStatus">
+        update `order` set order_status=#{status} where order_number_all=#{orderNumberAll}
+    </update>
 
 </mapper>

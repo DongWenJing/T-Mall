@@ -40,7 +40,16 @@ public interface ProductMapper {
 
     List<Product> getNewProduct();
 
-    List<OrderDetail> findOrderDetail(String orderNumber);
+    List<OrderDetail> findOrderProduct(String orderNumber);
+
+    List<OrderDetail> findOrderDetail(@Param("orderNumber") String orderNumber,
+                                      @Param("shopId") BigInteger shopId);
+
+    List<OrderDetail> findOrderDetailByProductId(@Param("orderNumber") String orderNumber,
+                                      @Param("productId") BigInteger productId);
+
+    // 查询总订单号
+    String findOrderNumberAll(String orderNumber);
 
     List<Product> search(String key);
 }

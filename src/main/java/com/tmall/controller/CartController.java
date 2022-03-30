@@ -4,13 +4,16 @@ package com.tmall.controller;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.pojo.Cart;
+import com.tmall.pojo.Order;
+import com.tmall.pojo.OrderMaster;
 import com.tmall.service.CartService;
+import com.tmall.util.RandOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -26,10 +29,10 @@ public class CartController {
      * @return
      */
     @GetMapping("/{userId}")
-    public ResponseData<?>getCartById(@PathVariable("userId") BigInteger userId){
-          List<Cart> carts =cartService.getCartById(userId);
+    public ResponseData<?> getCartById(@PathVariable("userId") BigInteger userId) {
+        List<Cart> carts = cartService.getCartById(userId);
 
-          return ResponseDataUtils.buildSuccess("0", "购物车信息获取成功！",carts);
+        return ResponseDataUtils.buildSuccess("0", "购物车信息获取成功！", carts);
     }
 
     /***
@@ -52,7 +55,7 @@ public class CartController {
      * @return
      */
     @GetMapping("/count/{userId}")
-    public BigInteger getCartCount(@PathVariable("userId") BigInteger userId){
+    public BigInteger getCartCount(@PathVariable("userId") BigInteger userId) {
         return cartService.getCartCountById(userId);
     }
 
@@ -62,18 +65,15 @@ public class CartController {
      * @return
      */
     @PostMapping
-    public ResponseData<?> addToCart(@RequestBody Cart queryCart){
+    public ResponseData<?> addToCart(@RequestBody Cart queryCart) {
         BigInteger userId = queryCart.getUserId();
         BigInteger productId = queryCart.getProductId();
         BigInteger count = queryCart.getCount();
-
-        if (count==null)
-            count=new BigInteger(String.valueOf(1));
-        Cart cart=cartService.findCartItem(userId, productId);
-
-        if (cart !=null)
+        if (count == null)
+            count = new BigInteger(String.valueOf(1));
+        Cart cart = cartService.findCartItem(userId, productId);
+        if (cart != null)
             return ResponseDataUtils.buildSuccess("1", "您已将该商品加入购物车！");
-
         cartService.addToCart(userId, productId, count);
         return ResponseDataUtils.buildSuccess("0", "成功加入到购物车！");
 
@@ -86,22 +86,30 @@ public class CartController {
      */
     @DeleteMapping("/{cartId}")
     @Transactional
-    public ResponseData<?>deleteCart(@PathVariable("cartId") BigInteger cartId){
+    public ResponseData<?> deleteCart(@PathVariable("cartId") BigInteger cartId) {
         cartService.deleteCart(cartId);
         return ResponseDataUtils.buildSuccess("0", "删除成功!");
     }
 
     /***
-     * 清空购物车
+     * 将该方法转为写订单(order_master)
      * @param userId
      * @return
      */
-    @DeleteMapping("/all/{userId}")
-    public ResponseData<?> deleteAll(@PathVariable BigInteger userId) {
-         cartService.deleteAll(userId);
-
-        return ResponseDataUtils.buildSuccess("0", "清空购物车成功！");
+    @GetMapping("/all/{userId}/{orderNumber}")
+    public ResponseData<?> getCartProductIds(@PathVariable BigInteger userId,
+                                             @PathVariable String orderNumber) {
+        cartService.getCartProductIds(userId,orderNumber);
+        return ResponseDataUtils.buildSuccess("0", "获取购物车中的产品id成功");
     }
 
+    /**
+     * 清空购物车
+     */
+    @DeleteMapping("/delete/{userId}")
+    public ResponseData<?> deleteCartByUserId(@PathVariable BigInteger userId) {
+        cartService.deleteCartByUserId(userId);
+        return ResponseDataUtils.buildSuccess("0", "清空购物车成功!");
+    }
 
 }

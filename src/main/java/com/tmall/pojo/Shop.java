@@ -5,6 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @Author : DongWJ
@@ -24,7 +25,8 @@ public class Shop implements Serializable {
     //实际拥有者名字
     private String realName;
     //创建时间
-    private Timestamp createTime;
+    // private Timestamp createTime;
+    private Date createTime;
     //店铺收益
     private Double income;
     //电话号

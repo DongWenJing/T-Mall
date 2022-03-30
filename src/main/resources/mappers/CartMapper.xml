@@ -38,8 +38,55 @@
         delete from cart where cart_id=#{cartId}
     </delete>
 
-<!--    清空购物车-->
-    <delete id="findAll">
+    <!--    清空购物车-->
+    <delete id="deleteCartByUserId">
         delete from cart where user_id=#{userId}
     </delete>
+
+
+<!--    /*delete from cart where user_id=#{userId}*/-->
+    <select id="getCartProductIds" resultType="BigInteger">
+        select product_id from cart where user_id=#{userId}
+    </select>
+
+    <!--通过产品id获取店铺id-->
+    <select id="getShopIdsByProductIds" resultType="BigInteger">
+        select distinct shop_id from product
+        where product_id in
+        <foreach collection="array" open="(" close=")"
+                 item="id" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--将shop_id写入order_master-->
+    <insert id="addOrderMaster">
+        insert into order_master(order_number,buyer_id,order_amount,shop_id)
+        values(#{orderNumber},#{userId},#{orderAmount},#{shopId})
+    </insert>
+
+    <!--通过order_number,shop_id查询该店商品的实际价格-->
+    <select id="getProductPrices" resultType="Double">
+        select t.product_price*t.discount*t.count from (
+            select p.product_price,p.discount,p.shop_id,od.count from
+                product p join order_detail od on p.product_id=od.product_id
+                where order_number=#{orderNumber}) t
+        where t.shop_id=#{shopId}
+    </select>
+
+    <!--基于订单id查询product_detail的商品id-->
+    <select id="getProductIds" resultType="BigInteger">
+        select product_id from order_detail where order_number=#{orderNumber}
+    </select>
+
+    <!--将该订单的数据查询出来-->
+    <select id="getOrderMaster" resultType="com.tmall.pojo.OrderMaster">
+        select * from order_master where order_number=#{randOrderNumber}
+    </select>
+
+    <!--写入数据到order-->
+    <insert id="addOrder">
+        insert into `order`(order_number_all,order_number,money,create_time,update_time,buy_id)
+        values(#{orderNumberAll},#{orderNumber},#{money},#{createTime},#{updateTime},#{buyerId})
+    </insert>
 </mapper>

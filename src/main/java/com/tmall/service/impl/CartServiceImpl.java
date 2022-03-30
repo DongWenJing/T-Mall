@@ -2,13 +2,16 @@ package com.tmall.service.impl;
 
 import com.tmall.mapper.CartMapper;
 import com.tmall.pojo.Cart;
+import com.tmall.pojo.Order;
+import com.tmall.pojo.OrderMaster;
 import com.tmall.service.CartService;
+import com.tmall.util.RandOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -26,7 +29,7 @@ public class CartServiceImpl implements CartService {
     // 修改某一个购物车商品的数量
     @Override
     public void setCartCount(BigInteger cartId, BigInteger count) {
-        cartMapper.setCartCount(cartId,count);
+        cartMapper.setCartCount(cartId, count);
     }
 
     // 获取某个用户的购物车信息的数量
@@ -46,7 +49,7 @@ public class CartServiceImpl implements CartService {
     // 用户添加商品到购物车
     @Override
     public void addToCart(BigInteger userId, BigInteger productId, BigInteger count) {
-        cartMapper.addToCart(userId,productId,count);
+        cartMapper.addToCart(userId, productId, count);
 
     }
 
@@ -56,10 +59,100 @@ public class CartServiceImpl implements CartService {
         cartMapper.deleteCart(cartId);
     }
 
+    // 获取该用户的购物车产品的id
+    @Override
+    public void getCartProductIds(BigInteger userId, String orderNumber) {
+        // 获取订单中的商品id
+        BigInteger[] productIds = {};
+        while (productIds.length == 0) {
+            productIds = cartMapper.getProductIds(orderNumber);
+        }
+        // 通过product_id查询product中的shop_id #(考虑去重,同一家商店的合并为一个)
+        Set<BigInteger> shopIds = cartMapper.getShopIdsByProductIds(productIds);
+        // 创建一个总订单
+        Order order = new Order();
+        Date date = new Date();
+        ArrayList<OrderMaster> orderMasterList = new ArrayList<>();
+        String orderNumberList = "";
+        double money = 0;
+        // 通过order_number,shop_id查询该店商品的实际价格
+        for (BigInteger shopId : shopIds) {
+            double[] productPrices = cartMapper.getProductPrices(orderNumber, shopId);
+            // 将上面的结果写入到order_master中
+            // 1.为该商家生成一个订单号
+            String randOrderNumber = RandOrderNumber.getRandOrderNumber();
+            // 2.获取该商家的总金额
+            double orderAmount = 0;
+            for (double productPrice : productPrices) {
+                orderAmount += productPrice;
+            }
+            // 3.进行数据写入
+            cartMapper.addOrderMaster(randOrderNumber,userId,orderAmount,shopId);
+            // 获取上述订单
+            OrderMaster orderMaster = cartMapper.getOrderMaster(randOrderNumber);
+            orderMasterList.add(orderMaster);
+            orderNumberList = orderNumberList + "," + randOrderNumber;
+            money += orderMaster.getOrderAmount();
+        }
+        orderNumberList = orderNumberList.substring(1);
+        order.setOrderNumberAll(orderNumber)
+                .setCreateTime(date)
+                .setUpdateTime(date)
+                .setOrderMasters(orderMasterList)
+                .setOrderNumber(orderNumberList)
+                .setMoney(money)
+                .setBuyerId(userId);
+        // 写入数据到order中
+        cartMapper.addOrder(order);
+        // return cartMapper.getCartProductIds(userId);
+    }
+
+    // 通过产品id获取店铺id
+    @Override
+    public Set<BigInteger> getShopIdsByProductIds(BigInteger[] productIds) {
+        return cartMapper.getShopIdsByProductIds(productIds);
+    }
+
+    // 通过order_number,shop_id查询该店商品的实际价格
+    @Override
+    public double[] getProductPrices(String orderNumber, BigInteger shopId) {
+        return cartMapper.getProductPrices(orderNumber, shopId);
+    }
+
+    // 写入order_master中
+    @Override
+    @Transactional
+    public void addOrderMaster(String orderNumber, BigInteger userId, double[] productPrices, BigInteger shopId) {
+        double orderAmount = 0;
+        for (double productPrice : productPrices) {
+            orderAmount += productPrice;
+        }
+        // if (orderAmount != 0)
+        cartMapper.addOrderMaster(orderNumber,userId,orderAmount,shopId);
+    }
+
+    // 基于订单id查询product_detail的商品id
+    @Override
+    public BigInteger[] getProductIds(String orderNumber) {
+        return cartMapper.getProductIds(orderNumber);
+    }
+
+    // 将该订单的数据查询出来
+    @Override
+    public OrderMaster getOrderMaster(String randOrderNumber) {
+        return cartMapper.getOrderMaster(randOrderNumber);
+    }
+
+    // 写入数据到order
+    @Override
+    public void addOrder(Order order) {
+        cartMapper.addOrder(order);
+    }
+
     // 清空购物车
     @Override
-    public void deleteAll(BigInteger userId) {
-        cartMapper.deleteAll(userId);
+    public void deleteCartByUserId(BigInteger userId) {
+        cartMapper.deleteCartByUserId(userId);
     }
 
 

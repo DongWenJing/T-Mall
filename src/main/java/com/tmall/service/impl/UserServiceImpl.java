@@ -6,6 +6,7 @@ import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,8 +115,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Double getRecharge(BigInteger userId, double money) {
-        Double money1=userMapper.getRecharge(userId,money);
-        return money1;
+        return userMapper.getRecharge(userId,money);
     }
 
     /**
@@ -147,8 +147,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByOrderNumber(String orderNumber) {
-        return userMapper.getUserByOrderNumber(orderNumber);
+    public User getUserByOrderNumber(String orderNumber,BigInteger shopId) {
+        return userMapper.getUserByOrderNumber(orderNumber,shopId);
     }
     //获取shopId
     @Override
@@ -185,6 +185,7 @@ public class UserServiceImpl implements UserService {
     public void updateAccountInfo(User user) {
         // 更新user表中的数据
         userMapper.updateAccountInfo(user);
+        CheckPhone.checkPhone(user.getTelephone());
         if (user.getShopName() != null) {
             Shop shop = shopMapper.getShopByUserId(user.getUserId());
             shop.setShopName(user.getShopName());

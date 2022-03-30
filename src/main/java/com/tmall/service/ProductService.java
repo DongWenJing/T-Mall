@@ -47,7 +47,11 @@ public interface ProductService {
 
     List<Product> getNewProduct();
 
-    List<OrderDetail> findOrderDetail(String orderNumber);
+    List<OrderDetail> findOrderDetail(String orderNumber,BigInteger shopId);
+
+    List<OrderDetail> findOrderDetailByProductId(String orderNumber,BigInteger productId);
+
+    List<OrderDetail> findOrderProduct(String orderNumber);
 
     List<Product> search(String key);
 }

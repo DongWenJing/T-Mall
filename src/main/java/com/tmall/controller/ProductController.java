@@ -119,10 +119,26 @@ public class ProductController {
         return productService.getNewProduct();
     }
 
-    @GetMapping("/order/{orderNumber}")
-    public ResponseData<?> findOrderDetail(@PathVariable String orderNumber) {
-        List<OrderDetail> details= productService.findOrderDetail(orderNumber);
+    // 商家端订单管理(每个订单的查看)
+    @GetMapping("/order1/{orderNumber}/{shopId}")
+    public ResponseData<?> findOrderDetail(@PathVariable String orderNumber,
+                                           @PathVariable("shopId") BigInteger shopId) {
+        List<OrderDetail> details= productService.findOrderDetail(orderNumber,shopId);
 
+        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+    }
+
+    @GetMapping("/order2/{orderNumber}/{productId}")
+    public ResponseData<?> findOrderDetailByProductId(@PathVariable String orderNumber,
+                                           @PathVariable("productId") BigInteger productId) {
+        List<OrderDetail> details= productService.findOrderDetailByProductId(orderNumber,productId);
+
+        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+    }
+
+    @GetMapping("/order/{orderNumber}")
+    public ResponseData<?> findOrderProduct(@PathVariable("orderNumber") String orderNumber) {
+        List<OrderDetail> details= productService.findOrderProduct(orderNumber);
         return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
     }
 

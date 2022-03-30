@@ -72,7 +72,8 @@ public interface UserMapper {
 
     String findUserName(String username);
 
-    User getUserByOrderNumber(@Param("orderNumber") String orderNumber);
+    User getUserByOrderNumber(@Param("orderNumber") String orderNumber,
+                              @Param("shopId") BigInteger shopId);
 
     // 获取店铺信息
     Shop getShopInfo(BigInteger userId);

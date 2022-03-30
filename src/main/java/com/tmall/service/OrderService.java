@@ -1,5 +1,6 @@
 package com.tmall.service;
 
+import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
 
@@ -11,21 +12,27 @@ import java.util.List;
  * @date 2022/3/23 14:44
  */
 public interface OrderService {
-    List<OrderMaster> findOrderById(BigInteger buyerId);
+    List<Order> findOrderById(BigInteger buyerId);
 
     List<OrderMaster> findByPage(int offset, Integer pageSize, BigInteger shopId);
 
     Integer getCountByShopId(BigInteger shopId);
 
-    void sendByOrderNumber(String orderNumber);
+    void sendByOrderNumber(String orderNumber,BigInteger shopId);
 
     Integer getOrderStatus(String orderNumber);
 
-    void cancel(String orderNumber);
+    void cancel(String orderNumber,BigInteger shopId);
 
-    void addOrderMaster(OrderMaster orderMaster);
+    void deleteOrderMaster(OrderMaster orderMaster);
 
     void addOrderDetail(OrderDetail orderDetail);
 
     BigInteger getCount(BigInteger userId);
+
+    // 用户取消订单
+    void cancel1(String orderNumberAll);
+
+    // 用户删除订单(实现软删除)
+    void deleteOrderFalse(String orderNumberAll);
 }
