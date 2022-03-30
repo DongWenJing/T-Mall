@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
         cartMapper.deleteCart(cartId);
     }
 
-    // 获取该用户的购物车产品的id
+    // 添加订单
     @Override
     public void getCartProductIds(BigInteger userId, String orderNumber) {
         // 获取订单中的商品id

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @Author : DongWJ
@@ -32,5 +33,9 @@ public interface ShopMapper {
 
     BigInteger getShopId(BigInteger userId);
 
-    Integer getVolume(Integer shopId);
+    // 统计商家的销量
+    Integer getVolume(List<String> oNs);
+
+    // 通过商家id查询子订单号
+    List<String> getOrderMaster(Integer shopId);
 }

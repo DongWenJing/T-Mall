@@ -70,7 +70,6 @@ public class ShopController {
     @GetMapping("/getsale/{shopId}")
     public ResponseData getSale(@PathVariable Double shopId){
         Double sale=  shopService.getSale(shopId);
-        System.out.println("销售额"+sale);
         return ResponseDataUtils.buildSuccess("0","",sale);
     }
 
@@ -78,7 +77,6 @@ public class ShopController {
     @GetMapping("/getVolume/{shopId}")
     public ResponseData getVolume(@PathVariable Integer shopId){
        Integer volume= shopService.getVolume(shopId);
-        System.out.println("销量="+volume);
         return ResponseDataUtils.buildSuccess("0","",volume);
     }
 }
