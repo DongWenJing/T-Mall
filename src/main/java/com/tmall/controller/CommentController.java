@@ -24,7 +24,7 @@ public class CommentController {
      *根据指定商品ID获取评论信息
      * @param productId
      * @return
-     *                    该功能目前未测出!!!
+     *
      */
     @GetMapping("/{productId}")
     public List<DetailsComment>findCommentsById(@PathVariable("productId")

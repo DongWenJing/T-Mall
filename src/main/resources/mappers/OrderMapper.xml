@@ -86,6 +86,11 @@
         select product_id from order_detail where order_number=#{orderNumber}
     </select>
 
+    <!--获取每个订单的收入-->
+    <select id="getOrderAmount" resultType="java.lang.Double">
+        select order_amount from order_master where order_number=#{orderNumber}
+    </select>
+
     <!--取消该订单-->
     <update id="cancel1">
         update order_master set order_status=2 where order_number=#{s}
@@ -94,6 +99,11 @@
     <!--修改该订单的状态-->
     <update id="updateStatus">
         update `order` set order_status=#{status} where order_number_all=#{orderNumberAll}
+    </update>
+
+    <!--更新子订单的状态-->
+    <update id="updateChildOrderStatus">
+        update order_master set order_status=#{status} where order_number=#{orderNumber}
     </update>
 
 </mapper>

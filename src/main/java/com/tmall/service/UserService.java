@@ -37,7 +37,7 @@ public interface UserService {
     //充值
     void addRecharge(BigInteger userId, double money);
 
-    Double getRecharge(BigInteger userId, double money);
+    Double getRecharge(BigInteger userIdy);
 
     boolean check(BigInteger userId, BigInteger productId, BigInteger shopId);
 
@@ -70,4 +70,9 @@ public interface UserService {
     // 重置账户密码
     void resetPassword(User user);
 
+    // 支付订单后,进行扣款
+    void setRecharge(BigInteger userId, Double payMoney, Double recharge);
+
+    // 商家店铺的收入增加
+    void updateShopIncome(String orderNumberAll);
 }

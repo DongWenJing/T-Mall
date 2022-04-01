@@ -12,6 +12,7 @@ import com.tmall.service.OrderService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -130,6 +131,18 @@ public class OrderServiceImpl implements OrderService {
         String[] oN = orderMapper.getOrderNumbers(orderNumberAll).split(",");
         for (String s : oN) {
             orderMapper.cancel1(s);
+        }
+    }
+
+    // 将订单设置为待收货状态(1标识待收货)
+    @Override
+    @Transactional
+    public void updateOrderStatus(String orderNumberAll) {
+        orderMapper.updateStatus(orderNumberAll,1);
+        // 获取子订单
+        String[] orderNumberList = orderMapper.getOrderNumbers(orderNumberAll).split(",");
+        for (String orderNumber : orderNumberList) {
+            orderMapper.updateChildOrderStatus(orderNumber,1);
         }
     }
 

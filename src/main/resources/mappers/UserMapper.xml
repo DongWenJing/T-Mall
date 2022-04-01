@@ -105,6 +105,11 @@
         values(#{username},#{password},#{realName},#{telephone},#{role})
     </insert>
 
+    <!--将收入加入到每个商家的收入中-->
+    <update id="addShopIncome">
+        update shop set income=income+#{orderAmount} where shop_id=#{shopId}
+    </update>
+
     <select id="findUserName" resultType="string">
         select username from user where username=#{username}
     </select>
@@ -146,5 +151,10 @@
         update user
         set password=#{password}
         where user_id=#{userId}
+    </update>
+
+    <!--支付订单后,进行扣款-->
+    <update id="setRecharge">
+        update user set money=#{money} where user_id=#{userId}
     </update>
 </mapper>

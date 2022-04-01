@@ -52,6 +52,11 @@
                null,#{productName},#{productPrice},#{categoryId},#{weight},#{productDesc},#{discount},#{left},#{imgSrc},#{shopId},#{sold},#{createTime})
     </insert>
 
+    <!--增加对应的销量-->
+    <update id="addSold">
+        update product set sold = sold+#{count} where product_id=#{productId}
+    </update>
+
     <select id="findShopById" resultType="Product">
         select * from product where shop_id=#{shopId}
     </select>
@@ -120,5 +125,10 @@
     <!--找到该商品对应的商家id-->
     <select id="getShopIdByproductId" resultType="java.lang.Integer">
         select shop_id from product where product_id=#{productId}
+    </select>
+
+    <!--获取商品id和数量-->
+    <select id="getOderDetailByOrderNumber" resultType="com.tmall.pojo.OrderDetail">
+        select product_id,`count` from order_detail where order_number=#{orderNumber}
     </select>
 </mapper>

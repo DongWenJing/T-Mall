@@ -9,6 +9,7 @@ import com.tmall.service.ProductService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
@@ -40,22 +41,24 @@ public class ProductServiceImpl implements ProductService {
                                     @Param("pageSize") Integer pageSize,
                                     @Param("key") String key,
                                     @Param("ownerId") Integer ownerId) {
-        return productMapper.findByPage(offset,pageSize,key,ownerId);
+        return productMapper.findByPage(offset, pageSize, key, ownerId);
     }
 
     /**
      * 通过商家Id查询商品总数count
+     *
      * @param ownerId
      * @return
      */
     @Override
     public Integer countShopProduct(Integer ownerId) {
-       Integer count = productMapper.countShopProduct(ownerId);
+        Integer count = productMapper.countShopProduct(ownerId);
         return count;
     }
 
     /**
      * 修改商家商品信息
+     *
      * @param product
      */
     @Override
@@ -69,9 +72,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
     /**
      * 删除商家商品信息
+     *
      * @param productId
      */
     @Override
@@ -86,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 展现每个商品的信息
+     *
      * @param productId
      * @return
      */
@@ -105,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<OrderDetail> findOrderDetail( String orderNumber,BigInteger shopId) {
+    public List<OrderDetail> findOrderDetail(String orderNumber, BigInteger shopId) {
         String orderNumberAll = productMapper.findOrderNumberAll(orderNumber);
         return productMapper.findOrderDetail(orderNumberAll, shopId);
     }
@@ -156,5 +160,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> search(String key) {
         return productMapper.search(key);
+    }
+
+    //  增加对应商品的销量
+    @Transactional
+    @Override
+    public void addProductSold(String orderNumber) {
+        // 获取商品id
+        List<OrderDetail> orderDetailList = productMapper.getOderDetailByOrderNumber(orderNumber);
+        for (OrderDetail orderDetail : orderDetailList) {
+            // 增加对应的销量
+            productMapper.addSold(orderDetail.getProductId(),orderDetail.getCount());
+        }
     }
 }

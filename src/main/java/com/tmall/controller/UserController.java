@@ -130,7 +130,7 @@ public class UserController {
         BigInteger userId = user.getUserId();
         double money = user.getMoney();
         if (money == 0) throw new RechargeException("请输入充值金额!");
-        Double money1 =userService.getRecharge(userId,money);
+        Double money1 =userService.getRecharge(userId);
         Double newMoney= money+money1;
         if (money<500 ) {
             throw new RechargeException("抱歉最低充值500元");

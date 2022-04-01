@@ -131,8 +131,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Double getRecharge(BigInteger userId, double money) {
-        return userMapper.getRecharge(userId, money);
+    public Double getRecharge(BigInteger userId) {
+        return userMapper.getRecharge(userId);
     }
 
     /**
@@ -198,6 +198,31 @@ public class UserServiceImpl implements UserService {
         userMapper.resetPassword(user);
     }
 
+    // 支付订单后,进行扣款
+    @Override
+    @Transactional
+    public void setRecharge(BigInteger userId, Double payMoney, Double recharge) {
+        Double leftMoney = recharge - payMoney;
+        userMapper.setRecharge(userId,leftMoney);
+    }
+
+
+    // 商家店铺的收入增加,同时增加销量
+    @Override
+    @Transactional
+    public void updateShopIncome(String orderNumberAll) {
+        // 获取该订单下的子订单号
+        String[] orderNumberList = orderMapper.getOrderNumbers(orderNumberAll).split(",");
+        for (String orderNumber : orderNumberList) {
+            // 获取每个订单的收入
+            Double orderAmount = orderMapper.getOrderAmount(orderNumber);
+            // 获取每个订单的商家id
+            Integer shopId = orderMapper.getOrderShopId(orderNumber);
+            // 将收入加入到每个商家的收入中
+            userMapper.addShopIncome(orderAmount,shopId);
+        }
+    }
+
 
     /**
      * 更新账户信息
@@ -218,7 +243,7 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     * 获取是否有购买记录 // TODO
+     * 获取是否有购买记录
      * @param userId
      * @param productId
      * @param shopId
@@ -238,28 +263,6 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("productIdSet = " + productIdSet);
         return productIdSet.contains(productId);
-        /*// 先获取该用户的所有订单
-        List<Order> allOrder = orderMapper.findOrderById(userId);
-        // 遍历所有订单
-        for (Order order : allOrder) {
-            // 已经取消
-            if (order.getOrderStatus() == 2)
-                break;
-            // 拿到子订单
-            String[] oN = orderMapper.getOrderNumbers(order.getOrderNumberAll()).split(",");
-            if (oN.length == 1) {
-                // 说明只有一个子订单
-                String orderNumber = oN[0];
-                Integer status = userMapper.check(userId,shopId,orderNumber);
-                if (status == 3)
-                    return true;
-            }
-            for (String orderNumber : oN) {
-                Integer status = userMapper.check(userId, shopId, orderNumber);
-                if (status == 3) return true;
-            }
-        }
-        return false;*/
     }
 
     /**

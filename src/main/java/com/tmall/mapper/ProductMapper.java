@@ -55,4 +55,11 @@ public interface ProductMapper {
 
     // 找到该商品对应的商家id
     Integer getShopIdByproductId(BigInteger productId);
+
+    // 主要获取商品id和数量
+    List<OrderDetail> getOderDetailByOrderNumber(String orderNumber);
+
+    // 增加对应的销量
+    void addSold(@Param("productId") BigInteger productId,
+                 @Param("count") BigInteger count);
 }

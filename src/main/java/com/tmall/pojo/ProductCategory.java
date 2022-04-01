@@ -12,7 +12,6 @@ import java.math.BigInteger;
 
 @Data
 @Accessors(chain = true)
-
 public class ProductCategory implements Serializable {
 
     private static final long serialVersionUID = 1890343468014366123L;

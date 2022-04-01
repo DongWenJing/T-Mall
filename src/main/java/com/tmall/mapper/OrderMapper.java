@@ -65,4 +65,11 @@ public interface OrderMapper {
 
     // 查询已购买的商品
     BigInteger getProductIdByON(String orderNumber);
+
+    // 获取每个订单的收入
+    Double getOrderAmount(String orderNumber);
+
+    // 更新子订单的状态
+    void updateChildOrderStatus(@Param("orderNumber") String orderNumber,
+                                @Param("status") int status);
 }

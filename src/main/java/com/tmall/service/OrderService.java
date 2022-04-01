@@ -35,4 +35,7 @@ public interface OrderService {
 
     // 用户删除订单(实现软删除)
     void deleteOrderFalse(String orderNumberAll);
+
+    // 将订单设置为待收货状态(1标识待收货)
+    void updateOrderStatus(String orderNumberAll);
 }

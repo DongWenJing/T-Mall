@@ -60,6 +60,7 @@ public class CartController {
     }
 
     /***
+     * TODO: 需要判断是否还有对应商品
      * 用户添加商品到购物车
      * @param queryCart
      * @return
@@ -92,6 +93,7 @@ public class CartController {
     }
 
     /***
+     * TODO: 需要修改对应的商品数量
      * 将该方法转为写订单(order_master)
      * @param userId
      * @return

@@ -6,7 +6,10 @@ import com.tmall.exception.OrderSendException;
 import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
+import com.tmall.pojo.PayInfo;
 import com.tmall.service.OrderService;
+import com.tmall.service.ProductService;
+import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,12 @@ public class OrderController {
 
     @Autowired
     private Page page;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -131,5 +140,25 @@ public class OrderController {
     public ResponseData<?> deleteOrderFalse(@PathVariable String orderNumberAll) {
         orderService.deleteOrderFalse(orderNumberAll);
         return ResponseDataUtils.buildSuccess("0", "删除订单成功!");
+    }
+
+    /**
+     * 付款
+     */
+    @PostMapping("/pay")
+    public ResponseData<?> pay(@RequestBody PayInfo payInfo) {
+        // 判断用户余额是否充足
+        Double recharge = userService.getRecharge(payInfo.getUserId());
+        if (recharge < payInfo.getPayMoney())
+            return ResponseDataUtils.buildSuccess("1", "账户余额不足，请充值！");
+        // 进行扣款
+        userService.setRecharge(payInfo.getUserId(),payInfo.getPayMoney(),recharge);
+        // 将订单设置为待收货状态(1标识待收货)
+        orderService.updateOrderStatus(payInfo.getOrderNumber());
+        // 商家店铺的收入增加
+        userService.updateShopIncome(payInfo.getOrderNumber());
+        // 增加对应商品的销量
+        productService.addProductSold(payInfo.getOrderNumber());
+        return ResponseDataUtils.buildSuccess("0", "支付成功！");
     }
 }

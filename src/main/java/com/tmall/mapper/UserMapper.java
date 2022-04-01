@@ -42,7 +42,7 @@ public interface UserMapper {
     //充值
     void addRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
     //查询当前余额
-    Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
+    Double getRecharge(@Param("userId") BigInteger userId);
     //查询购买记录
     Integer check(@Param("userId") BigInteger userId,
                   @Param("shopId") BigInteger shopId,
@@ -80,4 +80,12 @@ public interface UserMapper {
 
     // 重置账户密码
     void resetPassword(User user);
+
+    // 支付订单后,进行扣款
+    void setRecharge(@Param("userId") BigInteger userId,
+                     @Param("money") Double money);
+
+    // 将收入加入到每个商家的收入中
+    void addShopIncome(@Param("orderAmount") Double orderAmount,
+                       @Param("shopId") Integer shopId);
 }

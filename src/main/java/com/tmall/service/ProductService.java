@@ -54,4 +54,7 @@ public interface ProductService {
     List<OrderDetail> findOrderProduct(String orderNumber);
 
     List<Product> search(String key);
+
+    //  增加对应商品的销量
+    void addProductSold(String orderNumber);
 }
