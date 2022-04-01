@@ -127,16 +127,9 @@
 
 <!-- 查询是否有已完成订单记录,// order_status表示订单状态：
 0表示待付款，1表示待收货，2表示已取消，3表示已完成   -->
-    <select id="check" resultType="BigInteger">
-        SELECT order_id FROM order_master om, order_detail od
-
-        WHERE om.buyer_id= #{userId}
-
-          AND od.product_id=#{productId}
-
-          AND om.order_number=od.order_number
-
-          AND om.order_status=3
+    <select id="check" resultType="Integer">
+        select order_status from order_master
+        where order_number=${orderNumber} and buyer_id=#{userId} and shop_id=#{shopId}
     </select>
 
     <select id="getUserByOrderNumber" resultType="User">

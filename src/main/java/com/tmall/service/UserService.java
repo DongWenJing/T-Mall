@@ -39,7 +39,7 @@ public interface UserService {
 
     Double getRecharge(BigInteger userId, double money);
 
-    BigInteger check(BigInteger userId, BigInteger productId);
+    boolean check(BigInteger userId, BigInteger productId, BigInteger shopId);
 
     // 检查用户名是否重复
     String getCheckUsername(String username);

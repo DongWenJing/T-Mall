@@ -3,9 +3,7 @@ package com.tmall.mapper;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -46,7 +44,9 @@ public interface UserMapper {
     //查询当前余额
     Double getRecharge(@Param("userId") BigInteger userId,@Param("money") double money);
     //查询购买记录
-    BigInteger check(@Param("userId") BigInteger userId,@Param("productId") BigInteger productId);
+    Integer check(@Param("userId") BigInteger userId,
+                  @Param("shopId") BigInteger shopId,
+                  @Param("orderNumber") String orderNumber);
 
     //更新用户权限状态
     void updateStatus(@Param("userId") BigInteger userId,@Param("status") BigInteger status);

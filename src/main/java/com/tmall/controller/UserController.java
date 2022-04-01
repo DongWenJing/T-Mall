@@ -133,12 +133,13 @@ public class UserController {
     }
 
     // 查询某用户是否购买了某商品
-    @GetMapping("/check/{userId}/{productId}")
+    @GetMapping("/check/{userId}/{productId}/{shopId}")
     public ResponseData<?> check(@PathVariable BigInteger userId,
-                                 @PathVariable BigInteger productId){
+                                 @PathVariable BigInteger productId,
+                                 @PathVariable BigInteger shopId){
         //若flag=null则说明没有购买商品,不为null则购买了可以进行下一步(评论)
-      BigInteger flag= userService.check(userId,productId);
-        if (flag == null) {
+        boolean flag= userService.check(userId,productId,shopId);
+        if (!flag) {
             return ResponseDataUtils.buildSuccess("1","未购买此商品不能评价哟~");
         }
         return ResponseDataUtils.buildSuccess("0","已购买此商品");

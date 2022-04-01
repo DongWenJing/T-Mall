@@ -1,7 +1,9 @@
 package com.tmall.service.impl;
 
+import com.tmall.mapper.OrderMapper;
 import com.tmall.mapper.ShopMapper;
 import com.tmall.mapper.UserMapper;
+import com.tmall.pojo.Order;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
@@ -14,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ShopMapper shopMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public User selectUserByUP(User user) {
@@ -208,16 +212,38 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     * 获取是否有购买记录
-     *
+     * 获取是否有购买记录 // TODO
      * @param userId
      * @param productId
+     * @param shopId
      * @return
      */
     @Override
-    public BigInteger check(BigInteger userId, BigInteger productId) {
-        BigInteger flag = userMapper.check(userId, productId);
-        return flag;
+    public boolean check(BigInteger userId, BigInteger productId, BigInteger shopId) {
+        // 先获取该用户的所有订单
+        List<Order> allOrder = orderMapper.findOrderById(userId);
+        // 遍历所有订单
+        for (Order order : allOrder) {
+            if (order.getOrderStatus() == 3)
+                return true;
+            // 拿到子订单
+            String[] oN = orderMapper.getOrderNumbers(order.getOrderNumberAll()).split(",");
+            if (oN.length == 1) {
+                // 说明只有一个子订单
+                String orderNumber = oN[0];
+                Integer status = userMapper.check(userId,shopId,orderNumber);
+                if (status == 3)
+                    return true;
+                return false;
+            }
+            // 多个子订单
+            for (String orderNumber : oN) {
+                Integer status = userMapper.check(userId, shopId, orderNumber);
+                if (status == 3) return true;
+                return false;
+            }
+        }
+        return false;
     }
 
     /**
