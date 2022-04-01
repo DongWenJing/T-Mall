@@ -44,7 +44,6 @@ public class CommentController {
     public BigInteger getCountById(@PathVariable("productId")
                                                BigInteger productId){
      return commentService.getCountById(productId);
-
     }
 
     /***
@@ -55,9 +54,7 @@ public class CommentController {
     @PostMapping
     public ResponseData<?>insertComment(@RequestBody Comment comment){
         commentService.insertComment(comment);
-
         return ResponseDataUtils.buildSuccess("0", "评论成功!");
-
     }
 
     /***
@@ -67,10 +64,7 @@ public class CommentController {
      */
     @DeleteMapping("/{commentId}")
     public ResponseData<?>deleteComment(@PathVariable BigInteger commentId){
-
         commentService.deleteComment(commentId);
-
         return ResponseDataUtils.buildSuccess("0", "删除评论成功");
-
     }
 }

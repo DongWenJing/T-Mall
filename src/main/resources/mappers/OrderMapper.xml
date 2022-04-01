@@ -75,6 +75,17 @@
         select order_status from `order` where order_number_all=#{orderNumber}
     </select>
 
+    <!--获取该用户在该店的订单号(已完成)-->
+    <select id="getOrderNumbersByUS" resultType="java.lang.String">
+        select order_number from order_master where buyer_id=#{userId} and shop_id=#{shopId}
+        and order_status=3
+    </select>
+
+    <!--查询已购买的商品-->
+    <select id="getProductIdByON" resultType="java.math.BigInteger">
+        select product_id from order_detail where order_number=#{orderNumber}
+    </select>
+
     <!--取消该订单-->
     <update id="cancel1">
         update order_master set order_status=2 where order_number=#{s}

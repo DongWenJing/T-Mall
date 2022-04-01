@@ -18,12 +18,15 @@
         select count(*) from `comment` where product_id=#{productId}
     </select>
 
-<!--    添加评论-->
-    <insert id="insertComment"  >
+    <!--判断是否已经评论过-->
+    <select id="checkComment" resultType="com.tmall.pojo.Comment">
+        select * from comment where product_id=#{productId} and user_id=#{userId}
+    </select>
 
+    <!--    添加评论-->
+    <insert id="insertComment"  >
         insert into `comment` (product_id,comment_text,user_id)
             value (#{productId},#{commentText},#{userId})
-
     </insert>
 
 <!--    删除评论-->

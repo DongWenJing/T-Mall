@@ -1,6 +1,7 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.OrderMapper;
+import com.tmall.mapper.ProductMapper;
 import com.tmall.mapper.ShopMapper;
 import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Order;
@@ -17,7 +18,9 @@ import org.springframework.util.DigestUtils;
 
 
 import java.math.BigInteger;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author R.Yu
@@ -34,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public User selectUserByUP(User user) {
@@ -220,12 +226,25 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean check(BigInteger userId, BigInteger productId, BigInteger shopId) {
-        // 先获取该用户的所有订单
+        Set<BigInteger> productIdSet = new HashSet<>();
+        // 获取该用户在该店的总订单号(已完成的订单)
+        List<String> orderNumbersList = orderMapper.getOrderNumbersByUS(userId,shopId);
+        for (String orderNumber : orderNumbersList) {
+            // 获取该订单对应的总订单号
+            String orderNumberAll = productMapper.findOrderNumberAll(orderNumber);
+            // 查询已购买的商品
+            BigInteger getProductId = orderMapper.getProductIdByON(orderNumberAll);
+            productIdSet.add(getProductId);
+        }
+        System.out.println("productIdSet = " + productIdSet);
+        return productIdSet.contains(productId);
+        /*// 先获取该用户的所有订单
         List<Order> allOrder = orderMapper.findOrderById(userId);
         // 遍历所有订单
         for (Order order : allOrder) {
-            if (order.getOrderStatus() == 3)
-                return true;
+            // 已经取消
+            if (order.getOrderStatus() == 2)
+                break;
             // 拿到子订单
             String[] oN = orderMapper.getOrderNumbers(order.getOrderNumberAll()).split(",");
             if (oN.length == 1) {
@@ -234,16 +253,13 @@ public class UserServiceImpl implements UserService {
                 Integer status = userMapper.check(userId,shopId,orderNumber);
                 if (status == 3)
                     return true;
-                return false;
             }
-            // 多个子订单
             for (String orderNumber : oN) {
                 Integer status = userMapper.check(userId, shopId, orderNumber);
                 if (status == 3) return true;
-                return false;
             }
         }
-        return false;
+        return false;*/
     }
 
     /**

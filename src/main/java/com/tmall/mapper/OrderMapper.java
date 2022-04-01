@@ -58,4 +58,11 @@ public interface OrderMapper {
 
     // 获取order表中总订单号的状态
     Integer getOrderAllStatus(String orderNumber);
+
+    // 获取该用户在该店的订单号
+    List<String> getOrderNumbersByUS(@Param("userId") BigInteger userId,
+                                     @Param("shopId") BigInteger shopId);
+
+    // 查询已购买的商品
+    BigInteger getProductIdByON(String orderNumber);
 }

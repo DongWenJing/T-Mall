@@ -4,6 +4,7 @@ import com.tmall.mapper.CommentMapper;
 import com.tmall.pojo.Comment;
 import com.tmall.pojo.DetailsComment;
 import com.tmall.service.CommentService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,12 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(BigInteger commentId) {
 
         commentMapper.deleteComment(commentId);
+    }
+
+    // 判断是否已经评论过
+    @Override
+    public boolean checkComment(BigInteger productId, BigInteger userId) {
+        Comment comment = commentMapper.checkComment(productId,userId);
+        return comment != null;
     }
 }

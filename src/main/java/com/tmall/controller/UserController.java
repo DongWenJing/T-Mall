@@ -9,6 +9,7 @@ import com.tmall.exception.RechargeException;
 import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
+import com.tmall.service.CommentService;
 import com.tmall.service.UserService;
 import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
@@ -31,6 +32,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     //登录
     @PostMapping("/login")
@@ -146,6 +150,9 @@ public class UserController {
         boolean flag= userService.check(userId,productId,shopId);
         if (!flag) {
             return ResponseDataUtils.buildSuccess("1","未购买此商品不能评价哟~");
+        }
+        if (commentService.checkComment(productId, userId)) {
+            return ResponseDataUtils.buildSuccess("1","只可评价一次");
         }
         return ResponseDataUtils.buildSuccess("0","已购买此商品");
     }

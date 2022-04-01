@@ -2,6 +2,7 @@ package com.tmall.mapper;
 
 import com.tmall.pojo.Comment;
 import com.tmall.pojo.DetailsComment;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -19,4 +20,8 @@ public interface CommentMapper {
 
     //删除评论
     void deleteComment(BigInteger commentId);
+
+    // 判断是否已经评论过
+    Comment checkComment(@Param("productId") BigInteger productId,
+                         @Param("userId") BigInteger userId);
 }

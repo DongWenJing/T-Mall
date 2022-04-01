@@ -15,4 +15,6 @@ public interface CommentService {
 
     void deleteComment(BigInteger commentId);
 
+    // 判断是否已经评论过
+    boolean checkComment(BigInteger productId, BigInteger userId);
 }
