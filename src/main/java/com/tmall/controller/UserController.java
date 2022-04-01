@@ -44,7 +44,7 @@ public class UserController {
         return ResponseDataUtils.buildSuccess("0", "登录成功！", resultUser);
     }
 
-    //利用用户ID获取用户的所有信息
+    //获取用户的所有信息
     @GetMapping("/{userId}")
     public ResponseData<?> getUserById(@PathVariable("userId") BigInteger userId){
 
@@ -94,16 +94,21 @@ public class UserController {
             throw new PasswordException("修改内容不可为空!");
         } else {
             inputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes());
+
             String newPassword = password.getNewPassword();
             String twicePassword = password.getTwicePassword();
             String oldPassword = this.userService.getOldPassword(password.getUserId());
+
+            String newPMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
             if (!oldPassword.equals(inputPassword)) {
                 throw new PasswordException("原密码不正确请重新输入");
             } else if (!StringUtils.hasLength(newPassword)) {
                 throw new PasswordException("新密码不可为空");
             } else if (!newPassword.equals(twicePassword)) {
                 throw new PasswordException("两次密码不一致请重新输入");
-            } else {
+            } else if (oldPassword.equals(newPMd5)) {
+                throw new PasswordException("不可与上一次密码相同");
+            }else {
                 this.userService.setPassword(password);
                 return ResponseDataUtils.buildSuccess("0", "密码修改成功");
             }
