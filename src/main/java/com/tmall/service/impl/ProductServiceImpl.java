@@ -170,7 +170,17 @@ public class ProductServiceImpl implements ProductService {
         List<OrderDetail> orderDetailList = productMapper.getOderDetailByOrderNumber(orderNumber);
         for (OrderDetail orderDetail : orderDetailList) {
             // 增加对应的销量
-            productMapper.addSold(orderDetail.getProductId(),orderDetail.getCount());
+            productMapper.addSold(orderDetail.getProductId(), orderDetail.getCount());
+        }
+    }
+
+    // 减少对应商品的库存
+    @Transactional
+    @Override
+    public void decreaseProductLeft(String orderNumber) {
+        List<OrderDetail> orderDetails = productMapper.getOderDetailByOrderNumber(orderNumber);
+        for (OrderDetail orderDetail : orderDetails) {
+            productMapper.decreaseProductLeft(orderDetail.getProductId(),orderDetail.getCount());
         }
     }
 }

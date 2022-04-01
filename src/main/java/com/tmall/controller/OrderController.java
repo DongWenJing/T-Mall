@@ -159,6 +159,8 @@ public class OrderController {
         userService.updateShopIncome(payInfo.getOrderNumber());
         // 增加对应商品的销量
         productService.addProductSold(payInfo.getOrderNumber());
+        // 减少对应商品的库存
+        productService.decreaseProductLeft(payInfo.getOrderNumber());
         return ResponseDataUtils.buildSuccess("0", "支付成功！");
     }
 }

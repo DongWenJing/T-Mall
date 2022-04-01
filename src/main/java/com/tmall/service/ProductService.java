@@ -57,4 +57,7 @@ public interface ProductService {
 
     //  增加对应商品的销量
     void addProductSold(String orderNumber);
+
+    // 减少对应商品的库存
+    void decreaseProductLeft(String orderNumber);
 }

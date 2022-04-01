@@ -203,7 +203,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void setRecharge(BigInteger userId, Double payMoney, Double recharge) {
         Double leftMoney = recharge - payMoney;
-        userMapper.setRecharge(userId,leftMoney);
+        userMapper.setRecharge(userId, leftMoney);
     }
 
 
@@ -219,7 +219,7 @@ public class UserServiceImpl implements UserService {
             // 获取每个订单的商家id
             Integer shopId = orderMapper.getOrderShopId(orderNumber);
             // 将收入加入到每个商家的收入中
-            userMapper.addShopIncome(orderAmount,shopId);
+            userMapper.addShopIncome(orderAmount, shopId);
         }
     }
 
@@ -244,6 +244,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取是否有购买记录
+     *
      * @param userId
      * @param productId
      * @param shopId
@@ -253,15 +254,14 @@ public class UserServiceImpl implements UserService {
     public boolean check(BigInteger userId, BigInteger productId, BigInteger shopId) {
         Set<BigInteger> productIdSet = new HashSet<>();
         // 获取该用户在该店的总订单号(已完成的订单)
-        List<String> orderNumbersList = orderMapper.getOrderNumbersByUS(userId,shopId);
+        List<String> orderNumbersList = orderMapper.getOrderNumbersByUS(userId, shopId);
         for (String orderNumber : orderNumbersList) {
             // 获取该订单对应的总订单号
             String orderNumberAll = productMapper.findOrderNumberAll(orderNumber);
             // 查询已购买的商品
-            BigInteger getProductId = orderMapper.getProductIdByON(orderNumberAll);
-            productIdSet.add(getProductId);
+            List<BigInteger> productIdList = orderMapper.getProductIdByON(orderNumberAll);
+            productIdSet.addAll(productIdList);
         }
-        System.out.println("productIdSet = " + productIdSet);
         return productIdSet.contains(productId);
     }
 

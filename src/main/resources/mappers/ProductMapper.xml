@@ -54,7 +54,12 @@
 
     <!--增加对应的销量-->
     <update id="addSold">
-        update product set sold = sold+#{count} where product_id=#{productId}
+        update product set sold=sold+#{count} where product_id=#{productId}
+    </update>
+
+    <!--减少对应商品的库存-->
+    <update id="decreaseProductLeft">
+        update product set `left`=`left`-#{count} where product_id=#{productId}
     </update>
 
     <select id="findShopById" resultType="Product">

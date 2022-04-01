@@ -64,7 +64,7 @@ public interface OrderMapper {
                                      @Param("shopId") BigInteger shopId);
 
     // 查询已购买的商品
-    BigInteger getProductIdByON(String orderNumber);
+    List<BigInteger> getProductIdByON(String orderNumber);
 
     // 获取每个订单的收入
     Double getOrderAmount(String orderNumber);

@@ -7,6 +7,7 @@ import com.tmall.pojo.Cart;
 import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderMaster;
 import com.tmall.service.CartService;
+import com.tmall.service.ProductService;
 import com.tmall.util.RandOrderNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ProductService productService;
 
     /***
      * 根据用户ID获取其所有购物车信息
@@ -93,7 +97,6 @@ public class CartController {
     }
 
     /***
-     * TODO: 需要修改对应的商品数量
      * 将该方法转为写订单(order_master)
      * @param userId
      * @return

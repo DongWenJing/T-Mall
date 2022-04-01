@@ -62,4 +62,8 @@ public interface ProductMapper {
     // 增加对应的销量
     void addSold(@Param("productId") BigInteger productId,
                  @Param("count") BigInteger count);
+
+    // 减少对应商品的库存
+    void decreaseProductLeft(@Param("productId") BigInteger productId,
+                             @Param("count") BigInteger count);
 }

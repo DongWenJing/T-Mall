@@ -152,7 +152,7 @@ public class UserController {
             return ResponseDataUtils.buildSuccess("1","未购买此商品不能评价哟~");
         }
         if (commentService.checkComment(productId, userId)) {
-            return ResponseDataUtils.buildSuccess("1","只可评价一次");
+            return ResponseDataUtils.buildSuccess("1","同一商品只可评价一次!");
         }
         return ResponseDataUtils.buildSuccess("0","已购买此商品");
     }

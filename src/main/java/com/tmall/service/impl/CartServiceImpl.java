@@ -61,6 +61,7 @@ public class CartServiceImpl implements CartService {
 
     // 添加订单
     @Override
+    @Transactional
     public void getCartProductIds(BigInteger userId, String orderNumber) {
         // 获取订单中的商品id
         BigInteger[] productIds = {};
