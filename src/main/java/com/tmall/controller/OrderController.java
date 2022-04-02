@@ -104,13 +104,13 @@ public class OrderController {
         }
     }
 
-    // 删除购物车对应的商品
-    @DeleteMapping("/master")
-    public ResponseData<?> addOrderMaster(@RequestBody OrderMaster orderMaster){
-        System.out.println(orderMaster);
-        orderService.deleteOrderMaster(orderMaster);
-        return ResponseDataUtils.buildSuccess("0","购物车物品已删除");
-    }
+    // 删除购物车对应的商品(没用到)
+    // @DeleteMapping("/master")
+    // public ResponseData<?> addOrderMaster(@RequestBody OrderMaster orderMaster){
+    //     System.out.println(orderMaster);
+    //     orderService.deleteOrderMaster(orderMaster);
+    //     return ResponseDataUtils.buildSuccess("0","购物车物品已删除");
+    // }
 
     //保存订单信息中每一件商品的信息
     @PostMapping("/detail")

@@ -94,11 +94,11 @@ Fastjson 可以操作任何 Java 对象，
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.4.2</version>
-            </dependency>
+            </dependency>-->
         </dependencies>
 
 

@@ -101,6 +101,7 @@ public class OrderServiceImpl implements OrderService {
 
     //保存订单信息中每一件商品的信息
     @Override
+    @Transactional
     public void addOrderDetail(OrderDetail orderDetail) {
         orderDetail.setUpdateTime(new Date());
         orderMapper.addOrderDetail(orderDetail);
