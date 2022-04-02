@@ -114,7 +114,7 @@ public class CartController {
     @Transactional
     public ResponseData<?> deleteCartByUserId(@PathVariable BigInteger userId) {
         List<String> productNames = cartService.deleteCartByUserId(userId);
-        if (productNames != null) {
+        if (productNames.size() != 0) {
             throw new RuntimeException("抱歉!,商品"+ productNames +"库存不足!");
         }
         return ResponseDataUtils.buildSuccess("0", "清空购物车成功!");
