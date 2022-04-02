@@ -60,4 +60,5 @@ public interface ProductService {
 
     // 减少对应商品的库存
     void decreaseProductLeft(String orderNumber);
+
 }

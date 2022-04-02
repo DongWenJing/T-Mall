@@ -1,6 +1,7 @@
 package com.tmall.service.impl;
 
 import com.tmall.mapper.CartMapper;
+import com.tmall.mapper.ProductMapper;
 import com.tmall.pojo.Cart;
 import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderMaster;
@@ -18,6 +19,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartMapper cartMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     //根据用户ID获取其所有购物车信息
     @Override
@@ -41,14 +45,19 @@ public class CartServiceImpl implements CartService {
 
     // 检验用户是否收藏了某一件商品
     @Override
-    @Transactional
     public Cart findCartItem(BigInteger userId, BigInteger productId) {
         return cartMapper.findCartItem(userId, productId);
     }
 
     // 用户添加商品到购物车
     @Override
+    @Transactional
     public void addToCart(BigInteger userId, BigInteger productId, BigInteger count) {
+        // 获取商品剩余数量
+        BigInteger number = productMapper.getProductLeft(productId);
+        if (number.compareTo(count) < 0) {
+            throw new RuntimeException("抱歉!库存不足!");
+        }
         cartMapper.addToCart(userId, productId, count);
 
     }
@@ -151,9 +160,20 @@ public class CartServiceImpl implements CartService {
 
     // 清空购物车
     @Override
-    public void deleteCartByUserId(BigInteger userId) {
+    @Transactional
+    public List<String> deleteCartByUserId(BigInteger userId) {
+        // 获取该用户的购物车
+        List<Cart> cartProductList = cartMapper.getCartProductIds(userId);
+        List<String> productNames = new ArrayList<>();
+        // 判断库存是否充足
+        for (Cart cart : cartProductList) {
+            BigInteger left = productMapper.getProductLeft(cart.getProductId());
+            String productName = productMapper.getProductName(cart.getProductId());
+            if (left.compareTo(cart.getCount()) < 0) {
+                productNames.add(productName);
+            }
+        }
         cartMapper.deleteCartByUserId(userId);
+        return productNames;
     }
-
-
 }

@@ -21,7 +21,7 @@ public interface CartService {
 
     void deleteCart(BigInteger cartId);
 
-    // 获取该用户的购物车产品的id
+    // 写订单
     void getCartProductIds(BigInteger userId, String orderNumber);
 
     // 通过产品id获取店铺id
@@ -42,6 +42,6 @@ public interface CartService {
     void addOrder(Order order);
 
     // 清空购物车
-    void deleteCartByUserId(BigInteger userId);
+    List<String> deleteCartByUserId(BigInteger userId);
 }
 

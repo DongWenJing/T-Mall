@@ -64,7 +64,6 @@ public class CartController {
     }
 
     /***
-     * TODO: 需要判断是否还有对应商品
      * 用户添加商品到购物车
      * @param queryCart
      * @return
@@ -105,15 +104,19 @@ public class CartController {
     public ResponseData<?> getCartProductIds(@PathVariable BigInteger userId,
                                              @PathVariable String orderNumber) {
         cartService.getCartProductIds(userId,orderNumber);
-        return ResponseDataUtils.buildSuccess("0", "获取购物车中的产品id成功");
+        return ResponseDataUtils.buildSuccess("0", "订单保存成功");
     }
 
     /**
      * 清空购物车
      */
     @DeleteMapping("/delete/{userId}")
+    @Transactional
     public ResponseData<?> deleteCartByUserId(@PathVariable BigInteger userId) {
-        cartService.deleteCartByUserId(userId);
+        List<String> productNames = cartService.deleteCartByUserId(userId);
+        if (productNames != null) {
+            throw new RuntimeException("抱歉!,商品"+ productNames +"库存不足!");
+        }
         return ResponseDataUtils.buildSuccess("0", "清空购物车成功!");
     }
 

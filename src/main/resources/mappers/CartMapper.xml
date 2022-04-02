@@ -45,8 +45,8 @@
 
 
 <!--    /*delete from cart where user_id=#{userId}*/-->
-    <select id="getCartProductIds" resultType="BigInteger">
-        select product_id from cart where user_id=#{userId}
+    <select id="getCartProductIds" resultType="Cart">
+        select product_id,`count` from cart where user_id=#{userId}
     </select>
 
     <!--通过产品id获取店铺id-->

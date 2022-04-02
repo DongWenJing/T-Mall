@@ -136,4 +136,20 @@
     <select id="getOderDetailByOrderNumber" resultType="com.tmall.pojo.OrderDetail">
         select product_id,`count` from order_detail where order_number=#{orderNumber}
     </select>
+
+    <!--获取商品剩余数量-->
+    <select id="getProductLeft" resultType="java.math.BigInteger">
+        select `left` from product where product_id=#{productId}
+    </select>
+
+    <!--查询对应订单的商品数量-->
+    <select id="getProductCountByOP" resultType="java.math.BigInteger">
+        select `count` from order_detail where order_number=#{orderNumber} and product_id=#{productId}
+    </select>
+
+    <!--获取商品名字-->
+    <select id="getProductName" resultType="java.lang.String">
+        select product_name from product where product_id=#{productId}
+    </select>
+
 </mapper>

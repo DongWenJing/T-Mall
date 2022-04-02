@@ -66,4 +66,14 @@ public interface ProductMapper {
     // 减少对应商品的库存
     void decreaseProductLeft(@Param("productId") BigInteger productId,
                              @Param("count") BigInteger count);
+
+    // 获取商品剩余数量
+    BigInteger getProductLeft(BigInteger productId);
+
+    // 查询对应订单的商品数量
+    BigInteger getProductCountByOP(@Param("orderNumber") String orderNumber,
+                                   @Param("productId") BigInteger productId);
+
+    // 获取商品名字
+    String getProductName(BigInteger productId);
 }
