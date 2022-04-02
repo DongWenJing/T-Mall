@@ -6,6 +6,7 @@ import com.tmall.common.ResponseDataUtils;
 import com.tmall.pojo.Comment;
 import com.tmall.pojo.DetailsComment;
 import com.tmall.service.CommentService;
+import com.tmall.util.FilterText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +30,7 @@ public class CommentController {
     @GetMapping("/{productId}")
     public List<DetailsComment>findCommentsById(@PathVariable("productId")
                                                         BigInteger productId){
-
         return commentService.findCommentsById(productId);
-
-
     }
 
     /***
@@ -52,7 +50,9 @@ public class CommentController {
      * @return
      */
     @PostMapping
-    public ResponseData<?>insertComment(@RequestBody Comment comment){
+    public ResponseData<?> insertComment(@RequestBody Comment comment){
+        String s = FilterText.replaceText(comment.getCommentText());
+        comment.setCommentText(s);
         commentService.insertComment(comment);
         return ResponseDataUtils.buildSuccess("0", "评论成功!");
     }

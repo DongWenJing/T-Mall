@@ -7,6 +7,7 @@ import com.tmall.service.CommentService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -32,15 +33,15 @@ public class CommentServiceImpl implements CommentService {
 
     //添加评论
     @Override
+    @Transactional
     public void insertComment(Comment comment) {
         commentMapper.insertComment(comment);
-
     }
 
     //评论删除
     @Override
+    @Transactional
     public void deleteComment(BigInteger commentId) {
-
         commentMapper.deleteComment(commentId);
     }
 
