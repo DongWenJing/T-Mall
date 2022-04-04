@@ -40,9 +40,9 @@ public class ShopController {
      * 根据shopId获取店铺信息
      */
     @GetMapping("/shop_id/{shopId}")
-    public ResponseData<?> getShopByShopId(@PathVariable BigInteger shopId){
+    public ResponseData<?> getShopByShopId(@PathVariable BigInteger shopId) {
         Shop shop = shopService.getShopByShopId(shopId);
-        return ResponseDataUtils.buildSuccess("0","获取店铺信息成功！", shop);
+        return ResponseDataUtils.buildSuccess("0", "获取店铺信息成功！", shop);
     }
 
     /**
@@ -68,16 +68,16 @@ public class ShopController {
 
     //查询店铺的销售额
     @GetMapping("/getsale/{shopId}")
-    public ResponseData getSale(@PathVariable Double shopId){
-        Double sale=  shopService.getSale(shopId);
-        return ResponseDataUtils.buildSuccess("0","",sale);
+    public ResponseData getSale(@PathVariable Double shopId) {
+        Double sale = shopService.getSale(shopId);
+        return ResponseDataUtils.buildSuccess("0", "", sale);
     }
 
     //查询店铺的销量
     @GetMapping("/getVolume/{shopId}")
-    public ResponseData getVolume(@PathVariable Integer shopId){
-       Integer volume= shopService.getVolume(shopId);
-        return ResponseDataUtils.buildSuccess("0","",volume);
+    public ResponseData getVolume(@PathVariable Integer shopId) {
+        Integer volume = shopService.getVolume(shopId);
+        return ResponseDataUtils.buildSuccess("0", "", volume);
     }
 }
 

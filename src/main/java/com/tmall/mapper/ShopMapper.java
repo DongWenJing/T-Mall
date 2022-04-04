@@ -1,8 +1,7 @@
 package com.tmall.mapper;
 
 import com.tmall.pojo.Shop;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;
 import java.util.List;

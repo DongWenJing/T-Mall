@@ -60,11 +60,12 @@ public class ShopServiceImpl implements ShopService {
     //查询商家销售额
     @Override
     public Double getSale(Double shopId) {
-        Double sale = shopMapper.getSale(shopId);
+        /*Double sale = shopMapper.getSale(shopId);
         if (sale == null) {
             return 0d;
         }
-        return sale;
+        return sale;*/
+        return shopMapper.getSale(shopId);
     }
 
     //查询商家的销量

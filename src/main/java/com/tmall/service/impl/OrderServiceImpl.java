@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateTime;
 import com.tmall.mapper.CartMapper;
 import com.tmall.mapper.OrderMapper;
 import com.tmall.mapper.ProductMapper;
+import com.tmall.mapper.UserMapper;
 import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.OrderMaster;
@@ -27,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     private final OrderMapper orderMapper;
 
@@ -83,14 +87,24 @@ public class OrderServiceImpl implements OrderService {
     //取消订单
     @Override
     public void cancel(String orderNumber,BigInteger shopId) {
+        // 将该订单的状态改为2(已取消的状态)
         orderMapper.cancel(orderNumber,shopId);
-        // TODO 判断order表中是否只有一个订单,如果是则需要把order表的订单状态改为2
         String orderNumberAll = productMapper.findOrderNumberAll(orderNumber);
+        // 获取用户id
+        BigInteger userId = orderMapper.getOrderUserId(orderNumber);
+        // 获取用户订单金额
+        Double money = orderMapper.getOrderMoney(orderNumber);
+        // 获取用户现在的金额
+        Double balance = userMapper.getRecharge(userId);
+        money = money + balance;
+        userMapper.addRecharge(userId,money);
+
         String[] oN = orderMapper.getOrderNumbers(orderNumberAll).split(",");
         if (oN.length == 1) {
             orderMapper.updateStatus(orderNumberAll,2);
         }
-        // 若不是,
+        // 若不是,则无需处理
+
     }
 
     // 清空购物车
@@ -126,6 +140,7 @@ public class OrderServiceImpl implements OrderService {
 
     // 用户删除订单(实现软删除)
     @Override
+    @Transactional
     public void deleteOrderFalse(String orderNumberAll) {
         orderMapper.updateStatus(orderNumberAll,4);
         // 商家对应的订单应该调为已取消

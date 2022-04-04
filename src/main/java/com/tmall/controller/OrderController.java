@@ -12,6 +12,7 @@ import com.tmall.service.ProductService;
 import com.tmall.service.UserService;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -146,6 +147,7 @@ public class OrderController {
      * 付款
      */
     @PostMapping("/pay")
+    @Transactional
     public ResponseData<?> pay(@RequestBody PayInfo payInfo) {
         // 判断用户余额是否充足
         Double recharge = userService.getRecharge(payInfo.getUserId());

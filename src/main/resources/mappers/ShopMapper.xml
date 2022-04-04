@@ -38,11 +38,12 @@
     </select>
 
 <!-- 查询商家的销售额   -->
-    <select id="getSale" resultType="Double">
-        select sum(order_amount)
+    <!--select sum(order_amount)
         from order_master
         where order_status in (1,3)
-          and shop_id=#{shopid}
+          and shop_id=#{shopid}-->
+    <select id="getSale" resultType="Double">
+        select income from shop where shop_id=#{shopId}
     </select>
 
 <!--  获取到shopId  -->
@@ -53,8 +54,9 @@
 
 <!-- 查询商家的销售量   -->
     <select id="getVolume" resultType="Integer">
-        select sum(`count`) from order_detail
-        where order_number in 
+        select sum(`count`) from order_detail join product
+        on order_detail.product_id=product.product_id
+        where order_number in
         <foreach collection="list" open="(" close=")" item="on" separator=",">
             #{on}
         </foreach>

@@ -72,4 +72,10 @@ public interface OrderMapper {
     // 更新子订单的状态
     void updateChildOrderStatus(@Param("orderNumber") String orderNumber,
                                 @Param("status") int status);
+
+    // 获取用户id
+    BigInteger getOrderUserId(String orderNumber);
+
+    // 获取用户订单金额
+    Double getOrderMoney(String orderNumber);
 }

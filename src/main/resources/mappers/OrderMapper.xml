@@ -91,6 +91,16 @@
         select order_amount from order_master where order_number=#{orderNumber}
     </select>
 
+    <!--获取用户id-->
+    <select id="getOrderUserId" resultType="java.math.BigInteger">
+        select buyer_id from order_master where order_number=#{orderNumber}
+    </select>
+
+    <!--获取用户订单金额-->
+    <select id="getOrderMoney" resultType="java.lang.Double">
+        select order_amount from order_master where order_number=#{orderNumber}
+    </select>
+
     <!--取消该订单-->
     <update id="cancel1">
         update order_master set order_status=2 where order_number=#{s}
