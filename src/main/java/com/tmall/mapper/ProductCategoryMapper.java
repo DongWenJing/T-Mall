@@ -25,4 +25,7 @@ public interface ProductCategoryMapper {
 
     // 删除分类
     void removeCategory(BigInteger categoryId);
+
+    // 获取所有种类名字
+    List<String> findAllCategoryName();
 }

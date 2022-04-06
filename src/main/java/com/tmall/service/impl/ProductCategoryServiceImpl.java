@@ -6,6 +6,7 @@ import com.tmall.pojo.ProductCategory;
 import com.tmall.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -39,8 +40,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     // 添加分类
     @Override
+    // @Transactional
     public void addCategory(ProductCategory productCategory) {
-
+        // 检查该类是否重复
+        List<String> allCategoryName = productCategoryMapper.findAllCategoryName();
+        if (allCategoryName.contains(productCategory.getCategoryName())) {
+            throw new RuntimeException("重复分类!");
+        }
         productCategoryMapper.addCategory(productCategory);
     }
 

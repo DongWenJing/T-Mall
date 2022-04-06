@@ -128,6 +128,8 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.countt(userId);
     }
 
+    // 用户自己取消订单
+    @Transactional
     @Override
     public void cancel1(String orderNumberAll) {
         String orderNumbers = orderMapper.getOrderNumbers(orderNumberAll);
@@ -136,6 +138,12 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.cancel1(s);
         }
         orderMapper.updateStatus(orderNumberAll,2);
+        // 退款至账户
+        Double orderAllMoney = orderMapper.getOrderAllMoney(orderNumberAll);
+        BigInteger userId = orderMapper.getOrderUserIdByONA(orderNumberAll);
+        Double money = userMapper.getRecharge(userId);
+        money += orderAllMoney;
+        userMapper.addRecharge(userId, money);
     }
 
     // 用户删除订单(实现软删除)

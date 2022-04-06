@@ -36,7 +36,7 @@ public class User implements Serializable {
     //电话号码
     private String telephone;
     // 用户剩余资金，用于购买商品
-    private double money;
+    private Double money;
     // 账号注册时间
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     // private Timestamp createTime;
@@ -49,4 +49,6 @@ public class User implements Serializable {
     private Integer isDeleted;
     //shopId
     private BigInteger shopId;
+    //充值记录
+    private String record;
 }

@@ -14,6 +14,11 @@
         select * from product where category_id=#{categoryId}
     </select>
 
+    <!--获取所有种类名字-->
+    <select id="findAllCategoryName" resultType="java.lang.String">
+        select category_name from product_category
+    </select>
+
 
     <!--    添加分类-->
     <insert id="addCategory" parameterType="productCategory">

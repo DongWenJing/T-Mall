@@ -6,15 +6,15 @@ import java.io.Serializable;
  * @author R.Yu
  * @date 2022/3/19 12:22
  */
-public class ResponseData<T> implements Serializable {
+public class ResponseData<Object> implements Serializable {
     private String code;
 
     private String msg;
 
-    private T data;
+    private Object data;
 
 
-    public ResponseData(String code, String msg, T data) {
+    public ResponseData(String code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -30,7 +30,7 @@ public class ResponseData<T> implements Serializable {
         this.msg = resultEnums.getMsg();
     }
 
-    public ResponseData(ResultEnums resultEnums, T data) {
+    public ResponseData(ResultEnums resultEnums, Object data) {
         this.code = resultEnums.getCode();
         this.msg = resultEnums.getMsg();
         this.data = data;
@@ -55,11 +55,11 @@ public class ResponseData<T> implements Serializable {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -127,7 +127,6 @@ public class UserServiceImpl implements UserService {
      * 获取数据库当前余额
      *
      * @param userId
-     * @param money
      * @return
      */
     @Override

@@ -8,11 +8,11 @@ public class ResponseDataUtils {
     /**
      * 带实体的统一返回
      * @param data 实体
-     * @param <T>  实体类型
+     * @param <Object>  实体类型
      * @return
      */
-    public static <T> ResponseData buildSuccess(T data) {
-        return new ResponseData<T>(ResultEnums.SUCCESS, data);
+    public static <Object> ResponseData buildSuccess(Object data) {
+        return new ResponseData<Object>(ResultEnums.SUCCESS, data);
     }
 
     public static ResponseData buildSuccess() {
@@ -27,16 +27,16 @@ public class ResponseDataUtils {
         return new ResponseData(code, msg);
     }
 
-    public static <T> ResponseData buildSuccess(String code, String msg, T data) {
-        return new ResponseData<T>(code, msg, data);
+    public static <Object> ResponseData buildSuccess(String code, String msg, Object data) {
+        return new ResponseData<Object>(code, msg, data);
     }
 
     public static ResponseData buildSuccess(ResultEnums resultEnums) {
         return new ResponseData(resultEnums);
     }
 
-    public static <T> ResponseData buildError(T data) {
-        return new ResponseData<T>(ResultEnums.ERROR, data);
+    public static <Object> ResponseData buildError(Object data) {
+        return new ResponseData<Object>(ResultEnums.ERROR, data);
     }
 
     public static ResponseData buildError() {
@@ -51,8 +51,8 @@ public class ResponseDataUtils {
         return new ResponseData(code, msg);
     }
 
-    public static <T> ResponseData buildError(String code, String msg, T data) {
-        return new ResponseData<T>(code, msg, data);
+    public static <Object> ResponseData buildError(String code, String msg,Object data) {
+        return new ResponseData<Object>(code, msg, data);
     }
 
     public static ResponseData buildError(ResultEnums resultEnums) {

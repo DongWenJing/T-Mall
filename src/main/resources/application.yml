@@ -4,9 +4,6 @@ server:
 spring:
   application:
     name: t-mall
-
-#  profiles:
-#    active: dev
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -30,6 +27,17 @@ mybatis:
     mapUnderscoreToCamelCase: true
   #扫描指定路径下的映射文件
   mapper-locations: classpath:/mappers/*.xml
+alipay:
+  appId: 2021000119642144
+  privateKey: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC0hFRbonKAlMhHcwbGutu0JRl60263lVLvOXqrfkhI3AShqYOt/tMgFJytWVOx3M6KPFa24qcYiuHhVKR72EGixRX3KibamtP6iliWF4LMNcoLFWAeDuu9FuDvFvm05kG8vuf5Mh5WJM1j5/fieovdcGa7VTnbA25AeYzavKWVrLSJ2Rwy+3Y1HF4b1Pf9AKd87oYuK8GULemZoyRNcxf+ryanI8eACppzv1nlvH7eIxBOL4AEYCOnj/5eDHD1cAEzvTM57YPvkmrVq1KkHsymeK5h6AmCaL+ssnVaz23cXZKbingUSC3sGqZtyBqNzqNGcBhlSkS8KuSN7SKx0iobAgMBAAECggEBAKy3ZENc1bODJ3F9dEFW7fmZ+ZwUin2qqPRtCZrmM+FKakAHgg9LntO2BQazTioCu7d17f4ENJ5924uOQeagzoQfkFmxggVtWF8CWaoaCrK60Hr0U8fOvO1p44O/duIH4WPnQOqkcnQ3uDDb9MhEOmiAMDsTW0zbJnUYF5X+I2xldo2PZJSLG/ThrsJAZPkGuawHEdzSaVxsyq77jL8rz3Z7IRH27sX/pAoyR5sySi7ntQ0Wyoch9IOIiy5JUgWwNtgBL1rE82cwHeBmi3Y43qJrC5gEKRPR7Bf+7Ci2748tPS4F7ANsG6Ux8hrZpuAhC+A6AO7cYw+eQF7dz7ejWdECgYEA/IZJq7it/8aJfTCFews1DAet3gn6TRn8vYV/PvrXaiA+0ZzSu/HRrxOWkcYIznOW9p7X3i3DbpJ0Vtq6AVwg1z/eE/LkrMA5IGuOrd7aOb0zI8hf3Z5CuRbC3KvFrvwC5j8zCVBmo/kd+1P7eNTiyhmpiFVrWQwlGU+4hm/EE+kCgYEAtwBW386B9oL2uW61ad94QP0IdL/8A0zFvfFrts1wdlDOfLXrvpL8LJRjBmkGp4PrzyIb8zirnD3q5JCkOtCVLKNZo8p+SMZarbKF/elFYwuoHKN0I0CizpOjKUM9j5uDmZiRWTIBO1yeNTMvnZ7GzX9eB+2OHjOh5pNY+t7jX2MCgYEA5zGHB1nYq+C4Bc7DlkhHc9EgBLY73BUbyOQNALslN3t4J+6dHQcjQ1f6tVGKxIEdSINa/YYGdBhPvSkZvJ79TjSh/L+XTvXaF22BvnvWbaBjzrHn2v3G9q/5DZGSNkdx3B0me7OJlTxBj9Vu2UyGqiNejHwwAOHWoVrUhPiUmukCgYBz1DIofGQELIaPfgQzW++Yas/UXcPcLtamT81Wqhe5u5HGm7r4J76XVOCMqSM+GiDCPRulycPNI9+uBeL9GxKga1AMfNmLpIi2kl1/BgwWEcW5Qrf6rCmgSRAnyNiJMeyM5mVxKFZhRVEZ6SkFQf8hCLHyoKiocxPRhof2WedecwKBgQCYDBxqRXkO+8vcV7UhHiaXwIePLhTh3qSns4b3Xb+ezO5onydhycltSWglpV0GSuujhPKd2btNXQhRsH8Wwr/BEui5Bgz8iiWm8H8CsCBesdmsaUuCKyot4HIjkNyPixsbNYQwNMW29X8J0yM1AEn06zqsTTZatvKfiLgH/YuePg==
+  publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtIRUW6JygJTIR3MGxrrbtCUZetNut5VS7zl6q35ISNwEoamDrf7TIBScrVlTsdzOijxWtuKnGIrh4VSke9hBosUV9yom2prT+opYlheCzDXKCxVgHg7rvRbg7xb5tOZBvL7n+TIeViTNY+f34nqL3XBmu1U52wNuQHmM2ryllay0idkcMvt2NRxeG9T3/QCnfO6GLivBlC3pmaMkTXMX/q8mpyPHgAqac79Z5bx+3iMQTi+ABGAjp4/+Xgxw9XABM70zOe2D75Jq1atSpB7MpniuYegJgmi/rLJ1Ws9t3F2Sm4p4FEgt7Bqmbcgajc6jRnAYZUpEvCrkje0isdIqGwIDAQAB
+  #支付网关配置，这一项是写死的，正式环境是openapi.alipay.com
+  gateway: openapi.alipaydev.com
+  #支付成功之后的回调页面，只是一个友好页面。主要换成你自己映射的临时域名
+  #returnUrl: http://zrs8qn.natappfree.cc/return.html #域名是随机生成的可能会有变动,
+  returnUrl: http://localhost:8080/profile
+  #支付成功的接口回调，我们还没写，先空着
+  notifyUrl:
 
 logging:
   level:

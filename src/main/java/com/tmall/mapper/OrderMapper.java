@@ -78,4 +78,10 @@ public interface OrderMapper {
 
     // 获取用户订单金额
     Double getOrderMoney(String orderNumber);
+
+    // 获取订单总金额
+    Double getOrderAllMoney(String orderNumberAll);
+
+    // 获取用户id
+    BigInteger getOrderUserIdByONA(String orderNumberAll);
 }

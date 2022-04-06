@@ -28,6 +28,7 @@ public class ProductController {
 
     /**
      * 用于所有商品的展示
+     *
      * @return
      */
     @GetMapping("/all")
@@ -37,34 +38,36 @@ public class ProductController {
 
     /**
      * 商家查询显示本店商品
-     * @RequestParam(defaultValue)用于设置界面默认显示的数据
+     *
      * @return
+     * @RequestParam(defaultValue)用于设置界面默认显示的数据
      */
     @GetMapping("/shop")
     public ResponseData<?> findByPage(@RequestParam(defaultValue = "1") Integer pageNum,
                                       @RequestParam(defaultValue = "5") Integer pageSize,
                                       @RequestParam(defaultValue = "") String key,
-                                      @RequestParam Integer ownerId){
+                                      @RequestParam Integer ownerId) {
         //通过page对象数据获取用户信息
-        int offset = (pageNum-1)*pageSize; //offset 从第几条开始显示
-        List<Product> userData =  productService.findByPage(offset,pageSize,key,ownerId);
+        int offset = (pageNum - 1) * pageSize; //offset 从第几条开始显示
+        List<Product> userData = productService.findByPage(offset, pageSize, key, ownerId);
         //数据注入page对象
         Page<Product> page = new Page<>();
         page.setData(userData);
         //通过商家Id获取到商品总数
-       Integer total = productService.countShopProduct(ownerId);
-       page.setTotal(total);
-       page.setPageNum(pageNum);
-       page.setPageSize(pageSize);
-        return ResponseDataUtils.buildSuccess("0","商品信息获取成功",page);
+        Integer total = productService.countShopProduct(ownerId);
+        page.setTotal(total);
+        page.setPageNum(pageNum);
+        page.setPageSize(pageSize);
+        return ResponseDataUtils.buildSuccess("0", "商品信息获取成功", page);
     }
+
     /**
      * 修改本店铺商品信息
      */
     @PutMapping
-    public ResponseData<?> updateProduct(@RequestBody Product product){
+    public ResponseData<?> updateProduct(@RequestBody Product product) {
         productService.updateProduct(product);
-        return ResponseDataUtils.buildSuccess("0","商品信息修改成功");
+        return ResponseDataUtils.buildSuccess("0", "商品信息修改成功");
     }
 
 
@@ -74,16 +77,16 @@ public class ProductController {
     @PostMapping
     public ResponseData<?> insertProduct(@RequestBody Product product) {
         productService.insertProduct(product);
-        return ResponseDataUtils.buildSuccess("0","商品添加成功");
+        return ResponseDataUtils.buildSuccess("0", "商品添加成功");
     }
 
     /**
-     *根据id删除商品信息
+     * 根据id删除商品信息
      */
     @DeleteMapping("/{productId}")
-    public ResponseData<?> deleteProduct(@PathVariable BigInteger productId){
+    public ResponseData<?> deleteProduct(@PathVariable BigInteger productId) {
         productService.deleteProductById(productId);
-        return ResponseDataUtils.buildSuccess("0","删除成功");
+        return ResponseDataUtils.buildSuccess("0", "删除成功");
     }
 
     /**
@@ -123,23 +126,23 @@ public class ProductController {
     @GetMapping("/order1/{orderNumber}/{shopId}")
     public ResponseData<?> findOrderDetail(@PathVariable String orderNumber,
                                            @PathVariable("shopId") BigInteger shopId) {
-        List<OrderDetail> details= productService.findOrderDetail(orderNumber,shopId);
+        List<OrderDetail> details = productService.findOrderDetail(orderNumber, shopId);
 
-        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+        return ResponseDataUtils.buildSuccess("0", "获取订单信息成功", details);
     }
 
     @GetMapping("/order2/{orderNumber}/{productId}")
     public ResponseData<?> findOrderDetailByProductId(@PathVariable String orderNumber,
-                                           @PathVariable("productId") BigInteger productId) {
-        List<OrderDetail> details= productService.findOrderDetailByProductId(orderNumber,productId);
+                                                      @PathVariable("productId") BigInteger productId) {
+        List<OrderDetail> details = productService.findOrderDetailByProductId(orderNumber, productId);
 
-        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+        return ResponseDataUtils.buildSuccess("0", "获取订单信息成功", details);
     }
 
     @GetMapping("/order/{orderNumber}")
     public ResponseData<?> findOrderProduct(@PathVariable("orderNumber") String orderNumber) {
-        List<OrderDetail> details= productService.findOrderProduct(orderNumber);
-        return ResponseDataUtils.buildSuccess("0","获取订单信息成功",details);
+        List<OrderDetail> details = productService.findOrderProduct(orderNumber);
+        return ResponseDataUtils.buildSuccess("0", "获取订单信息成功", details);
     }
 
     // 首页的搜索功能
@@ -149,7 +152,7 @@ public class ProductController {
         List<Product> result = productService.search(key);
         if (result == null) {
             throw new RechargeException("无此商品");
-        }else {
+        } else {
             return ResponseDataUtils.buildSuccess("0", "查询成功~", result);
         }
     }

@@ -1,8 +1,5 @@
 package com.tmall.aop;
 
-import com.tmall.common.ResponseData;
-import com.tmall.common.ResponseDataUtils;
-import com.tmall.exception.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
