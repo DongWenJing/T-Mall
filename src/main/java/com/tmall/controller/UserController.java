@@ -7,13 +7,16 @@ import com.tmall.exception.PasswordException;
 import com.tmall.exception.PhoneNotNullException;
 import com.tmall.exception.RechargeException;
 import com.tmall.pojo.Password;
+import com.tmall.pojo.PaymentBo;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.CommentService;
+import com.tmall.service.PayService;
 import com.tmall.service.UserService;
 import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -27,6 +30,7 @@ import java.util.List;
  * @date 2022/3/19 13:26
  */
 @RestController
+//@Controller
 @CrossOrigin
 @RequestMapping("/user")
 public class UserController {
@@ -35,6 +39,9 @@ public class UserController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private PayService payService;
 
     //登录
     @PostMapping("/login")
@@ -124,17 +131,21 @@ public class UserController {
      * 思路:查询到目前的余额,再添加
      * @param user
      * @return
+     * 返回格式是text/html，这样前端页面就能直接显示支付宝返回的html片段
      */
-    @PatchMapping("/recharge")
-    public ResponseData<?> recharge(@RequestBody User user){
+    @PatchMapping(value = "/recharge", produces = {"text/html;charset=UTF-8"})
+    public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
-        double money = user.getMoney();
-        if (money == 0) throw new RechargeException("请输入充值金额!");
-        Double money1 =userService.getRecharge(userId);
-        Double newMoney= money+money1;
-        if (money<500 ) {
-            throw new RechargeException("抱歉最低充值500元");
+        if (user.getMoney() == 0) throw new RechargeException("请输入充值金额!");
+        String bobo= payService.pay(user);
+        System.out.println("bobo = " + bobo);
+        if (!StringUtils.hasLength(bobo)){
+         throw new RechargeException("支付调用失败");
         }else {
+        //获取当前账户余额
+            Double money1 =userService.getRecharge(userId);
+            //充值后的金额
+            Double newMoney= user.getMoney()+money1;
             user.setMoney(newMoney);
             userService.addRecharge(userId,newMoney);
             return ResponseDataUtils.buildSuccess("0","充值成功~");
