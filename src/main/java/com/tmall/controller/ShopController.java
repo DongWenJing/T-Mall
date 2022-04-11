@@ -70,6 +70,8 @@ public class ShopController {
     @GetMapping("/getsale/{shopId}")
     public ResponseData getSale(@PathVariable Double shopId) {
         Double sale = shopService.getSale(shopId);
+        //对销售额进行小数位缩进
+       sale=(double) Math.round(sale * 100) / 100;
         return ResponseDataUtils.buildSuccess("0", "", sale);
     }
 

@@ -149,7 +149,6 @@ public class UserController {
             return ResponseDataUtils.buildSuccess("0","充值成功~");
         }
     }
-
     // 查询某用户是否购买了某商品
     @GetMapping("/check/{userId}/{productId}/{shopId}")
     public ResponseData<?> check(@PathVariable BigInteger userId,
