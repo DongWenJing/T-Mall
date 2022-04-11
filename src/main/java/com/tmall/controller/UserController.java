@@ -135,12 +135,9 @@ public class UserController {
     @PatchMapping(value = "/recharge"/*,produces = {"text/html;charset=UTF-8"}*/)
     public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
-        if (user.getMoney() == 0) throw new RechargeException("请输入充值金额!");
-        /*String bobo= payService.pay(user);
-        System.out.println("bobo = " + bobo);*/
-        /*if (!StringUtils.hasLength(bobo)){
-         throw new RechargeException("支付调用失败");
-        }*/else {
+        if (user.getMoney()==0 || "".equals(user.getMoney())) {
+            throw new RechargeException("请输入充值金额!");
+        }else {
         //获取当前账户余额
             Double money1 =userService.getRecharge(userId);
             //充值后的金额
