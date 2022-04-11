@@ -15,7 +15,8 @@ public class OrderUtil {
      */
     public static String getOrderNo () {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
-        LocalDateTime localDateTime = Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
+        LocalDateTime localDateTime = Instant.ofEpochMilli(System.currentTimeMillis())
+                .atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
         return df.format(localDateTime);
     }
 }

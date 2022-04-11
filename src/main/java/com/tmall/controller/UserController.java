@@ -1,5 +1,6 @@
 package com.tmall.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.exception.IllegalPhoneException;
@@ -16,7 +17,6 @@ import com.tmall.service.UserService;
 import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -132,15 +132,15 @@ public class UserController {
      * @return
      * 返回格式是text/html，这样前端页面就能直接显示支付宝返回的html片段
      */
-    @PatchMapping(value = "/recharge", produces = {"text/html;charset=UTF-8"})
+    @PatchMapping(value = "/recharge"/*,produces = {"text/html;charset=UTF-8"}*/)
     public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
         if (user.getMoney() == 0) throw new RechargeException("请输入充值金额!");
-        String bobo= payService.pay(user);
-        System.out.println("bobo = " + bobo);
-        if (!StringUtils.hasLength(bobo)){
+        /*String bobo= payService.pay(user);
+        System.out.println("bobo = " + bobo);*/
+        /*if (!StringUtils.hasLength(bobo)){
          throw new RechargeException("支付调用失败");
-        }else {
+        }*/else {
         //获取当前账户余额
             Double money1 =userService.getRecharge(userId);
             //充值后的金额

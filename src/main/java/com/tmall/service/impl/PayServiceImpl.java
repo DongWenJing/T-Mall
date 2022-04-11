@@ -27,7 +27,7 @@ public class PayServiceImpl implements PayService {
        // PaymentBo paymentBo = new PaymentBo();
         //充值的金额是前端传入的数据
         user.setMoney(user.getMoney());
-        System.out.println(user.getMoney());
+        
         user.setRecord("用户充值");
         //调用SDK,发起支付
         AlipayTradePagePayResponse response = Factory.Payment
