@@ -30,7 +30,6 @@ import java.util.List;
  * @date 2022/3/19 13:26
  */
 @RestController
-//@Controller
 @CrossOrigin
 @RequestMapping("/user")
 public class UserController {
@@ -133,16 +132,14 @@ public class UserController {
      * @return
      * 返回格式是text/html，这样前端页面就能直接显示支付宝返回的html片段
      */
-    @PatchMapping(value = "/recharge", produces = "text/html;charset=UTF-8")
-    // @PatchMapping(value = "/recharge")
+    @PatchMapping(value = "/recharge", produces = {"text/html;charset=UTF-8"})
     public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
         if (user.getMoney() == 0) throw new RechargeException("请输入充值金额!");
         String bobo= payService.pay(user);
         System.out.println("bobo = " + bobo);
         if (!StringUtils.hasLength(bobo)){
-          // throw new RechargeException("支付调用失败");
-            return ResponseDataUtils.buildSuccess("1","支付调用失败");
+         throw new RechargeException("支付调用失败");
         }else {
         //获取当前账户余额
             Double money1 =userService.getRecharge(userId);
