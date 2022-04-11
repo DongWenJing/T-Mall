@@ -33,6 +33,7 @@ public class ShopController {
     @GetMapping("/{userId}")
     public ResponseData<?> getShopByUserId(@PathVariable BigInteger userId) {
         Shop shop = shopService.getShopByUserId(userId);
+        shop.setIncome((double)Math.round(shop.getIncome() * 100)/ 100);
         return ResponseDataUtils.buildSuccess("0", "获取店铺信息成功！", shop);
     }
 
