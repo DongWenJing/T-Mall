@@ -135,9 +135,11 @@ public class UserController {
     @PatchMapping(value = "/recharge"/*,produces = {"text/html;charset=UTF-8"}*/)
     public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
-        if (user.getMoney()==0 || "".equals(user.getMoney())) {
+        if (user.getMoney()== null || user.getMoney()==0 ) {
             throw new RechargeException("请输入充值金额!");
-        }else {
+        }else if (user.getMoney()<0){
+            throw new RechargeException("充值金额不可为负数!");
+        }else{
         //获取当前账户余额
             Double money1 =userService.getRecharge(userId);
             //充值后的金额
