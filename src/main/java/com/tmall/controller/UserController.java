@@ -132,7 +132,7 @@ public class UserController {
      * @return
      * 返回格式是text/html，这样前端页面就能直接显示支付宝返回的html片段
      */
-    @PatchMapping(value = "/recharge"/*,produces = {"text/html;charset=UTF-8"}*/)
+    @PatchMapping(value = "/recharge",produces = {"application/json;charset=UTF-8"})
     public ResponseData<?> recharge(@RequestBody User user) throws Exception {
         BigInteger userId = user.getUserId();
         if (user.getMoney()== null || user.getMoney()==0 ) {
@@ -140,13 +140,15 @@ public class UserController {
         }else if (user.getMoney()<0){
             throw new RechargeException("充值金额不可为负数!");
         }else{
-        //获取当前账户余额
+        String bobo =  payService.pay(user);
+            System.out.println("bobo = " + bobo);
+            //获取当前账户余额com
             Double money1 =userService.getRecharge(userId);
             //充值后的金额
             Double newMoney= user.getMoney()+money1;
             user.setMoney(newMoney);
             userService.addRecharge(userId,newMoney);
-            return ResponseDataUtils.buildSuccess("0","充值成功~");
+            return ResponseDataUtils.buildSuccess("0","充值成功~",bobo);
         }
     }
     // 查询某用户是否购买了某商品
