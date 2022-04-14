@@ -111,6 +111,10 @@
         select buy_id from `order` where order_number_all=#{orderNumberAll}
     </select>
 
+    <select id="getOrderByONA" resultType="com.tmall.pojo.Order">
+        select * from `order` where order_number_all=#{orderNumber}
+    </select>
+
     <!--取消该订单-->
     <update id="cancel1">
         update order_master set order_status=2 where order_number=#{s}
@@ -124,6 +128,10 @@
     <!--更新子订单的状态-->
     <update id="updateChildOrderStatus">
         update order_master set order_status=#{status} where order_number=#{orderNumber}
+    </update>
+
+    <update id="updateOrderMoney">
+        update `order` set money=#{price} where order_number_all=#{orderNumberAll}
     </update>
 
 </mapper>

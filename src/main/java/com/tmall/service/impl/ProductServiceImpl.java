@@ -3,6 +3,7 @@ package com.tmall.service.impl;
 import com.tmall.mapper.OrderMapper;
 import com.tmall.exception.RechargeException;
 import com.tmall.mapper.ProductMapper;
+import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderDetail;
 import com.tmall.pojo.Product;
 import com.tmall.service.ProductService;
@@ -121,7 +122,9 @@ public class ProductServiceImpl implements ProductService {
 
     // 用户.我的订单的详情展示
     @Override
+    @Transactional
     public List<OrderDetail> findOrderProduct(String orderNumber) {
+        double price = 0;
         // 判断该总订单的状态是否为已取消
         Integer statusAll = orderMapper.getOrderAllStatus(orderNumber);
         if (statusAll == 2) {
@@ -150,9 +153,12 @@ public class ProductServiceImpl implements ProductService {
                     orderDetail.setOrderStatus(status);
             }
             // 将不是取消状态的商品添加进去
-            if (orderDetail.getOrderStatus() != 2)
+            if (orderDetail.getOrderStatus() != 2) {
                 res.add(orderDetail);
+                price += orderDetail.getOrderProductPrice();
+            }
         }
+        orderMapper.updateOrderMoney(price,orderNumber);
         return res;
     }
 

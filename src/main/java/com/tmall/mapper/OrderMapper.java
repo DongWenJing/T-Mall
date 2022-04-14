@@ -85,4 +85,8 @@ public interface OrderMapper {
     // 获取用户id
     BigInteger getOrderUserIdByONA(String orderNumberAll);
 
+    Order getOrderByONA(String orderNumber);
+
+    void updateOrderMoney(@Param("price") double price,
+                          @Param("orderNumberAll") String orderNumberAll);
 }
