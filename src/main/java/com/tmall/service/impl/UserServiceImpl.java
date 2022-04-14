@@ -9,6 +9,7 @@ import com.tmall.pojo.Password;
 import com.tmall.pojo.Shop;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
+import com.tmall.util.Avatar;
 import com.tmall.util.CheckPhone;
 import com.tmall.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -309,6 +310,7 @@ public class UserServiceImpl implements UserService {
     public void userRegister(User user) {
         user.setPassword(DigestUtils.
                 md5DigestAsHex(user.getPassword().getBytes()));
+        user.setAvatar(Avatar.getAvatar());
         userMapper.userRegister(user);
     }
 

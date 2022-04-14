@@ -84,7 +84,7 @@
 
     <!--进行用户注册-->
     <insert id="userRegister">
-        insert into user(username,password) value (#{username},#{password})
+        insert into user(`username`,`password`,`avatar`) value(#{username},#{password},#{avatar})
     </insert>
 
     <!--商户注册-->
