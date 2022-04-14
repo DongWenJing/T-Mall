@@ -62,6 +62,11 @@
         update product set `left`=`left`-#{count} where product_id=#{productId}
     </update>
 
+    <!--减少对应商品的库存-->
+    <update id="increaseProductLeft">
+        update product set `left`=`left`+#{count} where product_id=#{productId}
+    </update>
+
     <select id="findShopById" resultType="Product">
         select * from product where shop_id=#{shopId}
     </select>

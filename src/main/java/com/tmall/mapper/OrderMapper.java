@@ -84,4 +84,5 @@ public interface OrderMapper {
 
     // 获取用户id
     BigInteger getOrderUserIdByONA(String orderNumberAll);
+
 }

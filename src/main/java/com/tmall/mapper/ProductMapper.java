@@ -67,6 +67,10 @@ public interface ProductMapper {
     void decreaseProductLeft(@Param("productId") BigInteger productId,
                              @Param("count") BigInteger count);
 
+    // 增加对应商品的库存
+    void increaseProductLeft(@Param("productId") BigInteger productId,
+                             @Param("count") BigInteger count);
+
     // 获取商品剩余数量
     BigInteger getProductLeft(BigInteger productId);
 
