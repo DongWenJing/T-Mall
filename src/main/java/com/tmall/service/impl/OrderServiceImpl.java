@@ -137,6 +137,11 @@ public class OrderServiceImpl implements OrderService {
         for (String s : oN) {
             orderMapper.cancel1(s);
         }
+        Integer orderAllStatus = orderMapper.getOrderAllStatus(orderNumberAll);
+        if (orderAllStatus == 0) {
+            orderMapper.updateStatus(orderNumberAll,2);
+            return ;
+        }
         orderMapper.updateStatus(orderNumberAll,2);
         // 退款至账户
         Double orderAllMoney = orderMapper.getOrderAllMoney(orderNumberAll);
