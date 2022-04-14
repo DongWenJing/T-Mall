@@ -2,12 +2,12 @@ package com.tmall.service;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public interface NowtimeService {
-    //Timestamp getTime();
 
-    Timestamp getTime1();
+    //获取时间
+    Timestamp getTime();
 
-    //修改时间
-    void changedTime(String newTime);
+    void setTime(String newTime);
 }

@@ -3,10 +3,8 @@ package com.tmall.controller;
 import com.tmall.common.ResponseData;
 import com.tmall.common.ResponseDataUtils;
 import com.tmall.service.NowtimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @RequestMapping("/countdown")
@@ -14,20 +12,26 @@ import java.sql.Timestamp;
 @CrossOrigin
 public class NowtimeController {
 
-    @Autowired
-    private NowtimeService nowtimeService;
+//    @Autowired
+//    private NowtimeService nowtimeService;
 
-//获取时间
+    private final NowtimeService nowtimeService;
+
+    public NowtimeController(NowtimeService nowtimeService) {
+        this.nowtimeService = nowtimeService;
+    }
+
+    //获取时间
     @GetMapping
     public ResponseData<?> getTime() {
-        Timestamp time = nowtimeService.getTime1();
+        Timestamp time = nowtimeService.getTime();
         return ResponseDataUtils.buildSuccess("0", "获取时间成功",time);
     }
-//修改时间
-     @PatchMapping("/{newTime}")
-    public ResponseData changedTime(@PathVariable String newTime){
-        nowtimeService.changedTime(newTime);
-        return ResponseDataUtils.buildSuccess("0","修改时间成功",newTime);
-     }
 
+    //修改时间
+    @PatchMapping("/{newTime}")
+    public ResponseData<?> setCountdown(@PathVariable String newTime) {
+        nowtimeService.setTime(newTime);
+        return ResponseDataUtils.buildSuccess("0", "倒计时修改成功");
+    }
 }

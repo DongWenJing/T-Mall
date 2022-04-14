@@ -2,6 +2,7 @@ package com.tmall.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 import java.sql.Timestamp;
@@ -11,9 +12,8 @@ import java.util.Date;
 public interface NowtimeMapper {
 
 
-    //获取时间
-   Date getTime1();
+    Timestamp getTime();
 
-    //修改时间
-    void ChangedTime(String newTime);
+
+    void setTime(String newTime);
 }
