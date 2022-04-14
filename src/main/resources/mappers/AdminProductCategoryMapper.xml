@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.AdminProductCategoryMapper">
+
+<!--    动态获取商品分类信息-->
+    <select id="findCategoryList" resultType="productCategory">
+        select * from product_category
+    </select>
+
+<!--    修改商品状态-->
+    <update id="updateStatus">
+        update product_category set status=#{status}
+        where category_id=#{categoryId}
+    </update>
+
+<!--    新增商品分类-->
+    <insert id="addCategoryList">
+        insert into product_category values (null ,#{categoryName},#{parentId},#{status},#{level})
+    </insert>
+
+<!--    修改商品分类信息-->
+    <update id="updateCategoryList">
+        update product_category set category_name=#{categoryName}
+        where category_id=#{categoryId}
+    </update>
+
+<!--    删除商品分类信息-->
+    <delete id="deleteCategory">
+        delete from product_category where category_id=#{categoryId}
+    </delete>
+
+    <delete id="deleteCategory2">
+        delete from product_category where category_id=#{categoryId} or parent_id=#{categoryId}
+    </delete>
+
+    <delete id="deleteCategory3">
+        delete from product_category
+        where category_id=#{categoryId}
+        or parent_id=#{categoryId}
+        or parent_id in (select category_id from product_category where parent_id=#{categoryId})
+    </delete>
+</mapper>
