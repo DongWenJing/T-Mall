@@ -7,21 +7,21 @@
         >任禹 董文靖 邱思七 何书武 邓彬 赵贵川</el-descriptions-item
       >
     </el-descriptions>
-    <el-descriptions title="Github 地址" style="padding: 10px" :column="1">
-      <el-descriptions-item label="前端">
+    <el-descriptions title="项目地址" style="padding: 10px" :column="1">
+      <el-descriptions-item label="Gitee">
         <el-link
           target="blank"
           type="primary"
-          href="https://github.com/Hacker-C/Mall-FrontEnd"
-          >Mall-FrontEnd</el-link
+          href="https://gitee.com/xiao-dong-doesnt-understand/t-mall.git"
+          >T-Mall</el-link
         >
       </el-descriptions-item>
-      <el-descriptions-item label="后端">
+      <el-descriptions-item label="GitHub">
         <el-link
           target="blank"
           type="primary"
-          href="https://github.com/Hacker-C/Mall-BackEnd"
-          >Mall-BackEnd</el-link
+          href="https://github.com/DongWenJing/T-Mall.git"
+          >T-Mall</el-link
         >
       </el-descriptions-item>
     </el-descriptions>
